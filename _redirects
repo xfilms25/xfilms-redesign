@@ -1,6 +1,6 @@
 # Old xstudiosfilms.com addresses -> their place on the new site
-/portfolio              /#films                                   301
-/contact                /#book                                    301
+/portfolio              /                                     301
+/contact                /                                      301
 /coming-soon            /projects/medianeros/                     301
 /faq                    /services/                                301
 /policies               /privacy/                                 301
@@ -16,4 +16,4 @@
 /project/15             /projects/runway-night-heroines/          301
 /project/16             /projects/big-band-banana/                301
 /project/99             /projects/the-woman-in-the-other-room/    301
-/project/*              /#films                                   301
+/project/*              /                                         301
