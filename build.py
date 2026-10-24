@@ -76,12 +76,19 @@ def page(p, nxt):
     title_cls = ' class="cinzel"' if p["slug"] == "nothing-i-havent-dreamt-of" else ""
     es = f'<p class="es">{e(p["title_es"])}</p>' if p["title_es"] else ""
 
-    # facts
-    facts = [("Directed by", p["director"]), ("Genre", p["genre"]), ("Runtime", p["runtime"]),
-             ("Year", p["year"]), ("Production", prod)]
+    credits = [(r, n) for r, n in p["credits"] if n and n.upper() != "N/A"]
+    def credit(*roles):
+        for r, n in credits:
+            if r.lower() in roles:
+                return n
+        return ""
+
+    # facts beside the synopsis
+    facts = [("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Genre", p["genre"]),
+             ("Runtime", p["runtime"]), ("Year", p["year"]), ("Production", prod)]
     facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in facts if v)
 
-    # story
+    # poster + partner
     poster = ""
     if p["poster"]:
         poster = (f'<button class="poster" type="button" data-full="{img(p["poster"], 1600)}" data-alt="Poster for {t}">'
@@ -91,16 +98,57 @@ def page(p, nxt):
         partner = (f'<p class="partner"><img src="{img(ENC["logo"], 200)}" alt="" loading="lazy">'
                    f'Made with the <a href="{ENC["url"]}" target="_blank" rel="noopener">{ENC["name"]}</a></p>')
 
-    roll = "".join(f"<dt>{e(r)}</dt><dd>{e(n)}</dd>" for r, n in p["credits"] if n and n.upper() != "N/A")
+    # lead still: the first still that isn't the hero image, else the first still
+    stills = p["stills"][:]
+    lead_src = next((x for x in stills if x != p["hero"]), stills[0] if stills else "")
+    rest = [x for x in stills if x != lead_src and x != p["hero"]]
+    lead = ""
+    if lead_src:
+        lead = (f'<button class="lead" type="button" data-full="{img(lead_src, 2400)}" data-alt="Still from {t}">'
+                f'<img src="{img(lead_src, 2400)}" alt="Still from {t}" loading="lazy"></button>')
+
+    # cast portraits
     cast = ""
     if p["cast"]:
-        cast = ('<section class="cast" aria-labelledby="cast-h"><div class="wrap"><h2 id="cast-h">Cast</h2><ul>'
-                + "".join(f"<li>{e(c)}</li>" for c in p["cast"]) + "</ul></div></section>")
+        cards = []
+        for c in p["cast"]:
+            nm = e(c["name"])
+            if c.get("photo"):
+                ph = f'<div class="ph"><img src="{img(c["photo"], 600)}" alt="{nm}" loading="lazy"></div>'
+            else:
+                initials = "".join(w[0] for w in c["name"].split()[:2]).upper()
+                ph = f'<div class="ph none" aria-hidden="true"><span>{e(initials)}</span></div>'
+            cards.append(f'<figure class="person">{ph}<figcaption>{nm}</figcaption></figure>')
+        cast = (f'<section class="cast" id="cast" aria-labelledby="cast-h"><div class="wrap">'
+                f'<div class="sec-h"><h2 id="cast-h">Cast</h2><p>{len(p["cast"])} {"actor" if len(p["cast"]) == 1 else "actors"}</p></div>'
+                f'<div class="people">{"".join(cards)}</div></div></section>')
+
+    # credits: key creatives up top, everything in the roll
+    key_roles = [("Director", ("director", "performer")), ("Written by", ("screenplay",)),
+                 ("Cinematography", ("director of photography", "directors of photography")),
+                 ("Music", ("original score", "original music", "music & mix")), ("Edited by", ("edited by",))]
+    keys = "".join(f"<div><dt>{k}</dt><dd>{e(credit(*rs))}</dd></div>" for k, rs in key_roles if credit(*rs))
+    keys_html = f'<dl class="keys">{keys}</dl>' if keys.count("<div>") >= 2 else ""
+    roll = "".join(f"<dt>{e(r)}</dt><dd>{e(n)}</dd>" for r, n in credits)
+
     gallery = ""
-    if p["stills"]:
-        gallery = ('<section class="gallery" aria-labelledby="gal-h"><div class="wrap"><h2 id="gal-h">Stills</h2><div class="grid">'
-                   + "".join(f'<button type="button" data-full="{img(s, 2000)}" data-alt="Still from {t}"><img src="{img(s, 900)}" alt="Still from {t}" loading="lazy"></button>' for s in p["stills"])
-                   + "</div></div></section>")
+    if rest:
+        btns = []
+        for n, x in enumerate(rest):
+            wide = " wide" if (len(rest) % 2 == 1 and n == 0) else ""
+            btns.append(f'<button class="{wide.strip()}" type="button" data-full="{img(x, 2000)}" data-alt="Still from {t}"><img src="{img(x, 1400)}" alt="Still from {t}" loading="lazy"></button>')
+        gallery = (f'<section class="gallery" id="stills" aria-labelledby="gal-h"><div class="wrap">'
+                   f'<div class="sec-h"><h2 id="gal-h">Stills</h2><p>Tap any frame to view it full screen</p></div>'
+                   f'<div class="grid">{"".join(btns)}</div></div></section>')
+
+    sub_links = ['<a href="#story">Story</a>']
+    if cast: sub_links.append('<a href="#cast">Cast</a>')
+    sub_links.append('<a href="#credits">Credits</a>')
+    if gallery: sub_links.append('<a href="#stills">Stills</a>')
+    if p["trailer"]:
+        sub_links.append(f'<button class="watch" type="button" data-trailer="{e(p["trailer"])}">Watch</button>')
+    subnav = (f'<div class="subnav"><div class="wrap"><strong>{t}</strong>'
+              f'<nav aria-label="On this page">{"".join(sub_links)}</nav></div></div>')
 
     return f"""<!doctype html>
 <html lang="en">
@@ -132,7 +180,7 @@ def page(p, nxt):
     </div>
   </section>
 
-  <section class="facts" aria-label="Details"><dl class="wrap">{facts_html}</dl></section>
+  {subnav}
 
   <section class="story" id="story" aria-label="Synopsis">
     <div class="wrap{'' if poster else ' no-poster'}">
@@ -140,15 +188,23 @@ def page(p, nxt):
       <div class="text">
         <p class="credit">Synopsis</p>
         <blockquote>{e(p['synopsis'])}</blockquote>
+        <dl class="facts">{facts_html}</dl>
         {partner}
       </div>
     </div>
   </section>
 
+  {lead}
+
   {cast}
 
-  <section class="credits" aria-labelledby="cred-h">
-    <div class="wrap"><h2 id="cred-h">Credits</h2><dl class="roll">{roll}</dl></div>
+  <section class="credits" id="credits" aria-labelledby="cred-h">
+    <div class="wrap">
+      <div class="sec-h"><h2 id="cred-h">Credits</h2></div>
+      {keys_html}
+      <p class="roll-h">Full credits</p>
+      <dl class="roll">{roll}</dl>
+    </div>
   </section>
 
   {gallery}

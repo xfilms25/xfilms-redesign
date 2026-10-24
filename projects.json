@@ -1,5 +1,5 @@
 {
-  "_readme": "Edit this file to change any project page, then run: python3 build.py. Images are Cloudinary paths (the part after /image/upload/). Trailer is the YouTube video ID. Credits with an empty name are skipped.",
+  "_readme": "Edit this file to change any project page, then run: python3 build.py. Images are Cloudinary paths (the part after /image/upload/). Trailer is the YouTube video ID. Credits with an empty name are skipped. Cast: add a photo path to show a portrait; without one an initials card is shown.",
   "projects": [
     {
       "slug": "nothing-i-havent-dreamt-of",
@@ -17,19 +17,65 @@
       "poster": "v1776454852/POSTER_FINAL_NQNHS_26_03_ztoyoi.jpg",
       "synopsis": "Damian awakens from a fall and searches for Luna, the woman he lost. In his attempt to find her, he traverses memories that repeat like broken dreams, only to discover that the true hell is not outside, but within himself.",
       "credits": [
-        ["Director", "Jesus Topalian"],
-        ["Screenplay", "Jesus Topalian"],
-        ["Director of photography", "Sebastian Linares"],
-        ["Original score", "Carlos Cordova"],
-        ["Edited by", "Bartolomeo Diaz"],
-        ["Field producer", "Maribeth Alcala"],
-        ["Art director", "Miranda Magallanes"],
-        ["Production design", "Barbara Amiuny"],
-        ["Visual FX", "Sebastian Linares"],
-        ["Sound design", "Matias Galarraga"],
-        ["Production company", "X Films"]
+        [
+          "Director",
+          "Jesus Topalian"
+        ],
+        [
+          "Screenplay",
+          "Jesus Topalian"
+        ],
+        [
+          "Director of photography",
+          "Sebastian Linares"
+        ],
+        [
+          "Original score",
+          "Carlos Cordova"
+        ],
+        [
+          "Edited by",
+          "Bartolomeo Diaz"
+        ],
+        [
+          "Field producer",
+          "Maribeth Alcala"
+        ],
+        [
+          "Art director",
+          "Miranda Magallanes"
+        ],
+        [
+          "Production design",
+          "Barbara Amiuny"
+        ],
+        [
+          "Visual FX",
+          "Sebastian Linares"
+        ],
+        [
+          "Sound design",
+          "Matias Galarraga"
+        ],
+        [
+          "Production company",
+          "X Films"
+        ]
       ],
-      "cast": ["Valentina Moyano", "Cristian Ferrigno", "Jesus Topalian"],
+      "cast": [
+        {
+          "name": "Valentina Moyano",
+          "photo": "v1776542874/WhatsApp_Image_2025-10-28_at_10.46.14_29fe99dc_jilugl.jpg"
+        },
+        {
+          "name": "Cristian Ferrigno",
+          "photo": "v1776542875/WhatsApp_Image_2025-10-30_at_09.48.59_a3d93d0e_ieheb7.jpg"
+        },
+        {
+          "name": "Jesus Topalian",
+          "photo": ""
+        }
+      ],
       "stills": [
         "v1776454273/Screenshot_2025-05-17_010306_fltaxh.png",
         "v1776454162/Screenshot_2026-04-17_152729_foj9m7.png",
@@ -54,16 +100,52 @@
       "poster": "v1776455333/POSTER_1_nzwtfh.jpg",
       "synopsis": "Under the burning sun of the plains, Mercedes maintains a secret romance with one of her father's workers. When the secret comes to light, Mercedes must wander between madness and grief, in a land where honor is imposed with fire.",
       "credits": [
-        ["Director", "Tiumin Carrillo"],
-        ["Screenplay", "Tiumin Carrillo"],
-        ["Director of photography", "Sebastian Linares"],
-        ["Field producer", "Hung That Viet"],
-        ["Art director", "Alejandro Castillo"],
-        ["Sound design", "Gabriel Jorge"],
-        ["Production company", "X Films / ENC"]
+        [
+          "Director",
+          "Tiumin Carrillo"
+        ],
+        [
+          "Screenplay",
+          "Tiumin Carrillo"
+        ],
+        [
+          "Director of photography",
+          "Sebastian Linares"
+        ],
+        [
+          "Field producer",
+          "Hung That Viet"
+        ],
+        [
+          "Art director",
+          "Alejandro Castillo"
+        ],
+        [
+          "Sound design",
+          "Gabriel Jorge"
+        ],
+        [
+          "Production company",
+          "X Films / ENC"
+        ]
       ],
-      "cast": ["Mariale Álvarez", "Daniel Rondon", "Euro Rincón"],
-      "stills": ["bajo_el_arbol_web_ydsf97"],
+      "cast": [
+        {
+          "name": "Mariale Álvarez",
+          "photo": ""
+        },
+        {
+          "name": "Daniel Rondon",
+          "photo": ""
+        },
+        {
+          "name": "Euro Rincón",
+          "photo": ""
+        }
+      ],
+      "stills": [
+        "bajo_el_arbol_web_ydsf97"
+      ],
       "partner": "enc"
     },
     {
@@ -81,17 +163,57 @@
       "poster": "v1776742393/EN_SILENCIO_POSTER_26_VA_ejv2k2.jpg",
       "synopsis": "Following the death of their parents, Elisa (15) tries to stay strong while her older sister does everything possible to keep them afloat. But when she discovers that her sister is on the verge of giving up everything to support her, something inside Elisa breaks.",
       "credits": [
-        ["Director", "Fransheska Lopez"],
-        ["Screenplay", "Fransheska Lopez"],
-        ["Director of photography", "Jesus Topalian"],
-        ["Edited by", "Gina Gutierrez"],
-        ["Field producer", "Miranda Magallanes"],
-        ["Art director", "Abril Freites"],
-        ["Production design", "Deliangela Sanguino"],
-        ["Sound design", "Matias Galarraga"],
-        ["Production company", "X Films / ENC"]
+        [
+          "Director",
+          "Fransheska Lopez"
+        ],
+        [
+          "Screenplay",
+          "Fransheska Lopez"
+        ],
+        [
+          "Director of photography",
+          "Jesus Topalian"
+        ],
+        [
+          "Edited by",
+          "Gina Gutierrez"
+        ],
+        [
+          "Field producer",
+          "Miranda Magallanes"
+        ],
+        [
+          "Art director",
+          "Abril Freites"
+        ],
+        [
+          "Production design",
+          "Deliangela Sanguino"
+        ],
+        [
+          "Sound design",
+          "Matias Galarraga"
+        ],
+        [
+          "Production company",
+          "X Films / ENC"
+        ]
       ],
-      "cast": ["Rafael Monsalve", "Zoilymar Salcedo", "Alexandra Alvarado"],
+      "cast": [
+        {
+          "name": "Rafael Monsalve",
+          "photo": "v1776544290/Screenshot_2025-10-30_111348_qicqbu.png"
+        },
+        {
+          "name": "Zoilymar Salcedo",
+          "photo": "v1776742770/zoe_suahh0.jpg"
+        },
+        {
+          "name": "Alexandra Alvarado",
+          "photo": "v1776742770/ale_city6s.jpg"
+        }
+      ],
       "stills": [
         "v1776452920/en_silencio_web_mlqora.jpg",
         "v1776736844/en_silencio_stills_for_new_2.6.1_wjdueh.jpg",
@@ -114,17 +236,53 @@
       "poster": "v1776456033/POSTER_LMDCA_2_FINAL_okxbgf.jpg",
       "synopsis": "After waking up next to a dead woman, a man with no memories flees the scene and attempts to piece together the previous night. But the clues lead him to a bar where the same female figure seems to reappear.",
       "credits": [
-        ["Director", "Pablo Pucutivo"],
-        ["Screenplay", "Pablo Pucutivo"],
-        ["Director of photography", "Jesus Topalian"],
-        ["Edited by", "Gabriel Jorge"],
-        ["Field producer", "Isabella Salas"],
-        ["Art director", "Maia Soto"],
-        ["Production design", "Miranda Magallanes"],
-        ["Sound design", "Gabriel Jorge"],
-        ["Production company", "X Films / ENC"]
+        [
+          "Director",
+          "Pablo Pucutivo"
+        ],
+        [
+          "Screenplay",
+          "Pablo Pucutivo"
+        ],
+        [
+          "Director of photography",
+          "Jesus Topalian"
+        ],
+        [
+          "Edited by",
+          "Gabriel Jorge"
+        ],
+        [
+          "Field producer",
+          "Isabella Salas"
+        ],
+        [
+          "Art director",
+          "Maia Soto"
+        ],
+        [
+          "Production design",
+          "Miranda Magallanes"
+        ],
+        [
+          "Sound design",
+          "Gabriel Jorge"
+        ],
+        [
+          "Production company",
+          "X Films / ENC"
+        ]
       ],
-      "cast": ["Asier Ruiz", "Virginia Rivero"],
+      "cast": [
+        {
+          "name": "Asier Ruiz",
+          "photo": "v1776542874/WhatsApp_Image_2025-11-03_at_14.06.17_134e3be8_rfanav.jpg"
+        },
+        {
+          "name": "Virginia Rivero",
+          "photo": "v1776542033/envato-labs-image-edit_4_sufzjs.webp"
+        }
+      ],
       "stills": [
         "la_mujer_web_tgjcy2",
         "v1776456310/Screenshot_2026-04-17_160432_dfykim.png",
@@ -147,21 +305,55 @@
       "poster": "",
       "synopsis": "A prostitute is forced to confront her emotional emptiness as the afternoon progresses.",
       "credits": [
-        ["Director", "Abraham Mora"],
-        ["Producer", "Marlon Durán"],
-        ["Assistant director", "Karelys Cedeño"],
-        ["Director of photography", "Jesús Topalián"],
-        ["Gaffer", "Andrés Rojas"],
-        ["Electrician", "Arianna Durán"],
-        ["Original score", "Alejandro Eli Farías"],
-        ["Art director", "Pablo Pucutivo"],
-        ["Sound", "Miranda Magallanes"],
-        ["Production company", "X Films"]
+        [
+          "Director",
+          "Abraham Mora"
+        ],
+        [
+          "Producer",
+          "Marlon Durán"
+        ],
+        [
+          "Assistant director",
+          "Karelys Cedeño"
+        ],
+        [
+          "Director of photography",
+          "Jesús Topalián"
+        ],
+        [
+          "Gaffer",
+          "Andrés Rojas"
+        ],
+        [
+          "Electrician",
+          "Arianna Durán"
+        ],
+        [
+          "Original score",
+          "Alejandro Eli Farías"
+        ],
+        [
+          "Art director",
+          "Pablo Pucutivo"
+        ],
+        [
+          "Sound",
+          "Miranda Magallanes"
+        ],
+        [
+          "Production company",
+          "X Films"
+        ]
       ],
-      "cast": ["Abraham Mora"],
+      "cast": [
+        {
+          "name": "Abraham Mora",
+          "photo": "v1776549530/Screenshot_2026-04-18_174209_rcityz.png"
+        }
+      ],
       "stills": [
-        "v1776547283/Screenshot_2026-04-18_172035_rxdbwk.png",
-        "v1776549530/Screenshot_2026-04-18_174209_rcityz.png"
+        "v1776547283/Screenshot_2026-04-18_172035_rxdbwk.png"
       ],
       "partner": null
     },
@@ -180,30 +372,116 @@
       "poster": "v1776643278/aguacero_poster_v5_rfppvo.jpg",
       "synopsis": "When the skies open, humanity's resilience is tested.",
       "credits": [
-        ["Director", "Jesús Araujo"],
-        ["Screenplay", "Jesús Araujo"],
-        ["Assistant director", "Ana Sofía Terán"],
-        ["Script supervisor", "Vanessa Jiménez, Moisés Durán"],
-        ["Director of photography", "Marlon Durán"],
-        ["Camera operator", "Arumé Poblete"],
-        ["Gaffer", "Juan Luis Bustamante"],
-        ["Best boy", "Rodrigo Torres"],
-        ["Electrician", "Fernando Contento"],
-        ["Original score", "Alejandro Mosquera"],
-        ["Edited by", "Marlon Durán"],
-        ["Field producer", "Karelys Cedeño"],
-        ["Art director", "Patricia Peña"],
-        ["Art assistants", "Avril Freitez, Pablo Pucutivo, Javier Mejías, Victoria Palma"],
-        ["Makeup", "Patricia Peña, Avril Freitez, Diana Castillo, Sophia Labrador"],
-        ["Sound", "Fabián Martell"],
-        ["Assistant sound", "David D’Urso"],
-        ["Visual FX", "Sebastián Linares"],
-        ["Sound design", "Fabián Martell"],
-        ["Behind the scenes", "Gerymar Cabezas, Nohely Molero"],
-        ["Production company", "X Films / ENC"]
+        [
+          "Director",
+          "Jesús Araujo"
+        ],
+        [
+          "Screenplay",
+          "Jesús Araujo"
+        ],
+        [
+          "Assistant director",
+          "Ana Sofía Terán"
+        ],
+        [
+          "Script supervisor",
+          "Vanessa Jiménez, Moisés Durán"
+        ],
+        [
+          "Director of photography",
+          "Marlon Durán"
+        ],
+        [
+          "Camera operator",
+          "Arumé Poblete"
+        ],
+        [
+          "Gaffer",
+          "Juan Luis Bustamante"
+        ],
+        [
+          "Best boy",
+          "Rodrigo Torres"
+        ],
+        [
+          "Electrician",
+          "Fernando Contento"
+        ],
+        [
+          "Original score",
+          "Alejandro Mosquera"
+        ],
+        [
+          "Edited by",
+          "Marlon Durán"
+        ],
+        [
+          "Field producer",
+          "Karelys Cedeño"
+        ],
+        [
+          "Art director",
+          "Patricia Peña"
+        ],
+        [
+          "Art assistants",
+          "Avril Freitez, Pablo Pucutivo, Javier Mejías, Victoria Palma"
+        ],
+        [
+          "Makeup",
+          "Patricia Peña, Avril Freitez, Diana Castillo, Sophia Labrador"
+        ],
+        [
+          "Sound",
+          "Fabián Martell"
+        ],
+        [
+          "Assistant sound",
+          "David D’Urso"
+        ],
+        [
+          "Visual FX",
+          "Sebastián Linares"
+        ],
+        [
+          "Sound design",
+          "Fabián Martell"
+        ],
+        [
+          "Behind the scenes",
+          "Gerymar Cabezas, Nohely Molero"
+        ],
+        [
+          "Production company",
+          "X Films / ENC"
+        ]
       ],
-      "cast": ["Patricia Alves", "Rafael Gil", "Penélope Ortíz", "Victoria Linares", "Juan Carlos Sosa"],
-      "stills": ["aguacero_web_fgm3zp"],
+      "cast": [
+        {
+          "name": "Patricia Alves",
+          "photo": "v1776736265/patricia_alves_qxzbdi.jpg"
+        },
+        {
+          "name": "Rafael Gil",
+          "photo": "v1776736165/rafagil_cast_g0rhr4.jpg"
+        },
+        {
+          "name": "Penélope Ortíz",
+          "photo": "v1776736002/penelope_lop_w94785.jpg"
+        },
+        {
+          "name": "Victoria Linares",
+          "photo": ""
+        },
+        {
+          "name": "Juan Carlos Sosa",
+          "photo": ""
+        }
+      ],
+      "stills": [
+        "aguacero_web_fgm3zp"
+      ],
       "partner": "enc"
     },
     {
@@ -221,16 +499,45 @@
       "poster": "v1776546449/Screenshot_2025-11-28_212719_l6xego.png",
       "synopsis": "Music video for “Extasis” by Foggy, produced and shot by X Films.",
       "credits": [
-        ["Director", "Foggy"],
-        ["Producer", "Fabián Martell “Foggy”"],
-        ["Director of photography", "Jesus Topalian"],
-        ["Camera operator", "Eduardo Rojas"],
-        ["Original score", "Fabian Martell"],
-        ["Edited by", "X Studios Films"],
-        ["Art director", "Sophia Labrador"],
-        ["Production company", "X Films"]
+        [
+          "Director",
+          "Foggy"
+        ],
+        [
+          "Producer",
+          "Fabián Martell “Foggy”"
+        ],
+        [
+          "Director of photography",
+          "Jesus Topalian"
+        ],
+        [
+          "Camera operator",
+          "Eduardo Rojas"
+        ],
+        [
+          "Original score",
+          "Fabian Martell"
+        ],
+        [
+          "Edited by",
+          "X Studios Films"
+        ],
+        [
+          "Art director",
+          "Sophia Labrador"
+        ],
+        [
+          "Production company",
+          "X Films"
+        ]
       ],
-      "cast": ["Patricia Alves"],
+      "cast": [
+        {
+          "name": "Patricia Alves",
+          "photo": "v1776736265/patricia_alves_qxzbdi.jpg"
+        }
+      ],
       "stills": [
         "extasis_web_foggy_1_d33p4t",
         "v1776546445/Screenshot_2025-12-05_173826_fgndtj.png"
@@ -252,16 +559,44 @@
       "poster": "",
       "synopsis": "An intimate and powerful live acoustic performance.",
       "credits": [
-        ["Performer", "Mafer Vera"],
-        ["Director of photography", "J Topalian"],
-        ["Colorist", "J Topalian"],
-        ["Field producer", "Hevanna Tabares"],
-        ["Production design", "Miranda Magallanes"],
-        ["Music & mix", "AMA Studios"],
-        ["Production company", "X Films"]
+        [
+          "Performer",
+          "Mafer Vera"
+        ],
+        [
+          "Director of photography",
+          "J Topalian"
+        ],
+        [
+          "Colorist",
+          "J Topalian"
+        ],
+        [
+          "Field producer",
+          "Hevanna Tabares"
+        ],
+        [
+          "Production design",
+          "Miranda Magallanes"
+        ],
+        [
+          "Music & mix",
+          "AMA Studios"
+        ],
+        [
+          "Production company",
+          "X Films"
+        ]
       ],
-      "cast": ["Mafer Vera"],
-      "stills": ["mafer_vera_amando_web_1_nibzrs"],
+      "cast": [
+        {
+          "name": "Mafer Vera",
+          "photo": ""
+        }
+      ],
+      "stills": [
+        "mafer_vera_amando_web_1_nibzrs"
+      ],
       "partner": null
     },
     {
@@ -279,10 +614,22 @@
       "poster": "v1780339298/ig_cover_ent6uj.jpg",
       "synopsis": "A fast-paced, high-energy fashion reel designed to showcase the latest collections.",
       "credits": [
-        ["Director", "X Films"],
-        ["Director of photography", "Sebas, Maick y Jesus"],
-        ["Edited by", "Jesus Topalian"],
-        ["Production company", "X Films / Runway"]
+        [
+          "Director",
+          "X Films"
+        ],
+        [
+          "Director of photography",
+          "Sebas, Maick y Jesus"
+        ],
+        [
+          "Edited by",
+          "Jesus Topalian"
+        ],
+        [
+          "Production company",
+          "X Films / Runway"
+        ]
       ],
       "cast": [],
       "stills": [
@@ -308,14 +655,38 @@
       "poster": "v1780343899/POSTER_1_BBB_zg3yvo.jpg",
       "synopsis": "Coverage and celebration of the International Jazz Day 2026 with Big Band Banana.",
       "credits": [
-        ["Director", "Jesus Topalian"],
-        ["Directors of photography", "Juan Luis, Maick, Hung Tha Viet & Sebastian L"],
-        ["Original music", "Big Band Banana"],
-        ["Edited by", "Sebastian Linares"],
-        ["Production", "Inteligensa"],
-        ["Field producers", "Valentina Moyano, Barbara Amiuny"],
-        ["Sound engineer", "Tomas Rodrigez"],
-        ["Stills photographer", "Israel"]
+        [
+          "Director",
+          "Jesus Topalian"
+        ],
+        [
+          "Directors of photography",
+          "Juan Luis, Maick, Hung Tha Viet & Sebastian L"
+        ],
+        [
+          "Original music",
+          "Big Band Banana"
+        ],
+        [
+          "Edited by",
+          "Sebastian Linares"
+        ],
+        [
+          "Production",
+          "Inteligensa"
+        ],
+        [
+          "Field producers",
+          "Valentina Moyano, Barbara Amiuny"
+        ],
+        [
+          "Sound engineer",
+          "Tomas Rodrigez"
+        ],
+        [
+          "Stills photographer",
+          "Israel"
+        ]
       ],
       "cast": [],
       "stills": [
@@ -342,9 +713,16 @@
       "hero": "v1776548447/Screenshot_2026-04-18_173812_b4qa3t.png",
       "poster": "",
       "synopsis": "Atmospheric visual study for a cinematic mock-up.",
-      "credits": [["Production company", "X Films"]],
+      "credits": [
+        [
+          "Production company",
+          "X Films"
+        ]
+      ],
       "cast": [],
-      "stills": ["v1776548447/Screenshot_2026-04-18_173812_b4qa3t.png"],
+      "stills": [
+        "v1776548447/Screenshot_2026-04-18_173812_b4qa3t.png"
+      ],
       "partner": null
     }
   ]
