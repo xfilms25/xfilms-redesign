@@ -87,6 +87,8 @@
 .thumbs img{width:100%;height:100%;object-fit:cover}
 .buy{display:grid;gap:22px;align-content:start}
 .buy h1{font-family:var(--poster);font-weight:500;font-size:clamp(52px,6.4vw,96px);letter-spacing:.06em;text-transform:uppercase;line-height:.9}
+/* Night Haze wordmark: the brand logo font (Outfit, heavy), as on the bottle */
+.buy h1.brand{font-family:"Outfit","Futura","Helvetica Neue",Arial,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:.86;font-size:clamp(64px,8vw,118px)}
 .buy .lead{font-family:var(--voice);font-style:italic;font-size:clamp(22px,2.2vw,28px);line-height:1.3;margin:0}
 .price{font-family:var(--poster);font-weight:500;font-size:44px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
 .price small{font-family:var(--ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-left:10px}

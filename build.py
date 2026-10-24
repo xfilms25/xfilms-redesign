@@ -72,7 +72,7 @@ def footer(base):
 </footer>"""
 
 
-def head(title, desc, image, base, extra_css=""):
+def head(title, desc, image, base, extra_css="", extra_fonts=""):
     css = f'<link rel="stylesheet" href="{base}assets/project.css?v={VER}">'
     if extra_css:
         css += f'\n<link rel="stylesheet" href="{base}assets/{extra_css}?v={VER}">'
@@ -89,7 +89,7 @@ def head(title, desc, image, base, extra_css=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-{css}
+{extra_fonts}{css}
 </head>"""
 
 
@@ -456,7 +456,8 @@ def shop_page():
     ]
     feat_html = "".join(f'<article class="feat"><div class="pic"><img src="{SITE}{f}" alt="" loading="lazy"></div><div class="t"><h3>{e(t)}</h3><p>{e(d)}</p></div></article>' for f, t, d in feats)
     return head("Night Haze · X Films Shop", "Night Haze: professional cinematic fog fluid from X Films. 1 liter $15, 1 gallon $50.",
-                f"{SITE}{shots[0][0]}", "../", "pages.css") + f"""
+                f"{SITE}{shots[0][0]}", "../", "pages.css",
+                '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@800&display=swap">\n') + f"""
 <body>
 {nav("../", "shop")}
 <main>
@@ -468,7 +469,7 @@ def shop_page():
       </div>
       <div class="buy">
         <p class="eyebrow">X Films Shop · Elevate your atmosphere</p>
-        <h1 id="title">Night Haze</h1>
+        <h1 id="title" class="brand">Night<br>Haze</h1>
         <p class="lead amber-text">Professional cinematic fog fluid.</p>
         <p class="price"><span id="price">$15</span><small>USD</small></p>
         <div class="sizes" role="group" aria-label="Size">
