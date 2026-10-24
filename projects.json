@@ -1,5 +1,5 @@
 {
-  "_readme": "Edit this file to change any project page, then run: python3 build.py. Images are Cloudinary paths (the part after /image/upload/). Trailer is the YouTube video ID. Credits with an empty name are skipped. Cast: add a photo path to show a portrait; without one an initials card is shown.",
+  "_readme": "Edit this file to change any project page, then run: python3 build.py. Images are Cloudinary paths (the part after /image/upload/). Trailer is the YouTube video ID. Credits with an empty name are skipped. Cast: add a photo path to show a portrait; without one an initials card is shown. Optional bg_start: second the background video starts at (default 8).",
   "projects": [
     {
       "slug": "nothing-i-havent-dreamt-of",
@@ -697,7 +697,8 @@
         "v1780344125/yt_bbb_concert_copy_wmyz8u.jpg",
         "v1780344125/yt_bbb_concert_Ecopy_jbnkmj.jpg"
       ],
-      "partner": null
+      "partner": null,
+      "bg_start": 300
     },
     {
       "slug": "savoy",

@@ -109,7 +109,7 @@ def page(p, nxt):
     if p["trailer"]:
         src = (f"https://www.youtube-nocookie.com/embed/{p['trailer']}?autoplay=1&amp;mute=1&amp;loop=1"
                f"&amp;playlist={p['trailer']}&amp;controls=0&amp;rel=0&amp;playsinline=1&amp;modestbranding=1"
-               f"&amp;iv_load_policy=3&amp;start=8")
+               f"&amp;iv_load_policy=3&amp;start={p.get('bg_start', 8)}")
         yt = f'<iframe class="yt" id="yt" title="" tabindex="-1" aria-hidden="true" allow="autoplay; encrypted-media" data-src="{src}"></iframe>'
     actions = []
     if p["trailer"]:
@@ -306,7 +306,7 @@ def about_page(data):
     reel = "".join(
         f'<a href="../projects/{s}/"><img src="{img(by[s]["hero"], 900)}" alt="" loading="lazy"><span>{e(by[s]["title"])}</span></a>'
         for s in ("nothing-i-havent-dreamt-of", "in-silence", "big-band-banana"))
-    return head("About · X Films", "X Films is a collective of directors, designers and visual artists from Venezuela crafting atmospheric narratives.",
+    return head("About us · X Films", "X Films is a collective of directors, designers and visual artists from Venezuela crafting atmospheric narratives.",
                 img("v1780349969/x_films_eye_lwm5ky.jpg", 1200), "../", "pages.css") + f"""
 <body>
 {nav("../", "about")}
@@ -315,7 +315,7 @@ def about_page(data):
     <div class="bg"><img src="{img('v1780349969/x_films_eye_lwm5ky.jpg', 2400)}" alt="" fetchpriority="high"></div>
     <div class="in">
       <p class="eyebrow">Behind the lens</p>
-      <h1 id="title">About X Films</h1>
+      <h1 id="title">About us</h1>
       <p class="lead amber-text">Cinema should be more than entertainment. It should be an experience.</p>
     </div>
   </section>
