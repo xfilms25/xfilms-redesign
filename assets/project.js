@@ -5,13 +5,23 @@
   // muted trailer behind the hero
   const yt = document.getElementById("yt");
   if (yt && !reduce) {
-    // Show the video only once YouTube reports it is actually playing,
-    // then fade the still out so nothing shows through.
-    const reveal = () => { yt.classList.add("on"); yt.closest(".p-hero").classList.add("playing"); };
+    const hero = yt.closest(".p-hero");
+    // YouTube shows its title bar and controls for the first seconds of play (and again when it loops).
+    // Keep the still on screen until the video has been playing steadily for a few seconds,
+    // and cover it again whenever the player stops, buffers or restarts.
+    let st = -1, revealT = 0;
+    const show = () => { yt.style.transition = ""; yt.classList.add("on"); hero.classList.add("playing"); };
+    const hide = () => { clearTimeout(revealT); revealT = 0; yt.style.transition = "none"; yt.classList.remove("on"); hero.classList.remove("playing"); };
+    const onState = s => {
+      if (s === st) return; st = s;
+      if (s === 1) { clearTimeout(revealT); revealT = setTimeout(show, 3800); }
+      else hide();
+    };
     addEventListener("message", e => {
       if (!/youtube/.test(e.origin) || e.source !== yt.contentWindow) return;
       let d; try { d = JSON.parse(e.data); } catch (_) { return; }
-      if ((d.event === "onStateChange" && d.info === 1) || (d.event === "infoDelivery" && d.info && d.info.playerState === 1)) reveal();
+      if (d.event === "onStateChange") onState(d.info);
+      else if (d.event === "infoDelivery" && d.info && typeof d.info.playerState === "number") onState(d.info.playerState);
     });
     yt.addEventListener("load", () => yt.contentWindow.postMessage(JSON.stringify({ event: "listening", id: "yt", channel: "widget" }), "*"), { once: true });
     yt.src = yt.dataset.src + "&enablejsapi=1&origin=" + encodeURIComponent(location.origin);
