@@ -19,7 +19,7 @@ ENC = {"name": "Escuela Nacional de Cine", "url": "https://encvenezuela.org/",
 
 def asset_version():
     h = hashlib.sha1()
-    for f in ("assets/project.css", "assets/project.js", "assets/pages.css", "assets/i18n.js"):
+    for f in ("assets/project.css", "assets/project.js", "assets/pages.css", "assets/i18n.js", "assets/search.js"):
         h.update((ROOT / f).read_bytes())
     return h.hexdigest()[:8]
 
@@ -91,6 +91,7 @@ def head(title, desc, image, base, extra_css="", extra_fonts=""):
 <link rel="stylesheet" href="{FONTS}">
 {extra_fonts}{css}
 <script src="{base}assets/i18n.js?v={VER}" defer></script>
+<script src="{base}assets/search.js?v={VER}" defer></script>
 </head>"""
 
 
@@ -235,6 +236,7 @@ def page(p, nxt):
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="../../assets/project.css?v={VER}">
 <script src="../../assets/i18n.js?v={VER}" defer></script>
+<script src="../../assets/search.js?v={VER}" defer></script>
 </head>
 <body>
 {nav("../../")}
@@ -560,8 +562,37 @@ def shop_page():
 """
 
 
+def build_search(data):
+    """assets/search.json: every project plus the main pages, for the search in the menu bar."""
+    items = []
+    for p in data:
+        names = [c["name"] for c in p["cast"]]
+        crew = sorted({n for r, n in p["credits"] if n and n.upper() != "N/A"})
+        items.append({"type": "project", "t": p["title"], "es": p.get("title_es", ""), "k": p["kind"], "g": p["genre"], "y": p["year"],
+                      "d": p["director"], "c": " · ".join(names), "x": " · ".join(crew), "u": f"projects/{p['slug']}/", "img": p["hero"],
+                      "quick": p["slug"] == "nothing-i-havent-dreamt-of"})
+    pages = [
+        {"t": "Services", "sub": "Production, cinematography, post-production and rental", "u": "services/", "icon": "✦", "quick": True,
+         "x": "Weddings & events · Music videos · Commercials · Narrative · Film production · Director of photography · Post-production · Editing · Color grading · Visual effects · Sound design"},
+        {"t": "Equipment rental", "sub": "High-end cinema cameras, lenses, lighting and grip equipment for your next production.", "u": "services/#rental", "icon": "◎",
+         "x": "Cinema cameras · Lenses · Lighting · Grip"},
+        {"t": "Night Haze", "sub": "Night Haze fog fluid", "u": "shop/", "icon": "≋", "quick": True, "x": "Shop · fog · haze · humo · niebla · fluid · líquido · 1 Liter · 1 Gallon"},
+        {"t": "The official game", "sub": "Play in your browser", "u": "projects/nothing-i-havent-dreamt-of/#game", "icon": "▶", "quick": True,
+         "x": "game · juego · videojuego · Nothing I Haven't Dreamt Of · Nada que no haya soñado · Hollow · Luna · Damian"},
+        {"t": "About", "sub": "Mission, vision and the work", "u": "about/", "icon": "✕", "quick": True, "x": "About us · Mission · Vision · Escuela Nacional de Cine · Who we are"},
+        {"t": "Book us", "sub": "Book a shoot or ask for a quote", "u": "#book", "icon": "✉", "quick": True,
+         "x": "Contact · quote · cotización · contacto · WhatsApp · Weddings & events · boda · Tell us the story"},
+    ]
+    for pg in pages:
+        pg["type"] = "page"
+        items.append(pg)
+    (ROOT / "assets" / "search.json").write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
+    print("built assets/search.json")
+
+
 def build_pages():
     data = json.loads((ROOT / "projects.json").read_text(encoding="utf-8"))["projects"]
+    build_search(data)
     for name, html_ in (("about", about_page(data)), ("services", services_page(data)), ("shop", shop_page())):
         out = ROOT / name / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)

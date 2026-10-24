@@ -12,6 +12,12 @@
     "All images are stills from the productions.": "Todas las imágenes son fotogramas de las producciones.",
     "Message us on WhatsApp": "Escríbenos por WhatsApp", "Ask on WhatsApp": "Pregunta por WhatsApp",
 
+    /* search */
+    "Search": "Buscar", "Close search": "Cerrar búsqueda", "Search films, people, services…": "Busca películas, personas, servicios…",
+    "Quick links": "Accesos rápidos", "Results": "Resultados", "No matches. Try a film title, a name or a service.": "Sin resultados. Prueba con el título de una película, un nombre o un servicio.",
+    "Page": "Página", "The official game": "El juego oficial", "Night Haze fog fluid": "Líquido de humo Night Haze", "Book a shoot or ask for a quote": "Reserva un rodaje o pide una cotización",
+    "Production, cinematography, post-production and rental": "Producción, fotografía, postproducción y alquiler", "Mission, vision and the work": "Misión, visión y el trabajo",
+    "Play in your browser": "Juega en tu navegador",
     /* homepage */
     "X Films presents": "X Films presenta", "the hell is within.": "el infierno está dentro.", "Watch the trailer": "Ver el tráiler",
     "See the film": "Ver la película", "Play the game": "Jugar el juego", "The story": "La historia", "The Films": "Las películas",
@@ -230,7 +236,7 @@
     document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === l)));
     document.dispatchEvent(new CustomEvent("xf:lang", { detail: l }));
   }
-  window.XF = { get lang() { return lang; }, t: s => (lang === "es" ? (t(s) || s) : s), setLang };
+  window.XF = { get lang() { return lang; }, t: s => (lang === "es" ? (t(s) || s) : s), es: s => t(s) || "", setLang };
 
   /* the switch, in the menu bar of every page */
   function mountSwitch() {
