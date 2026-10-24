@@ -92,6 +92,144 @@
       }
     },
     {
+      "slug": "medianeros",
+      "title": "Medianeros",
+      "title_es": "",
+      "kind": "Short film",
+      "status": "In production",
+      "teaser": true,
+      "tagline": "The land they work was never theirs.",
+      "genre": "Drama",
+      "runtime": "",
+      "year": "2026",
+      "director": "Sophia Labrador",
+      "trailer": "JDGAP81B-xA",
+      "hero": "img/medianeros/still-1.jpg",
+      "poster": "",
+      "synopsis": "A story of the people who work land that isn't theirs, told through Teresa, Antonio, Luisa and José. Still in production: this is the first teaser.",
+      "credits": [
+        [
+          "Director",
+          "Sophia Labrador"
+        ],
+        [
+          "Screenplay",
+          "Sophia Labrador"
+        ],
+        [
+          "Producer",
+          "Sophia Labrador"
+        ],
+        [
+          "Field producer",
+          "Eduardo Rojas"
+        ],
+        [
+          "Production assistant",
+          "Carlos Zamora"
+        ],
+        [
+          "Assistant director",
+          "Victoria Parra"
+        ],
+        [
+          "Script supervisor",
+          "Moisés Durán"
+        ],
+        [
+          "Directors of photography",
+          "Sebastián Linares, Jesús Topalian"
+        ],
+        [
+          "Gaffer",
+          "Marlon Durán"
+        ],
+        [
+          "Electrician",
+          "Fernando Contento"
+        ],
+        [
+          "Art director",
+          "Eduardo García"
+        ],
+        [
+          "Set design",
+          "Eduardo García"
+        ],
+        [
+          "Art assistant",
+          "Valentina Heredia"
+        ],
+        [
+          "Costume designer",
+          "Edisson Spinetti"
+        ],
+        [
+          "Set design assistant",
+          "Michelle Mata"
+        ],
+        [
+          "Sound",
+          "Fabian Martell"
+        ],
+        [
+          "Edited by",
+          "Moisés Durán, Sebastián Linares"
+        ],
+        [
+          "Colorist",
+          "Jesús Topalian"
+        ],
+        [
+          "Behind the scenes",
+          "Juan Diego Fuenmayor"
+        ],
+        [
+          "Media manager",
+          "Juan Diego Fuenmayor"
+        ],
+        [
+          "Production company",
+          "X Films / ENC"
+        ]
+      ],
+      "cast": [
+        {
+          "name": "Alvarielys Castro",
+          "photo": "",
+          "role": "Teresa"
+        },
+        {
+          "name": "Eduardo García",
+          "photo": "",
+          "role": "Antonio"
+        },
+        {
+          "name": "Orina Manzini",
+          "photo": "",
+          "role": "Luisa"
+        },
+        {
+          "name": "Daniel Monasterios",
+          "photo": "",
+          "role": "José"
+        },
+        {
+          "name": "Alanis Quintero",
+          "photo": "",
+          "role": "Baby"
+        }
+      ],
+      "stills": [
+        "img/medianeros/still-4.jpg",
+        "img/medianeros/still-1.jpg",
+        "img/medianeros/still-2.jpg",
+        "img/medianeros/still-3.jpg",
+        "img/medianeros/still-5.jpg"
+      ],
+      "partner": "enc"
+    },
+    {
       "slug": "beneath-the-enchanted-tree",
       "title": "Beneath the Enchanted Tree",
       "title_es": "Bajo el Árbol Encantado",

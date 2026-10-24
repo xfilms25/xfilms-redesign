@@ -28,6 +28,8 @@ VER = asset_version()
 
 
 def img(path, w):
+    if path.startswith("img/"):
+        return "@@BASE@@" + path   # stored in this repo; @@BASE@@ becomes the page's path back to the site root
     return f"{CLD}f_auto,q_auto,w_{w}/{path}"
 
 
@@ -104,6 +106,8 @@ def page(p, nxt):
     line1 = "X Films presents" if is_film else p["kind"]
     if p["director"]:
         line2 = ("A film by " if is_film else "Directed by ") + p["director"]
+        if p.get("status"):
+            line2 += " · " + p["status"]
     else:
         line2 = ""
     bright = ' class="brighten"' if p.get("hero_brighten") else ""
@@ -115,7 +119,7 @@ def page(p, nxt):
         yt = f'<iframe class="yt" id="yt" title="" tabindex="-1" aria-hidden="true" allow="autoplay; encrypted-media" data-src="{src}"></iframe>'
     actions = []
     if p["trailer"]:
-        label = "Watch the trailer" if is_film else "Watch"
+        label = "Watch the teaser" if p.get("teaser") else "Watch the trailer" if is_film else "Watch"
         actions.append(f'<button class="play" type="button" data-trailer="{e(p["trailer"])}"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>{label}</button>')
     actions.append('<a class="lnk" href="#story">The story</a>')
     title_cls = ' class="cinzel"' if p["slug"] == "nothing-i-havent-dreamt-of" else ""
@@ -129,7 +133,7 @@ def page(p, nxt):
         return ""
 
     # facts beside the synopsis
-    facts = [("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Genre", p["genre"]),
+    facts = [("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Status", p.get("status", "")), ("Genre", p["genre"]),
              ("Runtime", p["runtime"]), ("Year", p["year"]), ("Production", prod)]
     facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in facts if v)
 
@@ -163,7 +167,8 @@ def page(p, nxt):
             else:
                 initials = "".join(w[0] for w in c["name"].split()[:2]).upper()
                 ph = f'<div class="ph none" aria-hidden="true"><span>{e(initials)}</span></div>'
-            cards.append(f'<figure class="person">{ph}<figcaption>{nm}</figcaption></figure>')
+            role = f'<span class="as">{e(c["role"])}</span>' if c.get("role") else ''
+            cards.append(f'<figure class="person">{ph}<figcaption>{nm}{role}</figcaption></figure>')
         cast = (f'<section class="cast" id="cast" aria-labelledby="cast-h"><div class="wrap">'
                 f'<div class="sec-h"><h2 id="cast-h">Cast</h2><p>{len(p["cast"])} {"actor" if len(p["cast"]) == 1 else "actors"}</p></div>'
                 f'<div class="people" style="--cols:{min(len(cards), 5) if len(cards) != 6 else 3}">{"".join(cards)}</div></div></section>')
@@ -308,7 +313,7 @@ def main():
     for n, p in enumerate(data):
         out = ROOT / "projects" / p["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(page(p, data[(n + 1) % len(data)]), encoding="utf-8")
+        out.write_text(page(p, data[(n + 1) % len(data)]).replace("@@BASE@@", "../../"), encoding="utf-8")
         print("built", out.relative_to(ROOT))
 
 
@@ -596,7 +601,7 @@ def build_pages():
     for name, html_ in (("about", about_page(data)), ("services", services_page(data)), ("shop", shop_page())):
         out = ROOT / name / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(html_, encoding="utf-8")
+        out.write_text(html_.replace("@@BASE@@", "../"), encoding="utf-8")
         print("built", out.relative_to(ROOT))
 
 

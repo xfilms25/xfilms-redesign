@@ -115,6 +115,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scene .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),filter .8s}
 .scene .pic:hover img{transform:scale(1.035);filter:contrast(1.12)}
 
+/* M — a diptych: two frames side by side, the title rising out from under them */
+.sM .dip{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+.sM .pic{aspect-ratio:4/3}
+.sM .dip .pic:first-child{aspect-ratio:auto}
+.sM .row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-top:-0.9em;position:relative;z-index:2}
+.sM h3{font-size:clamp(56px,10vw,150px);text-shadow:0 4px 40px rgba(0,0,0,.7)}
+.sM .badge{display:inline-block;margin-bottom:14px;padding:6px 12px;border:1px solid var(--red);border-radius:980px;color:var(--red);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 18px rgba(255,150,60,.25)}
+.sM .side{display:grid;gap:12px;justify-items:start;padding-bottom:12px;max-width:420px}
+
 /* A — full bleed, title crashes into the frame */
 .sA .pic{width:100%;aspect-ratio:2.37/1}
 .sA .over{position:relative;margin-top:-0.55em;z-index:2;font-size:clamp(46px,9vw,140px)}
@@ -252,6 +261,7 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   .fcols{grid-template-columns:1fr 1fr}
   .scene{margin-bottom:120px}
   .sA .row{padding:0 var(--gr) 0 var(--gl)}
+  .sM .dip{grid-template-columns:1fr}.sM .dip .pic:first-child{aspect-ratio:16/9}.sM .row{margin-top:-0.6em}
   .sA .over{padding-left:var(--gl)}
 }
 @media (max-width:560px){
@@ -265,8 +275,8 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   .cur{display:none}
 }
 </style>
-<script src="assets/i18n.js?v=1fe3fe73" defer></script>
-<script src="assets/search.js?v=1fe3fe73" defer></script>
+<script src="assets/i18n.js?v=854fb083" defer></script>
+<script src="assets/search.js?v=854fb083" defer></script>
 </head>
 <body>
 <div class="cur" aria-hidden="true"><span>PLAY</span></div>
@@ -325,6 +335,23 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
       <h2 id="films-h">The Films</h2>
       <p class="credit" style="margin:0">Short films · 2025 — 2026</p>
     </div>
+
+    <article class="scene sM rise">
+      <div class="wrap">
+        <div class="dip">
+          <a class="pic" href="projects/medianeros/" data-play><img class="bw" src="img/medianeros/still-1.jpg" alt="Still from Medianeros" loading="lazy"></a>
+          <a class="pic" href="projects/medianeros/" data-play><img class="bw" src="img/medianeros/still-4.jpg" alt="Still from Medianeros" loading="lazy"></a>
+        </div>
+        <div class="row">
+          <div class="ttl"><span class="badge">Teaser · In production</span><h3>Medianeros</h3></div>
+          <div class="side">
+            <p class="line">The land they work was never theirs.</p>
+            <span class="meta">Directed by Sophia Labrador · Drama · 2026</span>
+            <a class="lnk" href="projects/medianeros/">Watch the teaser</a>
+          </div>
+        </div>
+      </div>
+    </article>
 
     <article class="scene sA rise">
       <a class="pic" href="projects/beneath-the-enchanted-tree/" data-play><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_2400/bajo_el_arbol_web_ydsf97" alt="Still from Beneath the Enchanted Tree" loading="lazy"></a>

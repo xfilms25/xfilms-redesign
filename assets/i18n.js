@@ -119,6 +119,13 @@
     "Short film": "Cortometraje", "Poetic fantasy": "Fantasía poética", "Folkloric thriller": "Thriller folclórico", "Psychological thriller": "Thriller psicológico",
     "Drama / neo-noir": "Drama / neo-noir", "Neo-noir": "Neo-noir", "Sci-fi / adventure": "Ciencia ficción / aventura", "Sci-fi": "Ciencia ficción", "Adventure": "Aventura",
     "Concert coverage": "Cobertura de concierto", "Visual study": "Estudio visual",
+    /* Medianeros */
+    "The land they work was never theirs.": "La tierra que trabajan nunca fue suya.",
+    "A story of the people who work land that isn't theirs, told through Teresa, Antonio, Luisa and José. Still in production: this is the first teaser.":
+      "Una historia de quienes trabajan una tierra que no es suya, contada a través de Teresa, Antonio, Luisa y José. Aún en producción: este es su primer teaser.",
+    "Teaser": "Teaser", "Status": "Estado", "In production": "En producción", "Teaser · In production": "Teaser · En producción", "Watch the teaser": "Ver el teaser", "Baby": "Bebé",
+    "Production assistant": "Asistente de producción", "Set design": "Escenografía", "Art assistant": "Asistente de arte", "Costume designer": "Vestuario",
+    "Set design assistant": "Asistente de escenografía", "Media manager": "Media manager",
     /* taglines */
     "The hell is within.": "El infierno está dentro.", "Honor is imposed with fire.": "El honor se impone con fuego.", "Something inside breaks.": "Algo dentro se quiebra.",
     "Waking up next to death.": "Despertar junto a la muerte.", "A story of emotional vacancy.": "Una historia de vacío emocional.",

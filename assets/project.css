@@ -120,6 +120,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .person:hover .ph img{transform:scale(1.05)}
 .person .ph.none{display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 20%,#232327,#0c0c0d 70%)}
 .person .ph.none span{font-family:var(--poster);font-weight:500;font-size:clamp(46px,5vw,72px);letter-spacing:.06em;color:rgba(245,245,247,.28)}
+.person figcaption .as{display:block;margin-top:6px;font:400 italic 17px var(--voice);letter-spacing:0;text-transform:none;color:var(--grey)}
 .person figcaption{font-family:var(--poster);font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;line-height:1.25}
 
 /* credits: key creatives then the full roll */

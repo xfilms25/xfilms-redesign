@@ -50,7 +50,7 @@
     if (!shown.length) { list.innerHTML = '<li class="xs-none">' + esc(T("No matches. Try a film title, a name or a service.")) + "</li>"; return; }
     list.innerHTML = shown.map((it, i) => {
       const meta = it.type === "page" ? T(it.sub || "Page") : [T(it.k), it.d ? T("Directed by") + " " + it.d : "", it.y].filter(Boolean).join(" · ");
-      const img = it.img ? '<img src="' + CLD + it.img + '" alt="" loading="lazy">' : '<span class="xs-ico" aria-hidden="true">' + (it.icon || "›") + "</span>";
+      const img = it.img ? '<img src="' + (it.img.indexOf("img/") === 0 ? BASE + it.img : CLD + it.img) + '" alt="" loading="lazy">' : '<span class="xs-ico" aria-hidden="true">' + (it.icon || "›") + "</span>";
       return '<li><a href="' + BASE + it.u + '" class="' + (i === sel ? "on" : "") + '" data-i="' + i + '">' + img +
         '<span class="xs-t"><b>' + esc(T(it.t)) + "</b>" + (it.es && it.es !== it.t ? ' <i>' + esc(it.es) + "</i>" : "") + "<small>" + esc(meta) + "</small></span></a></li>";
     }).join("");
