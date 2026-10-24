@@ -8,9 +8,10 @@
   --white:#f5f5f7;
   --grey:#8a8a8f;
   --hair:rgba(255,255,255,.12);
-  --red:#ffa045;          /* incandescent: tungsten filament glow, the only accent */
-  --glow:0 0 14px rgba(255,170,80,.55),0 0 38px rgba(255,120,30,.3);
-  --ember:#1c0e03;
+  --red:#b9a3ff;          /* iridescent: solid fallback for borders and focus */
+  --iri:linear-gradient(100deg,#ff9ad5 0%,#c3a6ff 18%,#8fdcff 36%,#9ff5d3 52%,#ffe3a3 68%,#ff9ad5 84%,#c3a6ff 100%);
+  --iri-glow:drop-shadow(0 0 14px rgba(195,166,255,.35));
+  --on-iri:#0b0b10;
 
   --ui:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --poster:"Cormorant SC", "Trajan Pro", "Didot", Georgia, serif;
@@ -34,7 +35,7 @@ h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
 .lnk:hover{border-bottom-color:var(--red);color:#fff}
 .lnk::after{content:"›";font-size:1.2em;line-height:1}
 .play{display:inline-flex;align-items:center;gap:10px;font:500 16px var(--ui);padding:13px 24px;border-radius:980px;background:var(--white);color:#000;border:0;cursor:pointer;transition:background .3s,color .3s}
-.play:hover{background:var(--red);color:var(--ember);box-shadow:0 0 24px rgba(255,150,60,.45)}
+.play:hover{background:var(--iri);background-size:300% 100%;color:var(--on-iri);animation:sheen 10s linear infinite}
 .play svg{width:12px;height:12px}
 
 /* nav */
@@ -62,14 +63,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .p-hero .in > :nth-child(2){animation-delay:.15s}
 .p-hero .in > :nth-child(3){animation-delay:.3s}
 .p-hero .in > :nth-child(4){animation-delay:.45s}
-.p-hero .in > .tag{animation:ignite 2s ease .5s both}
+.p-hero .in > .tag{animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .45s both, sheen 9s linear infinite}
 .p-hero .in > :nth-child(5){animation-delay:.6s}
-@keyframes ignite{0%{opacity:0;text-shadow:none}18%{opacity:.6}22%{opacity:.25}34%{opacity:.9}40%{opacity:.5}60%,100%{opacity:1;text-shadow:var(--glow)}}
+@keyframes sheen{to{background-position:300% 0}}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .p-hero .credit{color:rgba(245,245,247,.9);text-shadow:0 1px 14px rgba(0,0,0,.7)}
 .p-hero h1{font-family:var(--poster);font-weight:500;text-transform:uppercase;letter-spacing:.06em;line-height:.92;font-size:clamp(46px,8.4vw,128px);max-width:14ch}
 .p-hero h1.cinzel{font-family:var(--title)}
-.p-hero .tag{font-family:var(--voice);font-style:italic;font-size:clamp(24px,3vw,38px);margin:0;color:var(--red);text-shadow:var(--glow)}
+.p-hero .tag{font-family:var(--voice);font-style:italic;font-size:clamp(24px,3vw,38px);margin:0;background:var(--iri);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:var(--iri-glow)}
 .p-hero .es{font-size:clamp(18px,2vw,24px);margin:-8px 0 0}
 .p-hero .actions{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin-top:8px}
 
@@ -79,7 +80,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .subnav strong{font-family:var(--poster);font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .subnav nav{display:flex;align-items:center;gap:24px;font-size:13px;color:var(--grey);flex-shrink:0}
 .subnav nav a:hover{color:var(--white)}
-.subnav .watch{font:500 12px var(--ui);padding:6px 14px;border-radius:980px;background:var(--red);color:var(--ember);box-shadow:0 0 24px rgba(255,150,60,.45);border:0;cursor:pointer}
+.subnav .watch{font:500 12px var(--ui);padding:6px 14px;border-radius:980px;background:var(--iri);background-size:300% 100%;color:var(--on-iri);animation:sheen 10s linear infinite;border:0;cursor:pointer}
 
 /* story: poster + synopsis + facts */
 .story{padding-block:120px 110px}
