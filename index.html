@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Cormorant+SC:wght@500;600;700&family=Inter+Tight:wght@400;500;600&display=swap">
 <style>
-/* Layout: Apple skeleton (frosted nav, tiles, quiet footer) with an art-house film section that breaks the grid, one composition per film. Full color stills; red only where the story needs it. */
+/* Layout: Apple skeleton (frosted nav, tiles, quiet footer) with an art-house film section that breaks the grid, one composition per film. Full color stills; one incandescent amber accent, used only where the story needs it. */
 :root{
   color-scheme: dark;
   --black:#000;
@@ -19,7 +19,9 @@
   --white:#f5f5f7;
   --grey:#8a8a8f;
   --hair:rgba(255,255,255,.12);
-  --red:#d42a24;          /* clown-lip red: the only color on the page */
+  --red:#ffa045;          /* incandescent: tungsten filament glow, the only accent */
+  --glow:0 0 14px rgba(255,170,80,.55),0 0 38px rgba(255,120,30,.3);
+  --ember:#1c0e03;
 
   --ui:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --poster:"Cormorant SC", "Trajan Pro", "Didot", Georgia, serif;
@@ -75,14 +77,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .titles .c2{animation-delay:1.6s}
 .titles h1{animation-delay:2.8s}
 .titles .es{animation-delay:3.6s}
-.titles .within{animation-delay:4.6s}
+.titles .within{animation:ignite 2.2s ease 4.6s both}
 .titles .go{animation-delay:5.6s}
+@keyframes ignite{0%{opacity:0;text-shadow:none}18%{opacity:.6}22%{opacity:.25}34%{opacity:.9}40%{opacity:.5}60%,100%{opacity:1;text-shadow:var(--glow)}}
 @keyframes credit{from{opacity:0;filter:blur(6px);letter-spacing:.5em}to{opacity:1;filter:blur(0)}}
 .titles .c2{color:var(--white)}
 .titles h1{font-family:var(--title);font-weight:500;font-size:clamp(44px,8.6vw,132px);line-height:.92;letter-spacing:.06em;text-transform:uppercase;max-width:12ch;margin-top:10px}
 .titles h1 .apos{letter-spacing:0}
 .titles .es{font-size:clamp(20px,2.4vw,30px);margin:0}
-.titles .within{font-family:var(--voice);font-style:italic;font-size:clamp(26px,3.4vw,44px);color:var(--red);margin:6px 0 0}
+.titles .within{font-family:var(--voice);font-style:italic;font-size:clamp(26px,3.4vw,44px);color:var(--red);text-shadow:var(--glow);margin:6px 0 0}
 .titles .go{display:flex;flex-wrap:wrap;gap:18px 32px;justify-content:center;margin-top:14px}
 .scroll-cue{position:absolute;z-index:2;bottom:26px;left:50%;width:1px;height:54px;background:linear-gradient(var(--white),transparent);animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -94,7 +97,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .note blockquote .w{transition:opacity .3s}
 .js .note blockquote .w{opacity:.18}
 .js .note blockquote .w.on{opacity:1}
-.note blockquote .r{color:var(--red)}
+.note blockquote .r{color:var(--red);text-shadow:var(--glow)}
 .note .sig{margin-top:30px;display:flex;gap:14px;align-items:center}
 .note .sig::before{content:"";width:40px;height:1px;background:var(--grey)}
 
@@ -127,7 +130,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sC h3{font-size:clamp(34px,4.6vw,72px)}
 .sC .l{text-align:right}
 .sC .under{grid-column:1/-1;text-align:center;display:grid;gap:10px;justify-items:center}
-.sC .knock{font-family:var(--voice);font-style:italic;color:var(--red);font-size:22px;margin:0}
+.sC .knock{font-family:var(--voice);font-style:italic;color:var(--red);text-shadow:var(--glow);font-size:22px;margin:0}
 
 /* D — bleeds off the left, text overlaps the edge */
 .sD{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}
@@ -194,7 +197,7 @@ form{background:var(--tile);border-radius:24px;padding:34px;display:grid;grid-te
 select option{background:var(--tile-2)}
 .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:8px}
 .send{border:0;cursor:pointer;font:500 17px var(--ui);padding:12px 26px;border-radius:980px;background:var(--white);color:#000;transition:background .3s,color .3s}
-.send:hover{background:var(--red);color:#fff}
+.send:hover{background:var(--red);color:var(--ember);box-shadow:0 0 24px rgba(255,150,60,.45)}
 .status{font-size:14px;color:var(--grey)}
 
 /* ───── footer ───── */
@@ -206,8 +209,8 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
 .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:16px}
 
 /* ───── custom cursor ───── */
-.cur{position:fixed;left:0;top:0;z-index:95;pointer-events:none;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--red);display:grid;place-items:center;transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1),margin .35s cubic-bezier(.2,.7,.2,1);opacity:0}
-.cur span{font:600 11px var(--ui);letter-spacing:.2em;color:#fff;opacity:0;transition:opacity .2s}
+.cur{position:fixed;left:0;top:0;z-index:95;pointer-events:none;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--red);box-shadow:0 0 18px rgba(255,160,70,.7),0 0 46px rgba(255,120,30,.35);display:grid;place-items:center;transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1),margin .35s cubic-bezier(.2,.7,.2,1);opacity:0}
+.cur span{font:600 11px var(--ui);letter-spacing:.2em;color:var(--ember);opacity:0;transition:opacity .2s}
 .cur.big{width:86px;height:86px;margin:-43px 0 0 -43px}
 .cur.big span{opacity:1}
 @media (hover:hover) and (pointer:fine){ .cur{opacity:1} [data-play]{cursor:none} }
