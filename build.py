@@ -3,6 +3,7 @@
 
 Usage: python3 build.py
 """
+import hashlib
 import html
 import json
 from pathlib import Path
@@ -14,6 +15,16 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600"
          "&family=Cormorant+SC:wght@500;600;700&family=Inter+Tight:wght@400;500;600&display=swap")
 ENC = {"name": "Escuela Nacional de Cine", "url": "https://encvenezuela.org/",
        "logo": "v1776641600/enc_lblcuo.png"}
+
+
+def asset_version():
+    h = hashlib.sha1()
+    for f in ("assets/project.css", "assets/project.js"):
+        h.update((ROOT / f).read_bytes())
+    return h.hexdigest()[:8]
+
+
+VER = asset_version()
 
 
 def img(path, w):
@@ -163,7 +174,7 @@ def page(p, nxt):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="../../assets/project.css">
+<link rel="stylesheet" href="../../assets/project.css?v={VER}">
 </head>
 <body>
 {NAV}
@@ -222,7 +233,7 @@ def page(p, nxt):
 
 <dialog id="player" aria-label="Trailer"><button class="x" type="button" aria-label="Close">×</button><div class="box"><div class="frame"><iframe title="Trailer for {t}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen src="about:blank"></iframe></div></div></dialog>
 <dialog id="viewer" aria-label="Image viewer"><button class="x" type="button" aria-label="Close">×</button><button class="arr l" type="button" aria-label="Previous image">‹</button><button class="arr r" type="button" aria-label="Next image">›</button><div class="box"><img class="shot" src="" alt=""></div></dialog>
-<script src="../../assets/project.js"></script>
+<script src="../../assets/project.js?v={VER}"></script>
 </body>
 </html>
 """
