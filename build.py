@@ -19,7 +19,7 @@ ENC = {"name": "Escuela Nacional de Cine", "url": "https://encvenezuela.org/",
 
 def asset_version():
     h = hashlib.sha1()
-    for f in ("assets/project.css", "assets/project.js", "assets/pages.css"):
+    for f in ("assets/project.css", "assets/project.js", "assets/pages.css", "assets/i18n.js"):
         h.update((ROOT / f).read_bytes())
     return h.hexdigest()[:8]
 
@@ -90,6 +90,7 @@ def head(title, desc, image, base, extra_css="", extra_fonts=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 {extra_fonts}{css}
+<script src="{base}assets/i18n.js?v={VER}" defer></script>
 </head>"""
 
 
@@ -233,6 +234,7 @@ def page(p, nxt):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="../../assets/project.css?v={VER}">
+<script src="../../assets/i18n.js?v={VER}" defer></script>
 </head>
 <body>
 {nav("../../")}
@@ -343,8 +345,7 @@ def about_page(data):
     <div class="bg"><img src="{img('v1780349969/x_films_eye_lwm5ky.jpg', 2400)}" alt="" fetchpriority="high"></div>
     <div class="in">
       <p class="eyebrow">Behind the lens</p>
-      <h1 id="title">About us</h1>
-      <p class="lead amber-text">Cinema should be more than entertainment. It should be an experience.</p>
+      <h1 id="title" class="lead amber-text">Cinema should be more than entertainment. It should be an experience.</h1>
     </div>
   </section>
 
@@ -548,7 +549,9 @@ def shop_page():
     document.querySelectorAll(".sizes button").forEach(x => x.setAttribute("aria-pressed", x === b));
     price.textContent = "$" + b.dataset.price;
     const msg = "Hello, I'm interested in ordering Night Haze (" + b.dataset.size + ") for $" + b.dataset.price + ".00.";
-    order.href = "https://wa.me/{WA}?text=" + encodeURIComponent(msg);
+    const en = "https://wa.me/{WA}?text=" + encodeURIComponent(msg);
+    order.href = "https://wa.me/{WA}?text=" + encodeURIComponent(window.XF ? XF.t(msg) : msg);
+    order.dataset.enHref = en; order.dataset.hrefSet = order.getAttribute("href");
   }}));
 }})();
 </script>

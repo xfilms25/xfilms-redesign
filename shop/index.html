@@ -12,8 +12,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Cormorant+SC:wght@500;600;700&family=Jost:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@800&display=swap">
-<link rel="stylesheet" href="../assets/project.css?v=6cea6be6">
-<link rel="stylesheet" href="../assets/pages.css?v=6cea6be6">
+<link rel="stylesheet" href="../assets/project.css?v=58801c7b">
+<link rel="stylesheet" href="../assets/pages.css?v=58801c7b">
+<script src="../assets/i18n.js?v=58801c7b" defer></script>
 </head>
 <body>
 <header class="nav">
@@ -98,7 +99,9 @@
     document.querySelectorAll(".sizes button").forEach(x => x.setAttribute("aria-pressed", x === b));
     price.textContent = "$" + b.dataset.price;
     const msg = "Hello, I'm interested in ordering Night Haze (" + b.dataset.size + ") for $" + b.dataset.price + ".00.";
-    order.href = "https://wa.me/584221990119?text=" + encodeURIComponent(msg);
+    const en = "https://wa.me/584221990119?text=" + encodeURIComponent(msg);
+    order.href = "https://wa.me/584221990119?text=" + encodeURIComponent(window.XF ? XF.t(msg) : msg);
+    order.dataset.enHref = en; order.dataset.hrefSet = order.getAttribute("href");
   }));
 })();
 </script>

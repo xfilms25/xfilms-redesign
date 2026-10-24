@@ -45,6 +45,7 @@ h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
 .es{font-family:var(--voice);font-style:italic;color:var(--grey)}
 .lnk{display:inline-flex;align-items:center;gap:6px;font-size:16px;border-bottom:1px solid var(--hair);padding-bottom:3px;transition:border-color .3s,color .3s}
 .lnk:hover{border-color:var(--red);color:#fff}
+html[lang=es] .en-only{display:none}
 .lnk::after{content:"›";font-size:1.2em;line-height:1}
 
 /* texture: vignette */
@@ -264,6 +265,7 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   .cur{display:none}
 }
 </style>
+<script src="assets/i18n.js?v=5fc15a4e" defer></script>
 </head>
 <body>
 <div class="cur" aria-hidden="true"><span>PLAY</span></div>
@@ -310,7 +312,7 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
     <div class="wrap">
       <p class="credit">The story</p>
       <div>
-        <blockquote id="lit">Damian wakes from a fall and goes looking for Luna, the woman he lost. Every memory repeats like a broken dream. The deeper he goes, the clearer it gets. The real hell was never outside him. It was <span class="r">within.</span></blockquote>
+        <blockquote id="lit" data-i18n-skip>Damian wakes from a fall and goes looking for Luna, the woman he lost. Every memory repeats like a broken dream. The deeper he goes, the clearer it gets. The real hell was never outside him. It was <span class="r">within.</span></blockquote>
         <p class="credit sig"><a href="projects/nothing-i-havent-dreamt-of/">Nothing I Haven’t Dreamt Of</a></p>
       </div>
     </div>
@@ -320,7 +322,7 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   <section id="films" aria-labelledby="films-h">
     <div class="wrap films-head">
       <h2 id="films-h">The Films</h2>
-      <p class="credit" style="margin:0">Short films · 2014 — 2026</p>
+      <p class="credit" style="margin:0">Short films · 2025 — 2026</p>
     </div>
 
     <article class="scene sA rise">
@@ -375,10 +377,10 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
       <div class="wrap">
         <figure class="frame" style="margin:0">
           <a class="pic" href="projects/deluge/" data-play style="display:block"><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_1000/aguacero_web_fgm3zp" alt="Still from Deluge" loading="lazy"></a>
-          <figcaption><span>Aguacero</span><span>2014</span></figcaption>
+          <figcaption><span>Aguacero</span><span>2025</span></figcaption>
         </figure>
         <div class="txt">
-          <p class="credit" style="margin:0">Sci-fi · Adventure · 15 min · 2014</p>
+          <p class="credit" style="margin:0">Sci-fi · Adventure · 15 min · 2025</p>
           <h3>Deluge</h3>
           <p class="line">Humanity’s resilience is tested.</p>
           <span class="meta">Directed by Jesús Araujo</span>
@@ -423,7 +425,7 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   <section class="book-sec" id="book" aria-labelledby="book-h">
     <div class="wrap">
       <h2 id="book-h" class="rise">Tell us the story</h2>
-      <p class="es rise">Cuéntanos la historia</p>
+      <p class="es rise en-only">Cuéntanos la historia</p>
       <p class="lead rise">Send the date, the place and what you have in mind. We reply within two days.</p>
       <!-- On your live site: add action="https://formsubmit.co/YOUR-EMAIL" method="POST" to this form and delete the "form" block in the script. -->
       <form id="quote" class="rise" novalidate>
@@ -484,16 +486,20 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
       c.replaceWith(fr);
     } else walk(c);
   });
-  walk(lit);
-  const words = [...lit.querySelectorAll(".w")];
-  if (reduce) words.forEach(w => w.classList.add("on"));
-  const onScroll = () => {
+  /* the story line in the visitor's language, then split into words */
+  const litEN = lit.innerHTML;
+  const litES = 'Damian despierta de una caída y busca a Luna, la mujer que perdió. Cada recuerdo se repite como un sueño roto. Cuanto más se adentra, más claro lo ve. El verdadero infierno nunca estuvo afuera. Estaba <span class="r">dentro.</span>';
+  let words = [];
+  const splitLit = l => { lit.innerHTML = l === "es" ? litES : litEN; walk(lit); words = [...lit.querySelectorAll(".w")]; if (reduce) words.forEach(w => w.classList.add("on")); };
+  splitLit(window.XF ? XF.lang : "en");
+  document.addEventListener("xf:lang", e => { splitLit(e.detail); onScroll(); });
+  function onScroll() {
     if (reduce) return;
     const r = lit.getBoundingClientRect(), vh = innerHeight;
     const p = Math.max(0, Math.min(1, (vh * .85 - r.top) / (r.height + vh * .3)));
     const n = Math.round(p * words.length);
     words.forEach((w, i) => w.classList.toggle("on", i < n));
-  };
+  }
   addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive:true });
   onScroll();
 
