@@ -83,7 +83,13 @@
         "v1776454163/Screenshot_2026-04-17_152821_ayrpmn.png",
         "v1776454163/Screenshot_2026-04-17_152751_nvamib.png"
       ],
-      "partner": null
+      "partner": null,
+      "game": {
+        "url": "https://xfilms25.github.io/NIHDO/",
+        "lead": "Follow the trail of light through the pines. Something is following you.",
+        "controls": "Keyboard and mouse · Controller · Touch",
+        "languages": "English · Español"
+      }
     },
     {
       "slug": "beneath-the-enchanted-tree",

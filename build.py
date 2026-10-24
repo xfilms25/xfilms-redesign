@@ -184,7 +184,41 @@ def page(p, nxt):
                    f'<div class="sec-h"><h2 id="gal-h">Stills</h2><p>Tap any frame to view it full screen</p></div>'
                    f'<div class="grid">{"".join(btns)}</div></div></section>')
 
+    game = ""
+    g = p.get("game")
+    if g:
+        game = f"""<section class="game" id="game" aria-labelledby="game-h">
+    <div class="wrap">
+      <div class="sec-h"><h2 id="game-h">The official game</h2><p>Free · Plays in your browser</p></div>
+      <div class="gwrap">
+        <div class="screen" id="gscreen" data-url="{e(g['url'])}">
+          <img src="{img(p['hero'], 1800)}" alt="" loading="lazy">
+          <canvas class="embers" aria-hidden="true"></canvas>
+          <div class="card">
+            <p class="eyebrow">Based on the short film</p>
+            <p class="gtitle">{t}</p>
+            <p class="ghint">Follow Luna</p>
+            <button class="play" type="button" data-game><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>Play here</button>
+            <p class="gnote">Best with headphones</p>
+          </div>
+          <button class="gexit" type="button" hidden aria-label="Close the game">×</button>
+        </div>
+        <div class="ginfo">
+          <blockquote>{e(g['lead'])}</blockquote>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>Any modern browser</dd></div>
+            <div><dt>Controls</dt><dd>{e(g['controls'])}</dd></div>
+            <div><dt>Languages</dt><dd>{e(g['languages'])}</dd></div>
+            <div><dt>Mode</dt><dd>Story run with a best-time timer</dd></div>
+          </dl>
+          <div class="gactions"><a class="play" href="{e(g['url'])}" target="_blank" rel="noopener">Play full screen</a><button class="lnk" type="button" data-game>Play on this page</button></div>
+        </div>
+      </div>
+    </div>
+  </section>"""
+
     sub_links = ['<a href="#story">Story</a>']
+    if game: sub_links.append('<a href="#game">Game</a>')
     if cast: sub_links.append('<a href="#cast">Cast</a>')
     sub_links.append('<a href="#credits">Credits</a>')
     if gallery: sub_links.append('<a href="#stills">Stills</a>')
@@ -238,6 +272,8 @@ def page(p, nxt):
   </section>
 
   {lead}
+
+  {game}
 
   {cast}
 
