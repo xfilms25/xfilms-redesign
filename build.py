@@ -19,7 +19,7 @@ ENC = {"name": "Escuela Nacional de Cine", "url": "https://encvenezuela.org/",
 
 def asset_version():
     h = hashlib.sha1()
-    for f in ("assets/project.css", "assets/project.js"):
+    for f in ("assets/project.css", "assets/project.js", "assets/pages.css"):
         h.update((ROOT / f).read_bytes())
     return h.hexdigest()[:8]
 
@@ -35,30 +35,62 @@ def e(s):
     return html.escape(s or "", quote=True)
 
 
-NAV = """<header class="nav">
-  <div class="wrap">
-    <a class="logo" href="../../" aria-label="X Films home"><img src="{logo}" alt="X Films"></a>
-    <ul>
-      <li><a href="../../#films">Films</a></li>
-      <li><a href="../../#work">Music Videos</a></li>
-      <li><a href="../../#work">Commercials</a></li>
-      <li><a href="../../#services">Services</a></li>
-    </ul>
-    <a class="book" href="../../#book">Book a shoot</a>
-  </div>
-</header>""".format(logo=f"{CLD}f_auto,q_auto,h_90/logo_long_side_for_web_tpvx8y")
+WA = "584221990119"  # WhatsApp number, international format without +
 
-FOOTER = """<footer>
+
+def wa(text):
+    from urllib.parse import quote
+    return f"https://wa.me/{WA}?text={quote(text)}"
+
+
+def nav(base, current=""):
+    items = [("Films", "#films", ""), ("Music Videos", "#work", ""), ("Commercials", "#work", ""),
+             ("Services", "services/", "services"), ("About", "about/", "about"), ("Shop", "shop/", "shop")]
+    lis = "".join(
+        f'<li><a href="{base}{(h if h.endswith("/") else h)}"{" aria-current=\"page\"" if key and key == current else ""}>{n}</a></li>'
+        for n, h, key in items)
+    return f"""<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="{base}" aria-label="X Films home"><img src="{CLD}f_auto,q_auto,h_90/logo_long_side_for_web_tpvx8y" alt="X Films"></a>
+    <ul>{lis}</ul>
+    <a class="book" href="{base}#book">Book a shoot</a>
+  </div>
+</header>"""
+
+
+def footer(base):
+    return f"""<footer>
   <div class="wrap">
     <div class="fcols">
-      <div><h4>Watch</h4><ul><li><a href="../../#films">Short films</a></li><li><a href="../../#work">Music videos</a></li><li><a href="../../#work">Commercials</a></li></ul></div>
-      <div><h4>Work with us</h4><ul><li><a href="../../#services">Weddings &amp; events</a></li><li><a href="../../#services">Services</a></li><li><a href="../../#book">Book a shoot</a></li></ul></div>
-      <div><h4>X Films</h4><ul><li><a href="https://xstudiosfilms.com/about">About</a></li><li><a href="https://xstudiosfilms.com/contact">Contact</a></li></ul></div>
+      <div><h4>Watch</h4><ul><li><a href="{base}#films">Short films</a></li><li><a href="{base}#work">Music videos</a></li><li><a href="{base}#work">Commercials</a></li></ul></div>
+      <div><h4>Work with us</h4><ul><li><a href="{base}services/">Services</a></li><li><a href="{base}services/#rental">Equipment rental</a></li><li><a href="{base}#book">Book a shoot</a></li></ul></div>
+      <div><h4>X Films</h4><ul><li><a href="{base}about/">About</a></li><li><a href="{base}shop/">Shop · Night Haze</a></li><li><a href="{wa('Hello X Films')}" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
       <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/xstudios.films" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.youtube.com/@X-STUDIOS-0" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.facebook.com/share/1B4C5CS3aY/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 X Films · Made in Venezuela</span><span>All images are stills from the productions.</span></div>
+    <div class="legal"><span>© 2026 X Films · Made in Venezuela</span><span>+58 422 199 0119</span></div>
   </div>
 </footer>"""
+
+
+def head(title, desc, image, base, extra_css=""):
+    css = f'<link rel="stylesheet" href="{base}assets/project.css?v={VER}">'
+    if extra_css:
+        css += f'\n<link rel="stylesheet" href="{base}assets/{extra_css}?v={VER}">'
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{e(desc)}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:image" content="{image}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{FONTS}">
+{css}
+</head>"""
 
 
 def page(p, nxt):
@@ -177,7 +209,7 @@ def page(p, nxt):
 <link rel="stylesheet" href="../../assets/project.css?v={VER}">
 </head>
 <body>
-{NAV}
+{nav("../../")}
 <main>
   <section class="p-hero" aria-labelledby="title">
     <div class="bg"><img{bright} src="{img(p['hero'], 2400)}" alt="" fetchpriority="high"></div>
@@ -229,7 +261,7 @@ def page(p, nxt):
     </div>
   </a>
 </main>
-{FOOTER}
+{footer("../../")}
 
 <dialog id="player" aria-label="Trailer"><button class="x" type="button" aria-label="Close">×</button><div class="box"><div class="frame"><iframe title="Trailer for {t}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen src="about:blank"></iframe></div></div></dialog>
 <dialog id="viewer" aria-label="Image viewer"><button class="x" type="button" aria-label="Close">×</button><button class="arr l" type="button" aria-label="Previous image">‹</button><button class="arr r" type="button" aria-label="Next image">›</button><div class="box"><img class="shot" src="" alt=""></div></dialog>
@@ -250,3 +282,260 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ─────────────────────────── About, Services, Shop ───────────────────────────
+SITE = "https://xstudiosfilms.com/assets/"   # images that live on the current site
+
+
+def close_band(base, title="Tell us the story", text="Send the date, the place and what you have in mind. We reply within two days.", wa_text="Hello X Films, I'd like to talk about a project."):
+    return f"""<section class="close" aria-labelledby="close-h"><div class="wrap">
+    <h2 id="close-h">{title}</h2>
+    <p>{text}</p>
+    <div class="actions"><a class="play" href="{base}#book">Book a shoot</a><a class="lnk" href="{wa(wa_text)}" target="_blank" rel="noopener">Message us on WhatsApp</a></div>
+    <span class="num">WhatsApp · +58 422 199 0119</span>
+  </div></section>"""
+
+
+def about_page(data):
+    by = {p["slug"]: p for p in data}
+    counts = {"Short film": 0, "Music video": 0, "Commercial": 0}
+    for p in data:
+        counts[p["kind"]] = counts.get(p["kind"], 0) + 1
+    first = min(int(p["year"]) for p in data if p["year"])
+    reel = "".join(
+        f'<a href="../projects/{s}/"><img src="{img(by[s]["hero"], 900)}" alt="" loading="lazy"><span>{e(by[s]["title"])}</span></a>'
+        for s in ("nothing-i-havent-dreamt-of", "in-silence", "big-band-banana"))
+    return head("About · X Films", "X Films is a collective of directors, designers and visual artists from Venezuela crafting atmospheric narratives.",
+                img("v1780349969/x_films_eye_lwm5ky.jpg", 1200), "../", "pages.css") + f"""
+<body>
+{nav("../", "about")}
+<main>
+  <section class="pg-hero" aria-labelledby="title">
+    <div class="bg"><img src="{img('v1780349969/x_films_eye_lwm5ky.jpg', 2400)}" alt="" fetchpriority="high"></div>
+    <div class="in">
+      <p class="eyebrow">Behind the lens</p>
+      <h1 id="title">About X Films</h1>
+      <p class="lead amber-text">Cinema should be more than entertainment. It should be an experience.</p>
+    </div>
+  </section>
+
+  <section class="band manifesto" aria-labelledby="m-h">
+    <div class="wrap">
+      <p class="eyebrow">Who we are</p>
+      <div>
+        <h2 id="m-h">Crafting atmospheric narratives.</h2>
+        <p class="body">X Films was founded on the belief that cinema should be more than entertainment; it should be an experience. Our collective of directors, designers and visual artists works together to create worlds that are as visually arresting as they are emotionally resonant.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band ink" aria-label="Mission and vision">
+    <div class="wrap">
+      <div class="mv">
+        <article><h3>Mission</h3><p>To redefine the cinematic landscape by crafting deeply atmospheric and immersive narratives that transcend traditional boundaries and resonate with global audiences.</p></article>
+        <article><h3>Vision</h3><p>To be a leading creative force in contemporary cinema, recognized for our commitment to artistic integrity, technical excellence and visionary storytelling.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="w-h">
+    <div class="wrap">
+      <div class="head2"><h2 id="w-h">The work</h2><p>Short films, music videos and brand films, made in Venezuela with a growing family of collaborators.</p></div>
+      <div class="stats">
+        <div><b>{counts["Short film"]}</b><span>Short films</span></div>
+        <div><b>{counts["Music video"]}</b><span>Music videos</span></div>
+        <div><b>{counts["Commercial"]}</b><span>Brand films</span></div>
+        <div><b>{first}</b><span>First film</span></div>
+      </div>
+      <div class="reel">{reel}</div>
+    </div>
+  </section>
+
+  <section class="band ink" aria-label="Partners">
+    <div class="wrap partners">
+      <img src="{img(ENC['logo'], 300)}" alt="Escuela Nacional de Cine" loading="lazy">
+      <span>Co-productions with the <a href="{ENC['url']}" target="_blank" rel="noopener" style="border-bottom:1px solid var(--hair)">Escuela Nacional de Cine</a></span>
+    </div>
+  </section>
+
+  {close_band("../")}
+</main>
+{footer("../")}
+</body>
+</html>
+"""
+
+
+def services_page(data):
+    by = {p["slug"]: p for p in data}
+    caps = [
+        ("production", "PRD", "Film production", f"{SITE}film_production_1780358201299-DEZY95OT.png",
+         "Full-scale production from concept development to principal photography. We bring visionary narratives to life with uncompromising quality and scale.",
+         ["Concept development", "Pre-production", "Principal photography"], "Hello X Films, I'd like to talk about producing a film."),
+        ("cinematography", "DOP", "Director of photography", f"{SITE}director_of_photography_1780358213266-VsCExifR.png",
+         "Cinematography focused on lighting, composition and visual tone, so every frame tells your story with power and elegance.",
+         ["Lighting", "Composition", "Visual tone"], "Hello X Films, I'm looking for a director of photography."),
+        ("post", "PST", "Post-production", f"{SITE}post_production_1780358228084-BPQDlsOy.png",
+         "Editing, color grading, visual effects and sound design to polish and finish your film.",
+         ["Editing", "Color grading", "Visual effects", "Sound design"], "Hello X Films, I need help with post-production."),
+        ("rental", "RNT", "Equipment rental", f"{SITE}equipment_rental_1787786778409-0HHBs3nM.jpg",
+         "High-end cinema cameras, lenses, lighting and grip equipment for your next production.",
+         ["Cinema cameras", "Lenses", "Lighting", "Grip"], "Hello, I am interested in renting equipment."),
+    ]
+    rows = "".join(f"""<article class="cap" id="{i}">
+        <div class="pic"><img src="{src}" alt="{e(t)}" loading="lazy"></div>
+        <div class="txt">
+          <span class="code">{c}</span>
+          <h3>{e(t)}</h3>
+          <p>{e(d)}</p>
+          <ul>{''.join(f'<li>{e(x)}</li>' for x in tags)}</ul>
+          <a class="lnk" href="{wa(msg)}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </div>
+      </article>""" for i, c, t, src, d, tags, msg in caps)
+    kinds = [
+        ("Weddings & events", "Your day or your event, shot like a film.", "big-band-banana", "Event coverage · Big Band Banana"),
+        ("Music videos", "Concept, shoot and grade built around the track.", "extasis", "See Extasis"),
+        ("Commercials", "Brand films with the craft of narrative cinema.", "runway-night-heroines", "See Runway Night"),
+        ("Narrative", "Short films, from the script to the festival.", "the-woman-in-the-other-room", "See The Woman in the Other Room"),
+    ]
+    tiles = "".join(f"""<a class="kind" href="../projects/{s}/"><img src="{img(by[s]['hero'], 900)}" alt="" loading="lazy">
+        <h3>{e(t)}</h3><p>{e(d)}</p><span class="see">{e(see)} ›</span></a>""" for t, d, s, see in kinds)
+    return head("Services · X Films", "Film production, cinematography, post-production and equipment rental from X Films.",
+                img(by["runway-night-heroines"]["hero"], 1200), "../", "pages.css") + f"""
+<body>
+{nav("../", "services")}
+<main>
+  <section class="pg-hero" aria-labelledby="title">
+    <div class="bg"><img src="{img(by['runway-night-heroines']['hero'], 2400)}" alt="" fetchpriority="high"></div>
+    <div class="in">
+      <p class="eyebrow">Services</p>
+      <h1 id="title">From idea to final cut</h1>
+      <p class="lead amber-text">Everything a production needs, under one roof.</p>
+      <div class="actions"><a class="play" href="#capabilities">See what we do</a><a class="lnk" href="{wa("Hello X Films, I'd like a quote.")}" target="_blank" rel="noopener">Get a quote</a></div>
+    </div>
+  </section>
+
+  <section class="band" id="capabilities" aria-labelledby="cap-h">
+    <div class="wrap">
+      <div class="head2"><h2 id="cap-h">Capabilities</h2><p>Hire the full team, or just the part of the pipeline you need.</p></div>
+      {rows}
+    </div>
+  </section>
+
+  <section class="band ink" aria-labelledby="k-h">
+    <div class="wrap">
+      <div class="head2"><h2 id="k-h">What we shoot</h2><p>Locally, across Venezuela and abroad.</p></div>
+      <div class="kinds">{tiles}</div>
+    </div>
+  </section>
+
+  {close_band("../", "Let's make something", "Tell us about the shoot, the date and the place. We reply within two days with a plan and a quote.", "Hello X Films, I'd like a quote for a shoot.")}
+</main>
+{footer("../")}
+</body>
+</html>
+"""
+
+
+def shop_page():
+    shots = [
+        ("isolated_gallon_1787785853795-B8DYDhWc.jpg", "Night Haze one-gallon jug"),
+        ("night_haze_left_aligned_1787790906641-I2GfI3we.jpg", "Night Haze professional fluid"),
+        ("feat_diffusion_model_1787785636901-CcN-VdXk.jpg", "Haze catching a light beam on set"),
+        ("feat_hangtime_1787785453635-ftuAdYIg.jpg", "Haze hanging in a studio"),
+        ("feat_formats_1787785464597-Bi-oSpOd.jpg", "Night Haze bottle and jug"),
+    ]
+    thumbs = "".join(f'<button type="button" aria-pressed="{"true" if n == 0 else "false"}" data-src="{SITE}{f}" aria-label="Show {e(a)}"><img src="{SITE}{f}" alt="" loading="lazy"></button>' for n, (f, a) in enumerate(shots))
+    feats = [
+        ("feat_diffusion_model_1787785636901-CcN-VdXk.jpg", "Cinematic light diffusion", "A smooth, even haze that catches practical and studio light, lifting beams, shaping shadows and bringing out flares."),
+        ("feat_premium_1787785441473-DINZKPTA.jpg", "Premium formulation", "A precise blend of high-quality vegetable glycerin and propylene glycol for a reliable, non-toxic, clean effect."),
+        ("feat_hangtime_1787785453635-ftuAdYIg.jpg", "Extended hang time", "Made for the pace of real productions, so you spend less time re-hazing between takes."),
+        ("feat_formats_1787785464597-Bi-oSpOd.jpg", "Production-ready formats", "A 1-liter (33.8 fl oz) bottle for nimble location work, or a gallon jug for studio builds."),
+        ("feat_clean_1787785474280-BEkXEsVX.jpg", "Odorless and clean", "A neutral scent that keeps cast and crew comfortable through long indoor shooting days."),
+    ]
+    feat_html = "".join(f'<article class="feat"><div class="pic"><img src="{SITE}{f}" alt="" loading="lazy"></div><div class="t"><h3>{e(t)}</h3><p>{e(d)}</p></div></article>' for f, t, d in feats)
+    return head("Night Haze · X Films Shop", "Night Haze: professional cinematic fog fluid from X Films. 1 liter $15, 1 gallon $50.",
+                f"{SITE}{shots[0][0]}", "../", "pages.css") + f"""
+<body>
+{nav("../", "shop")}
+<main>
+  <section class="product" aria-labelledby="title">
+    <div class="wrap">
+      <div class="gal">
+        <div class="main"><img id="shot" src="{SITE}{shots[0][0]}" alt="{e(shots[0][1])}"></div>
+        <div class="thumbs" role="group" aria-label="Product photos">{thumbs}</div>
+      </div>
+      <div class="buy">
+        <p class="eyebrow">X Films Shop · Elevate your atmosphere</p>
+        <h1 id="title">Night Haze</h1>
+        <p class="lead amber-text">Professional cinematic fog fluid.</p>
+        <p class="price"><span id="price">$15</span><small>USD</small></p>
+        <div class="sizes" role="group" aria-label="Size">
+          <button type="button" aria-pressed="true" data-size="1 Liter" data-price="15"><b>1 Liter</b><span>33.8 fl oz · $15</span></button>
+          <button type="button" aria-pressed="false" data-size="1 Gallon" data-price="50"><b>1 Gallon</b><span>3.8 L · $50</span></button>
+        </div>
+        <a class="play order" id="order" href="{wa("Hello, I'm interested in ordering Night Haze (1 Liter) for $15.00.")}" target="_blank" rel="noopener"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>Order on WhatsApp</a>
+        <p class="note">Orders, payment and delivery are arranged on WhatsApp · +58 422 199 0119</p>
+        <dl class="specs">
+          <div><dt>Formula</dt><dd>Vegetable glycerin and propylene glycol</dd></div>
+          <div><dt>Sizes</dt><dd>1 liter · 1 gallon</dd></div>
+          <div><dt>Residue</dt><dd>Clean-burning, kind to lenses and sensors</dd></div>
+          <div><dt>Scent</dt><dd>Odorless</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band ink" aria-labelledby="q-h">
+    <div class="wrap copy2">
+      <h2 id="q-h">Made for the professional set</h2>
+      <div>
+        <p>Night Haze delivers the volumetric light and atmospheric depth cinematographers, lighting directors and event producers chase. It gives a consistent, long-lasting mist that turns flat spaces into textured, striking environments.</p>
+        <p>The fluid is a clean-burning blend of vegetable glycerin and propylene glycol. It creates a rich atmosphere without leaving heavy residue on cinema lenses, sensors or event equipment, and its dark, minimal packaging looks at home on any set.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="f-h">
+    <div class="wrap">
+      <div class="head2"><h2 id="f-h">The Night Haze advantage</h2><p>The haze we use on our own sets.</p></div>
+      <div class="feats">{feat_html}</div>
+    </div>
+  </section>
+
+  {close_band("../", "Light your next scene", "Need a quantity for a production or a venue? Message us and we'll put an order together.", "Hello, I'd like to order Night Haze for a production.")}
+</main>
+{footer("../")}
+<script>
+(() => {{
+  const shot = document.getElementById("shot");
+  document.querySelectorAll(".thumbs button").forEach(b => b.addEventListener("click", () => {{
+    shot.src = b.dataset.src; shot.alt = b.getAttribute("aria-label").replace("Show ", "");
+    document.querySelectorAll(".thumbs button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  }}));
+  const order = document.getElementById("order"), price = document.getElementById("price");
+  document.querySelectorAll(".sizes button").forEach(b => b.addEventListener("click", () => {{
+    document.querySelectorAll(".sizes button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    price.textContent = "$" + b.dataset.price;
+    const msg = "Hello, I'm interested in ordering Night Haze (" + b.dataset.size + ") for $" + b.dataset.price + ".00.";
+    order.href = "https://wa.me/{WA}?text=" + encodeURIComponent(msg);
+  }}));
+}})();
+</script>
+</body>
+</html>
+"""
+
+
+def build_pages():
+    data = json.loads((ROOT / "projects.json").read_text(encoding="utf-8"))["projects"]
+    for name, html_ in (("about", about_page(data)), ("services", services_page(data)), ("shop", shop_page())):
+        out = ROOT / name / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(html_, encoding="utf-8")
+        print("built", out.relative_to(ROOT))
+
+
+if __name__ == "__main__":
+    build_pages()
