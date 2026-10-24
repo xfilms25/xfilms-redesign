@@ -13,7 +13,7 @@
   --iri-glow:drop-shadow(0 0 14px rgba(195,166,255,.35));
   --on-iri:#0b0b10;
 
-  --ui:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --ui:"Jost", "Futura", "Futura PT", "Century Gothic", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --poster:"Cormorant SC", "Trajan Pro", "Didot", Georgia, serif;
   --voice:"Cormorant Garamond", "Garamond", Georgia, serif;
   --title:"Cinzel", "Trajan Pro", "Cormorant SC", Georgia, serif;
@@ -23,7 +23,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--black);color:var(--white);font-family:var(--ui);font-size:17px;line-height:1.5;letter-spacing:-.015em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--black);color:var(--white);font-family:var(--ui);font-size:17px;line-height:1.55;letter-spacing:0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px}
@@ -171,6 +171,17 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
 .fcols a:hover{color:var(--white)}
 .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:16px}
 
+/* Jost interface: menus, buttons and labels in spaced capitals, like a title sequence */
+.nav ul a,.subnav nav a{font-size:11px;text-transform:uppercase;letter-spacing:.18em}
+.nav .book,.subnav .watch{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:500}
+.nav .book{padding:7px 14px}
+.subnav .watch{padding:7px 14px}
+.play{font-size:12px;text-transform:uppercase;letter-spacing:.18em;padding:15px 26px}
+.lnk,.next .arrow{font-size:12px;text-transform:uppercase;letter-spacing:.18em}
+.facts dt,.keys dt{font-size:10px;letter-spacing:.24em}
+.facts dd{font-size:18px}
+.sec-h p,.partner{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.fcols h4{font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:500}
 @media (max-width:900px){
   .nav ul{display:none}
   .story .wrap{grid-template-columns:1fr;gap:56px}

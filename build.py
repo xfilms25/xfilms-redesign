@@ -12,7 +12,7 @@ ROOT = Path(__file__).parent
 CLD = "https://res.cloudinary.com/dsbe46noz/image/upload/"
 FONTS = ("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600"
          "&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500"
-         "&family=Cormorant+SC:wght@500;600;700&family=Inter+Tight:wght@400;500;600&display=swap")
+         "&family=Cormorant+SC:wght@500;600;700&family=Jost:wght@400;500;600&display=swap")
 ENC = {"name": "Escuela Nacional de Cine", "url": "https://encvenezuela.org/",
        "logo": "v1776641600/enc_lblcuo.png"}
 
