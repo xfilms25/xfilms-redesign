@@ -1,4 +1,5 @@
-# The site is plain HTML: nothing to build, publish the repository as it is.
+# The site is plain HTML. Netlify's settings publish the "dist" folder,
+# so the build just copies the site's files into dist.
 [build]
-  publish = "."
-  command = "echo done"
+  publish = "dist"
+  command = "rm -rf dist && mkdir dist && cp -r index.html 404.html _redirects about assets img privacy projects services shop dist/"
