@@ -5,8 +5,16 @@
   // muted trailer behind the hero
   const yt = document.getElementById("yt");
   if (yt && !reduce) {
-    yt.addEventListener("load", () => setTimeout(() => yt.classList.add("on"), 1800), { once: true });
-    yt.src = yt.dataset.src;
+    // Show the video only once YouTube reports it is actually playing,
+    // then fade the still out so nothing shows through.
+    const reveal = () => { yt.classList.add("on"); yt.closest(".p-hero").classList.add("playing"); };
+    addEventListener("message", e => {
+      if (!/youtube/.test(e.origin) || e.source !== yt.contentWindow) return;
+      let d; try { d = JSON.parse(e.data); } catch (_) { return; }
+      if ((d.event === "onStateChange" && d.info === 1) || (d.event === "infoDelivery" && d.info && d.info.playerState === 1)) reveal();
+    });
+    yt.addEventListener("load", () => yt.contentWindow.postMessage(JSON.stringify({ event: "listening", id: "yt", channel: "widget" }), "*"), { once: true });
+    yt.src = yt.dataset.src + "&enablejsapi=1&origin=" + encodeURIComponent(location.origin);
   }
 
   // trailer player with sound
