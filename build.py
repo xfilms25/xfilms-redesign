@@ -197,7 +197,6 @@ def page(p, nxt):
           <div class="card">
             <p class="eyebrow">Based on the short film</p>
             <p class="gtitle">{t}</p>
-            <p class="ghint">Follow Luna</p>
             <button class="play" type="button" data-game><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>Play here</button>
             <p class="gnote">Best with headphones</p>
           </div>
@@ -205,13 +204,6 @@ def page(p, nxt):
         </div>
         <div class="ginfo">
           <blockquote>{e(g['lead'])}</blockquote>
-          <dl class="facts">
-            <div><dt>Platform</dt><dd>Any modern browser</dd></div>
-            <div><dt>Controls</dt><dd>{e(g['controls'])}</dd></div>
-            <div><dt>Languages</dt><dd>{e(g['languages'])}</dd></div>
-            <div><dt>Mode</dt><dd>Story run with a best-time timer</dd></div>
-          </dl>
-          <div class="gactions"><a class="play" href="{e(g['url'])}" target="_blank" rel="noopener">Play full screen</a><button class="lnk" type="button" data-game>Play on this page</button></div>
         </div>
       </div>
     </div>
