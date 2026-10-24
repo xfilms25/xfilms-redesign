@@ -53,7 +53,7 @@ def nav(base, current=""):
   <div class="wrap">
     <a class="logo" href="{base}" aria-label="X Films home"><img src="{CLD}f_auto,q_auto,h_90/logo_long_side_for_web_tpvx8y" alt="X Films"></a>
     <ul>{lis}</ul>
-    <a class="book" href="{base}#book">Book a shoot</a>
+    <a class="book" href="{base}#book">Book us</a>
   </div>
 </header>"""
 
@@ -63,7 +63,7 @@ def footer(base):
   <div class="wrap">
     <div class="fcols">
       <div><h4>Watch</h4><ul><li><a href="{base}#films">Short films</a></li><li><a href="{base}#work">Music videos</a></li><li><a href="{base}#work">Commercials</a></li></ul></div>
-      <div><h4>Work with us</h4><ul><li><a href="{base}services/">Services</a></li><li><a href="{base}services/#rental">Equipment rental</a></li><li><a href="{base}#book">Book a shoot</a></li></ul></div>
+      <div><h4>Work with us</h4><ul><li><a href="{base}services/">Services</a></li><li><a href="{base}services/#rental">Equipment rental</a></li><li><a href="{base}#book">Book us</a></li></ul></div>
       <div><h4>X Films</h4><ul><li><a href="{base}about/">About</a></li><li><a href="{base}shop/">Shop · Night Haze</a></li><li><a href="{wa('Hello X Films')}" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
       <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/xstudios.films" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.youtube.com/@X-STUDIOS-0" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.facebook.com/share/1B4C5CS3aY/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
     </div>
@@ -292,7 +292,7 @@ def close_band(base, title="Tell us the story", text="Send the date, the place a
     return f"""<section class="close" aria-labelledby="close-h"><div class="wrap">
     <h2 id="close-h">{title}</h2>
     <p>{text}</p>
-    <div class="actions"><a class="play" href="{base}#book">Book a shoot</a><a class="lnk" href="{wa(wa_text)}" target="_blank" rel="noopener">Message us on WhatsApp</a></div>
+    <div class="actions"><a class="play" href="{base}#book">Book us</a><a class="lnk" href="{wa(wa_text)}" target="_blank" rel="noopener">Message us on WhatsApp</a></div>
     <span class="num">WhatsApp · +58 422 199 0119</span>
   </div></section>"""
 
