@@ -243,7 +243,7 @@ def page(p, nxt):
     <div class="bg"><img{bright} src="{img(p['hero'], 2400)}" alt="" fetchpriority="high"></div>
     {yt}
     <div class="in">
-      <p class="credit">{e(line1)}{' · ' + e(line2) if line2 else ''}</p>
+      <p class="credit">{e(line2) if is_film else e(line1) + (' · ' + e(line2) if line2 else '')}</p>
       <h1 id="title"{title_cls}>{t}</h1>
       {es}
       <p class="tag">{e(p['tagline'])}</p>
