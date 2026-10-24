@@ -34,24 +34,39 @@
   // official game: ember title card, then load the game in place
   const screen = document.getElementById("gscreen");
   if (screen) {
-    const coarse = matchMedia("(pointer: coarse)").matches;
     const exit = screen.querySelector(".gexit");
+    const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+    const stop = () => {
+      screen.querySelector("iframe")?.remove();
+      screen.classList.remove("live");
+      exit.hidden = true;
+      if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    };
+    // Play opens the game full screen on every device. Where a browser can't go
+    // full screen (iPhone Safari), it opens the game in its own tab instead.
     const start = () => {
-      if (coarse) { window.open(screen.dataset.url, "_blank", "noopener"); return; }   // phones: full screen tab
-      if (screen.classList.contains("live")) return;
-      const f = document.createElement("iframe");
-      f.src = screen.dataset.url;
-      f.title = "Game: " + document.title;
-      f.allow = "autoplay; fullscreen; gamepad; pointer-lock";
-      f.allowFullscreen = true;
-      screen.appendChild(f);
-      screen.classList.add("live");
-      exit.hidden = false;
-      screen.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
-      setTimeout(() => f.focus(), 400);
+      const req = screen.requestFullscreen || screen.webkitRequestFullscreen;
+      if (!req) { window.open(screen.dataset.url, "_blank", "noopener"); return; }
+      if (!screen.classList.contains("live")) {
+        const f = document.createElement("iframe");
+        f.src = screen.dataset.url;
+        f.title = "Game: " + document.title;
+        f.allow = "autoplay; fullscreen; gamepad; pointer-lock";
+        f.allowFullscreen = true;
+        screen.appendChild(f);
+        screen.classList.add("live");
+        exit.hidden = false;
+      }
+      Promise.resolve(req.call(screen, { navigationUI: "hide" }))
+        .then(() => setTimeout(() => screen.querySelector("iframe")?.focus(), 300))
+        .catch(() => { stop(); window.open(screen.dataset.url, "_blank", "noopener"); });
     };
     document.querySelectorAll("[data-game]").forEach(b => b.addEventListener("click", start));
-    exit.addEventListener("click", () => { screen.querySelector("iframe")?.remove(); screen.classList.remove("live"); exit.hidden = true; });
+    exit.addEventListener("click", stop);
+    // leaving full screen (Esc, swipe, back) closes the game and shows the title card again
+    const onFs = () => { if (!fsEl() && screen.classList.contains("live")) stop(); };
+    document.addEventListener("fullscreenchange", onFs);
+    document.addEventListener("webkitfullscreenchange", onFs);
 
     const cv = screen.querySelector(".embers");
     if (cv && !reduce) {
