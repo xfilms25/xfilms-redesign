@@ -121,7 +121,7 @@ def page(p, nxt):
             cards.append(f'<figure class="person">{ph}<figcaption>{nm}</figcaption></figure>')
         cast = (f'<section class="cast" id="cast" aria-labelledby="cast-h"><div class="wrap">'
                 f'<div class="sec-h"><h2 id="cast-h">Cast</h2><p>{len(p["cast"])} {"actor" if len(p["cast"]) == 1 else "actors"}</p></div>'
-                f'<div class="people">{"".join(cards)}</div></div></section>')
+                f'<div class="people" style="--cols:{min(len(cards), 5) if len(cards) != 6 else 3}">{"".join(cards)}</div></div></section>')
 
     # credits: key creatives up top, everything in the roll
     key_roles = [("Director", ("director", "performer")), ("Written by", ("screenplay",)),
