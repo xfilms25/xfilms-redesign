@@ -51,7 +51,7 @@ def nav(base, current=""):
         for n, h, key in items)
     return f"""<header class="nav">
   <div class="wrap">
-    <a class="logo" href="{base}" aria-label="X Films home"><img src="{CLD}f_auto,q_auto,h_90/logo_long_side_for_web_tpvx8y" alt="X Films"></a>
+    <a class="logo" href="{base}" aria-label="X Films home"><img src="{CLD}f_auto,q_auto,h_135/logo_long_side_for_web_tpvx8y" alt="X Films"></a>
     <ul>{lis}</ul>
     <a class="book" href="{base}#book">Book us</a>
   </div>
