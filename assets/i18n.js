@@ -12,6 +12,23 @@
     "All images are stills from the productions.": "Todas las imágenes son fotogramas de las producciones.",
     "Message us on WhatsApp": "Escríbenos por WhatsApp", "Ask on WhatsApp": "Pregunta por WhatsApp",
 
+    /* privacy */
+    "Privacy · X Films": "Privacidad · X Films", "What we collect and why.": "Qué datos recibimos y para qué.",
+    "Last updated October 2026": "Actualizado en octubre de 2026", "What you send us": "Lo que nos envías",
+    "When you use the booking form or write to us on WhatsApp, we receive what you type: your name, email, the kind of project, the date, the place and your message. We use it only to reply to you and plan the work. We don't sell it or share it with anyone else.":
+      "Cuando usas el formulario o nos escribes por WhatsApp, recibimos lo que escribes: tu nombre, correo, el tipo de proyecto, la fecha, el lugar y tu mensaje. Solo lo usamos para responderte y planificar el trabajo. No lo vendemos ni lo compartimos con nadie más.",
+    "How the form is delivered": "Cómo se envía el formulario",
+    "The booking form is delivered to our inbox by FormSubmit, an email forwarding service. WhatsApp messages are handled by WhatsApp under its own privacy policy.":
+      "El formulario llega a nuestro correo a través de FormSubmit, un servicio de reenvío de correos. Los mensajes de WhatsApp los gestiona WhatsApp según su propia política de privacidad.",
+    "No accounts, no tracking": "Sin cuentas ni rastreo",
+    "The site has no user accounts and no advertising or analytics trackers. Your browser remembers only your language choice, on your own device.":
+      "El sitio no tiene cuentas de usuario ni rastreadores de publicidad o analítica. Tu navegador solo recuerda el idioma que elegiste, en tu propio dispositivo.",
+    "Content from other services": "Contenido de otros servicios",
+    "Trailers play from YouTube (in its privacy-enhanced mode), images load from Cloudinary and fonts from Google Fonts. Those services can see your IP address when they deliver their content.":
+      "Los tráileres se reproducen desde YouTube (en su modo de privacidad mejorada), las imágenes se cargan desde Cloudinary y las tipografías desde Google Fonts. Esos servicios pueden ver tu dirección IP al entregar su contenido.",
+    "Your requests": "Tus solicitudes",
+    "To see, correct or delete anything you've sent us, write to x.films.studios25@gmail.com or on WhatsApp at +58 422 199 0119.":
+      "Para ver, corregir o borrar cualquier dato que nos hayas enviado, escríbenos a x.films.studios25@gmail.com o por WhatsApp al +58 422 199 0119.",
     /* search */
     "Search": "Buscar", "Close search": "Cerrar búsqueda", "Search films, people, services…": "Busca películas, personas, servicios…",
     "Quick links": "Accesos rápidos", "Results": "Resultados", "No matches. Try a film title, a name or a service.": "Sin resultados. Prueba con el título de una película, un nombre o un servicio.",
@@ -36,7 +53,8 @@
     "Name": "Nombre", "Email": "Correo", "Project": "Proyecto", "Wedding or event": "Boda o evento", "Music video": "Videoclip", "Commercial": "Comercial",
     "Short or feature film": "Corto o largometraje", "Something else": "Otra cosa", "Shoot date": "Fecha de rodaje", "City and country": "Ciudad y país",
     "Tell us the idea": "Cuéntanos la idea", "Send": "Enviar", "All services": "Todos los servicios",
-    "Add your name and a valid email.": "Escribe tu nombre y un correo válido.", "Looks good. Connect FormSubmit to send it.": "Todo listo. Conecta FormSubmit para enviarlo.",
+    "Add your name and a valid email.": "Escribe tu nombre y un correo válido.", "Sending…": "Enviando…",
+    "Thanks. We'll reply within two days.": "Gracias. Te respondemos en dos días.", "That didn't send. Write to us on WhatsApp: +58 422 199 0119.": "No se pudo enviar. Escríbenos por WhatsApp: +58 422 199 0119.",
     "Fashion reel": "Reel de moda", "Mock-up": "Maqueta",
 
     /* about */

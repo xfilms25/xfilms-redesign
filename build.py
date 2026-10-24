@@ -66,7 +66,7 @@ def footer(base):
     <div class="fcols">
       <div><h4>Watch</h4><ul><li><a href="{base}#films">Short films</a></li><li><a href="{base}#work">Music videos</a></li><li><a href="{base}#work">Commercials</a></li></ul></div>
       <div><h4>Work with us</h4><ul><li><a href="{base}services/">Services</a></li><li><a href="{base}services/#rental">Equipment rental</a></li><li><a href="{base}#book">Book us</a></li></ul></div>
-      <div><h4>X Films</h4><ul><li><a href="{base}about/">About</a></li><li><a href="{base}shop/">Shop · Night Haze</a></li><li><a href="{wa('Hello X Films')}" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+      <div><h4>X Films</h4><ul><li><a href="{base}about/">About</a></li><li><a href="{base}shop/">Shop · Night Haze</a></li><li><a href="{wa('Hello X Films')}" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="{base}privacy/">Privacy</a></li></ul></div>
       <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/xstudios.films" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.youtube.com/@X-STUDIOS-0" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.facebook.com/share/1B4C5CS3aY/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
     </div>
     <div class="legal"><span>© 2026 X Films · Made in Venezuela</span><span>+58 422 199 0119</span></div>
@@ -322,7 +322,7 @@ if __name__ == "__main__":
 
 
 # ─────────────────────────── About, Services, Shop ───────────────────────────
-SITE = "https://xstudiosfilms.com/assets/"   # images that live on the current site
+SITE = "@@BASE@@img/site/"   # shop and services images, stored in this repo
 
 
 def close_band(base, title="Tell us the story", text="Send the date, the place and what you have in mind. We reply within two days.", wa_text="Hello X Films, I'd like to talk about a project."):
@@ -406,16 +406,16 @@ def about_page(data):
 def services_page(data):
     by = {p["slug"]: p for p in data}
     caps = [
-        ("production", "PRD", "Film production", f"{SITE}film_production_1780358201299-DEZY95OT.png",
+        ("production", "PRD", "Film production", f"{SITE}film_production.jpg",
          "Full-scale production from concept development to principal photography. We bring visionary narratives to life with uncompromising quality and scale.",
          ["Concept development", "Pre-production", "Principal photography"], "Hello X Films, I'd like to talk about producing a film."),
-        ("cinematography", "DOP", "Director of photography", f"{SITE}director_of_photography_1780358213266-VsCExifR.png",
+        ("cinematography", "DOP", "Director of photography", f"{SITE}director_of_photography.jpg",
          "Cinematography focused on lighting, composition and visual tone, so every frame tells your story with power and elegance.",
          ["Lighting", "Composition", "Visual tone"], "Hello X Films, I'm looking for a director of photography."),
-        ("post", "PST", "Post-production", f"{SITE}post_production_1780358228084-BPQDlsOy.png",
+        ("post", "PST", "Post-production", f"{SITE}post_production.jpg",
          "Editing, color grading, visual effects and sound design to polish and finish your film.",
          ["Editing", "Color grading", "Visual effects", "Sound design"], "Hello X Films, I need help with post-production."),
-        ("rental", "RNT", "Equipment rental", f"{SITE}equipment_rental_1787786778409-0HHBs3nM.jpg",
+        ("rental", "RNT", "Equipment rental", f"{SITE}equipment_rental.jpg",
          "High-end cinema cameras, lenses, lighting and grip equipment for your next production.",
          ["Cinema cameras", "Lenses", "Lighting", "Grip"], "Hello, I am interested in renting equipment."),
     ]
@@ -476,19 +476,19 @@ def services_page(data):
 
 def shop_page():
     shots = [
-        ("isolated_gallon_1787785853795-B8DYDhWc.jpg", "Night Haze one-gallon jug"),
-        ("night_haze_left_aligned_1787790906641-I2GfI3we.jpg", "Night Haze professional fluid"),
-        ("feat_diffusion_model_1787785636901-CcN-VdXk.jpg", "Haze catching a light beam on set"),
-        ("feat_hangtime_1787785453635-ftuAdYIg.jpg", "Haze hanging in a studio"),
-        ("feat_formats_1787785464597-Bi-oSpOd.jpg", "Night Haze bottle and jug"),
+        ("isolated_gallon.jpg", "Night Haze one-gallon jug"),
+        ("night_haze_left_aligned.jpg", "Night Haze professional fluid"),
+        ("feat_diffusion_model.jpg", "Haze catching a light beam on set"),
+        ("feat_hangtime.jpg", "Haze hanging in a studio"),
+        ("feat_formats.jpg", "Night Haze bottle and jug"),
     ]
     thumbs = "".join(f'<button type="button" aria-pressed="{"true" if n == 0 else "false"}" data-src="{SITE}{f}" aria-label="Show {e(a)}"><img src="{SITE}{f}" alt="" loading="lazy"></button>' for n, (f, a) in enumerate(shots))
     feats = [
-        ("feat_diffusion_model_1787785636901-CcN-VdXk.jpg", "Cinematic light diffusion", "A smooth, even haze that catches practical and studio light, lifting beams, shaping shadows and bringing out flares."),
-        ("feat_premium_1787785441473-DINZKPTA.jpg", "Premium formulation", "A precise blend of high-quality vegetable glycerin and propylene glycol for a reliable, non-toxic, clean effect."),
-        ("feat_hangtime_1787785453635-ftuAdYIg.jpg", "Extended hang time", "Made for the pace of real productions, so you spend less time re-hazing between takes."),
-        ("feat_formats_1787785464597-Bi-oSpOd.jpg", "Production-ready formats", "A 1-liter (33.8 fl oz) bottle for nimble location work, or a gallon jug for studio builds."),
-        ("feat_clean_1787785474280-BEkXEsVX.jpg", "Odorless and clean", "A neutral scent that keeps cast and crew comfortable through long indoor shooting days."),
+        ("feat_diffusion_model.jpg", "Cinematic light diffusion", "A smooth, even haze that catches practical and studio light, lifting beams, shaping shadows and bringing out flares."),
+        ("feat_premium.jpg", "Premium formulation", "A precise blend of high-quality vegetable glycerin and propylene glycol for a reliable, non-toxic, clean effect."),
+        ("feat_hangtime.jpg", "Extended hang time", "Made for the pace of real productions, so you spend less time re-hazing between takes."),
+        ("feat_formats.jpg", "Production-ready formats", "A 1-liter (33.8 fl oz) bottle for nimble location work, or a gallon jug for studio builds."),
+        ("feat_clean.jpg", "Odorless and clean", "A neutral scent that keeps cast and crew comfortable through long indoor shooting days."),
     ]
     feat_html = "".join(f'<article class="feat"><div class="pic"><img src="{SITE}{f}" alt="" loading="lazy"></div><div class="t"><h3>{e(t)}</h3><p>{e(d)}</p></div></article>' for f, t, d in feats)
     return head("Night Haze · X Films Shop", "Night Haze: professional cinematic fog fluid from X Films. 1 liter $15, 1 gallon $50.",
@@ -595,10 +595,37 @@ def build_search(data):
     print("built assets/search.json")
 
 
+def privacy_page():
+    secs = [
+        ("What you send us", "When you use the booking form or write to us on WhatsApp, we receive what you type: your name, email, the kind of project, the date, the place and your message. We use it only to reply to you and plan the work. We don't sell it or share it with anyone else."),
+        ("How the form is delivered", "The booking form is delivered to our inbox by FormSubmit, an email forwarding service. WhatsApp messages are handled by WhatsApp under its own privacy policy."),
+        ("No accounts, no tracking", "The site has no user accounts and no advertising or analytics trackers. Your browser remembers only your language choice, on your own device."),
+        ("Content from other services", "Trailers play from YouTube (in its privacy-enhanced mode), images load from Cloudinary and fonts from Google Fonts. Those services can see your IP address when they deliver their content."),
+        ("Your requests", "To see, correct or delete anything you've sent us, write to x.films.studios25@gmail.com or on WhatsApp at +58 422 199 0119."),
+    ]
+    body = "".join(f'<section class="pv"><h2>{e(h)}</h2><p>{e(t)}</p></section>' for h, t in secs)
+    return head("Privacy · X Films", "What X Films collects through this site and why.", img("v1780349969/x_films_eye_lwm5ky.jpg", 1200), "../", "pages.css") + f"""
+<body>
+{nav("../")}
+<main>
+  <section class="band" style="padding-top:150px" aria-labelledby="title">
+    <div class="wrap" style="max-width:820px">
+      <p class="eyebrow">Last updated October 2026</p>
+      <h1 id="title" class="pv-h">What we collect and why.</h1>
+      {body}
+    </div>
+  </section>
+</main>
+{footer("../")}
+</body>
+</html>
+"""
+
+
 def build_pages():
     data = json.loads((ROOT / "projects.json").read_text(encoding="utf-8"))["projects"]
     build_search(data)
-    for name, html_ in (("about", about_page(data)), ("services", services_page(data)), ("shop", shop_page())):
+    for name, html_ in (("about", about_page(data)), ("services", services_page(data)), ("shop", shop_page()), ("privacy", privacy_page())):
         out = ROOT / name / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html_.replace("@@BASE@@", "../"), encoding="utf-8")

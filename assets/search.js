@@ -63,7 +63,9 @@
   }
 
   let ui, input, btn;
-  function build() {
+  let cssDone = false;
+  function injectCSS() {
+    if (cssDone) return; cssDone = true;
     const st = document.createElement("style");
     st.textContent = `
 .xs-btn{background:none;border:0;color:rgba(245,245,247,.8);width:34px;height:34px;display:grid;place-items:center;cursor:pointer;border-radius:50%;transition:color .2s,background .2s;margin-left:auto}
@@ -99,6 +101,9 @@
 @keyframes xsF{from{opacity:0}}@keyframes xsD{from{transform:translateY(-14px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.xs-back,.xs-panel{animation:none}}`;
     document.head.appendChild(st);
+  }
+  function build() {
+    injectCSS();
     ui = document.createElement("div");
     ui.className = "xs"; ui.setAttribute("role", "dialog"); ui.setAttribute("aria-modal", "true"); ui.setAttribute("aria-label", "Search");
     ui.innerHTML = '<div class="xs-back"></div><div class="xs-panel"><div class="xs-in">' +
@@ -135,6 +140,7 @@
   function mount() {
     const bar = document.querySelector(".nav .wrap");
     if (!bar || bar.querySelector(".xs-btn")) return;
+    injectCSS();   /* the button needs its styles before the panel is ever opened */
     btn = document.createElement("button");
     btn.type = "button"; btn.className = "xs-btn"; btn.setAttribute("aria-label", "Search");
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';

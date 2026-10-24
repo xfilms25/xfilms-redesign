@@ -1,0 +1,19 @@
+# Old xstudiosfilms.com addresses -> their place on the new site
+/portfolio              /#films                                   301
+/contact                /#book                                    301
+/coming-soon            /projects/medianeros/                     301
+/faq                    /services/                                301
+/policies               /privacy/                                 301
+/manage-subscription    /                                         301
+/project/1              /projects/nothing-i-havent-dreamt-of/     301
+/project/2              /projects/beneath-the-enchanted-tree/     301
+/project/3              /projects/in-silence/                     301
+/project/4              /projects/deluge/                         301
+/project/5              /projects/extasis/                        301
+/project/6              /projects/loving-as-we-do/                301
+/project/7              /projects/savoy/                          301
+/project/13             /projects/apres-la-femme-fatale/          301
+/project/15             /projects/runway-night-heroines/          301
+/project/16             /projects/big-band-banana/                301
+/project/99             /projects/the-woman-in-the-other-room/    301
+/project/*              /#films                                   301
