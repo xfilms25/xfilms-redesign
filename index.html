@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>X Films</title>
+<meta name="description" content="X Films is an independent film studio from Venezuela. Short films, music videos, commercials and wedding films.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Cormorant+SC:wght@500;600;700&family=Inter+Tight:wght@400;500;600&display=swap">
+<style>
+/* Layout: Apple skeleton (frosted nav, tiles, quiet footer) with an art-house film section that breaks the grid, one composition per film. Black and white everywhere; red only where the story needs it. */
+:root{
+  color-scheme: dark;
+  --black:#000;
+  --ink:#0b0b0c;
+  --tile:#111113;
+  --tile-2:#1d1d1f;
+  --white:#f5f5f7;
+  --grey:#8a8a8f;
+  --hair:rgba(255,255,255,.12);
+  --red:#d42a24;          /* clown-lip red: the only color on the page */
+
+  --ui:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --poster:"Cormorant SC", "Trajan Pro", "Didot", Georgia, serif;
+  --voice:"Cormorant Garamond", "Garamond", Georgia, serif;
+  --title:"Cinzel", "Trajan Pro", "Cormorant SC", Georgia, serif;   /* only for the Nothing I Haven't Dreamt Of title */
+
+  --gl:max(22px, env(safe-area-inset-left, 0px));
+  --gr:max(22px, env(safe-area-inset-right, 0px));
+  --grain:.06;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--black);color:var(--white);font-family:var(--ui);font-size:17px;line-height:1.5;letter-spacing:-.015em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.credit{font-family:var(--poster);font-weight:600;letter-spacing:.34em;text-transform:uppercase;font-size:13px;color:var(--grey)}
+.es{font-family:var(--voice);font-style:italic;color:var(--grey)}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-size:16px;border-bottom:1px solid var(--hair);padding-bottom:3px;transition:border-color .3s,color .3s}
+.lnk:hover{border-color:var(--red);color:#fff}
+.lnk::after{content:"›";font-size:1.2em;line-height:1}
+
+/* texture: grain, vignette */
+#grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90;opacity:var(--grain);mix-blend-mode:screen;transition:opacity 1.2s}
+.bw{filter:grayscale(1) contrast(1.15)}
+
+/* ───── nav ───── */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:61;background:#000}
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:60;background:rgba(0,0,0,.55);-webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px);border-bottom:1px solid var(--hair);transition:opacity 1.2s}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:20px}
+.nav .logo img{height:30px;width:auto}
+.nav ul{list-style:none;display:flex;gap:30px;margin:0;padding:0}
+.nav ul a{font-size:12px;color:rgba(245,245,247,.75);transition:color .2s}
+.nav ul a:hover{color:#fff}
+.nav .book{font-size:12px;font-weight:500;padding:6px 14px;border-radius:980px;background:var(--white);color:#000}
+.menu-btn{display:none;background:none;border:0;color:var(--white);padding:8px;cursor:pointer}
+.menu-btn svg{width:18px;height:18px}
+
+/* ───── opening titles ───── */
+.opening{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:110px var(--gr) 90px var(--gl)}
+.opening .bg{position:absolute;inset:0;z-index:0}
+.opening .bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(2.4) contrast(1.25);transform:scale(1.08);animation:emerge 6s ease-out both, flicker 7s steps(1) 6s infinite}
+@keyframes emerge{from{opacity:0;transform:scale(1.15)}to{opacity:.55;transform:scale(1.04)}}
+@keyframes flicker{0%,100%{opacity:.55}31%{opacity:.48}32%{opacity:.56}72%{opacity:.5}73%{opacity:.57}}
+.opening .yt{position:absolute;top:50%;left:50%;width:max(100vw,177.78svh);height:max(56.25vw,100svh);transform:translate(-50%,-50%) scale(1.12);border:0;pointer-events:none;z-index:0;opacity:0;filter:grayscale(1) contrast(1.15);transition:opacity 2s ease}
+.opening .yt.on{opacity:.6}
+.opening::after{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(70% 60% at 50% 50%,transparent,rgba(0,0,0,.85) 90%),linear-gradient(transparent 70%,#000)}
+.titles{position:relative;z-index:2;display:grid;gap:22px;justify-items:center}
+.titles > *{animation:credit 1.6s ease both}
+.titles .c1{animation-delay:.4s}
+.titles .c2{animation-delay:1.6s}
+.titles h1{animation-delay:2.8s}
+.titles .es{animation-delay:3.6s}
+.titles .within{animation-delay:4.6s}
+.titles .go{animation-delay:5.6s}
+@keyframes credit{from{opacity:0;filter:blur(6px);letter-spacing:.5em}to{opacity:1;filter:blur(0)}}
+.titles .c2{color:var(--white)}
+.titles h1{font-family:var(--title);font-weight:500;font-size:clamp(44px,8.6vw,132px);line-height:.92;letter-spacing:.06em;text-transform:uppercase;max-width:12ch;margin-top:10px}
+.titles h1 .apos{letter-spacing:0}
+.titles .es{font-size:clamp(20px,2.4vw,30px);margin:0}
+.titles .within{font-family:var(--voice);font-style:italic;font-size:clamp(26px,3.4vw,44px);color:var(--red);margin:6px 0 0}
+.titles .go{display:flex;flex-wrap:wrap;gap:18px 32px;justify-content:center;margin-top:14px}
+.scroll-cue{position:absolute;z-index:2;bottom:26px;left:50%;width:1px;height:54px;background:linear-gradient(var(--white),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ───── director's note ───── */
+.note{padding-block:150px 130px}
+.note .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:40px}
+.note blockquote{margin:0;font-family:var(--voice);font-style:italic;font-weight:400;font-size:clamp(32px,4.4vw,60px);line-height:1.08;letter-spacing:-.01em}
+.note blockquote .w{transition:opacity .3s}
+.js .note blockquote .w{opacity:.18}
+.js .note blockquote .w.on{opacity:1}
+.note blockquote .r{color:var(--red)}
+.note .sig{margin-top:30px;display:flex;gap:14px;align-items:center}
+.note .sig::before{content:"";width:40px;height:1px;background:var(--grey)}
+
+/* ───── the films: one composition each ───── */
+.films-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--hair);padding-top:22px;margin-bottom:90px}
+.films-head h2{font-family:var(--poster);font-size:clamp(34px,4.4vw,56px);letter-spacing:.12em;text-transform:uppercase}
+.scene{position:relative;margin-bottom:180px;transition:opacity 1.2s}
+.scene .meta{font-size:13px;color:var(--grey);letter-spacing:0}
+.scene h3{font-family:var(--poster);font-weight:500;text-transform:uppercase;letter-spacing:.06em;line-height:.95}
+.scene .line{font-family:var(--voice);font-style:italic;font-size:clamp(20px,2vw,26px);line-height:1.3;color:rgba(245,245,247,.82);margin:0;max-width:30ch}
+.scene .pic{overflow:hidden;background:var(--tile);position:relative}
+.scene .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),filter .8s}
+.scene .pic:hover img{transform:scale(1.035);filter:grayscale(1) contrast(1.3)}
+
+/* A — full bleed, title crashes into the frame */
+.sA .pic{width:100%;aspect-ratio:2.37/1}
+.sA .over{position:relative;margin-top:-0.55em;z-index:2;font-size:clamp(46px,9vw,140px)}
+.sA .row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 40px;margin-top:24px}
+
+/* B — poster-tall frame bleeding off the right edge */
+.sB{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+.sB .txt{padding-left:var(--gl);display:grid;gap:18px;justify-items:start;max-width:520px;justify-self:end}
+.sB h3{font-size:clamp(46px,6.4vw,96px)}
+.sB .pic{aspect-ratio:4/5;max-height:88vh;margin-right:0}
+
+/* C — the other room: a small doorway in darkness */
+.sC{min-height:110vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto) minmax(0,1fr);align-items:center;gap:36px;padding-inline:var(--gl) var(--gr)}
+.sC .pic{width:min(30vw,340px);aspect-ratio:3/4.4}
+.sC .pic img{object-position:60% 50%}
+.sC h3{font-size:clamp(34px,4.6vw,72px)}
+.sC .l{text-align:right}
+.sC .under{grid-column:1/-1;text-align:center;display:grid;gap:10px;justify-items:center}
+.sC .knock{font-family:var(--voice);font-style:italic;color:var(--red);font-size:22px;margin:0}
+
+/* D — bleeds off the left, text overlaps the edge */
+.sD{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}
+.sD .pic{aspect-ratio:1.94/1}
+.sD .txt{margin-left:-14%;position:relative;z-index:2;padding:0 var(--gr) 40px 0;display:grid;gap:18px;justify-items:start}
+.sD h3{font-size:clamp(46px,6vw,92px);text-shadow:0 2px 40px rgba(0,0,0,.6)}
+
+/* E — an archival frame */
+.sE .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px;align-items:center}
+.sE .frame{background:#e9e6df;padding:14px 14px 44px;transform:rotate(-1.6deg);box-shadow:0 30px 60px rgba(0,0,0,.6);max-width:460px;position:relative}
+.sE .frame .pic{aspect-ratio:1.83/1}
+.sE .frame figcaption{position:absolute;left:16px;right:16px;bottom:12px;display:flex;justify-content:space-between;font:500 11px var(--ui);letter-spacing:.14em;color:#3a3833;text-transform:uppercase}
+.sE h3{font-size:clamp(46px,6vw,88px)}
+.sE .txt{display:grid;gap:16px;justify-items:start}
+
+/* the other room darkens the whole page */
+body.room{--grain:.2}
+body.room .nav{opacity:.15}
+body.room .scene:not(.sC){opacity:.12}
+
+/* ───── music videos + brand films ───── */
+.work{padding-block:40px 140px}
+.work-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:30px}
+.work-head h2{font-size:clamp(36px,5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.05}
+.work-head h2 span{color:var(--grey)}
+.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px var(--gr) 20px var(--gl);scroll-padding-left:var(--gl);scrollbar-width:none;max-width:1440px;margin:0 auto}
+.rail::-webkit-scrollbar{display:none}
+.card{flex:0 0 auto;width:min(78vw,360px);aspect-ratio:3/4.6;border-radius:22px;overflow:hidden;position:relative;scroll-snap-align:start;background:var(--tile);isolation:isolate}
+.card .pic{position:absolute;inset:0;z-index:-1}
+.card .pic img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .8s, transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.card:hover .pic img{filter:grayscale(0);transform:scale(1.04)}
+.card .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.65),transparent 38%,transparent 70%,rgba(0,0,0,.55))}
+.card .txt{padding:26px}
+.card .k{font-size:12px;font-weight:600;color:rgba(245,245,247,.75);margin:0}
+.card h3{font-size:27px;font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-top:6px}
+.rail-ctrl{display:flex;gap:12px}
+.rail-ctrl button{width:38px;height:38px;border-radius:50%;border:0;background:var(--tile-2);color:var(--white);font-size:18px;cursor:pointer}
+.rail-ctrl button:hover{background:#333336}
+
+/* ───── services ───── */
+.services{padding-block:130px;background:var(--ink)}
+.services .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;margin-bottom:56px;align-items:end}
+.services .intro h2{font-family:var(--poster);font-size:clamp(34px,4.4vw,56px);letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.services .intro p{margin:0;font-family:var(--voice);font-style:italic;font-size:clamp(22px,2.2vw,28px);line-height:1.3;color:rgba(245,245,247,.82)}
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.s{background:#000;border-radius:24px;padding:38px 34px 34px;display:flex;flex-direction:column;gap:12px;min-height:280px;border:1px solid transparent;transition:border-color .4s}
+.s:hover{border-color:var(--hair)}
+.s .k{font-size:13px;font-weight:600;color:var(--grey)}
+.s h3{font-size:clamp(28px,3vw,38px);font-weight:600;letter-spacing:-.03em;line-height:1.08}
+.s p{margin:0;color:var(--grey);max-width:38ch}
+.s .lnk{margin-top:auto;align-self:flex-start}
+
+/* ───── booking ───── */
+.book-sec{padding-block:150px;text-align:center}
+.book-sec h2{font-family:var(--poster);font-size:clamp(40px,6.4vw,90px);letter-spacing:.08em;text-transform:uppercase;line-height:.95}
+.book-sec .es{font-size:clamp(20px,2vw,26px);margin:14px 0 6px}
+.book-sec .lead{color:var(--grey);margin:0 auto 44px;max-width:40ch}
+form{background:var(--tile);border-radius:24px;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:760px;margin:0 auto;text-align:left}
+.field{position:relative;min-width:0}
+.field.full{grid-column:1/-1}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:17px;color:var(--white);background:var(--tile-2);border:1px solid transparent;border-radius:12px;padding:26px 16px 10px;appearance:none;-webkit-appearance:none}
+.field textarea{min-height:130px;resize:vertical}
+.field label{position:absolute;left:17px;top:9px;font-size:12px;color:var(--grey);pointer-events:none}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--red)}
+select option{background:var(--tile-2)}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:8px}
+.send{border:0;cursor:pointer;font:500 17px var(--ui);padding:12px 26px;border-radius:980px;background:var(--white);color:#000;transition:background .3s,color .3s}
+.send:hover{background:var(--red);color:#fff}
+.status{font-size:14px;color:var(--grey)}
+
+/* ───── footer ───── */
+footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px 28px;border-top:1px solid var(--hair)}
+.fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-bottom:26px;border-bottom:1px solid var(--hair)}
+.fcols h4{color:var(--white);font-weight:600;font-size:12px;margin:0 0 10px}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fcols a:hover{color:var(--white)}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:16px}
+
+/* ───── custom cursor ───── */
+.cur{position:fixed;left:0;top:0;z-index:95;pointer-events:none;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--red);display:grid;place-items:center;transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1),margin .35s cubic-bezier(.2,.7,.2,1);opacity:0}
+.cur span{font:600 11px var(--ui);letter-spacing:.2em;color:#fff;opacity:0;transition:opacity .2s}
+.cur.big{width:86px;height:86px;margin:-43px 0 0 -43px}
+.cur.big span{opacity:1}
+@media (hover:hover) and (pointer:fine){ .cur{opacity:1} [data-play]{cursor:none} }
+
+/* entrance */
+.js .rise{opacity:0;transform:translateY(46px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.js .rise.in{opacity:1;transform:none}
+
+/* ───── responsive ───── */
+@media (max-width:900px){
+  .nav ul{display:none}
+  .nav.open ul{display:flex;flex-direction:column;gap:20px;position:absolute;top:52px;left:0;right:0;background:rgba(0,0,0,.95);padding:24px var(--gr) 32px var(--gl)}
+  .nav.open ul a{font-size:24px;font-weight:600}
+  .menu-btn{display:block}
+  .note .wrap,.services .intro,.sE .wrap{grid-template-columns:1fr}
+  .sB,.sD{grid-template-columns:1fr;gap:28px}
+  .sB .txt{justify-self:start;padding-right:var(--gr)}
+  .sB .pic{order:-1;aspect-ratio:4/5;max-height:none;margin:0 var(--gr) 0 var(--gl)}
+  .sD .txt{margin-left:0;padding:0 var(--gr) 0 var(--gl)}
+  .sC{grid-template-columns:1fr;justify-items:center;text-align:center;min-height:auto;padding-block:60px}
+  .sC .l{text-align:center}
+  .sC .pic{width:min(70vw,320px)}
+  .svc{grid-template-columns:1fr}
+  .fcols{grid-template-columns:1fr 1fr}
+  .scene{margin-bottom:120px}
+  .sA .row{padding:0 var(--gr) 0 var(--gl)}
+  .sA .over{padding-left:var(--gl)}
+}
+@media (max-width:560px){
+  form{grid-template-columns:1fr;padding:22px}
+  .nav .book{display:none}
+  .sA .pic{aspect-ratio:16/10}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .opening .bg img{opacity:.55}
+  #grain,.cur{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="grain" aria-hidden="true"></canvas>
+<div class="cur" aria-hidden="true"><span>PLAY</span></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="X Films home"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,h_90/logo_long_side_for_web_tpvx8y" alt="X Films"></a>
+    <ul id="nav-list">
+      <li><a href="#films">Films</a></li>
+      <li><a href="#work">Music Videos</a></li>
+      <li><a href="#work">Commercials</a></li>
+      <li><a href="#services">Weddings</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/shop">Shop</a></li>
+    </ul>
+    <a class="book" href="#book">Book a shoot</a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-list"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6h14M2 12h14"/></svg></button>
+  </div>
+</header>
+
+<main>
+  <!-- OPENING TITLES -->
+  <section class="opening" aria-labelledby="h1">
+    <div class="bg"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_2400/nothing_snie6g" alt="" fetchpriority="high"></div>
+    <!-- Trailer plays muted behind the titles; the still above shows while it loads. Swap for a Cloudinary <video> loop later. -->
+    <iframe class="yt" id="yt" title="Trailer, Nothing I Haven't Dreamt Of" tabindex="-1" aria-hidden="true" allow="autoplay; encrypted-media" data-src="https://www.youtube-nocookie.com/embed/eltp_Ns2W4M?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=eltp_Ns2W4M&amp;controls=0&amp;rel=0&amp;playsinline=1&amp;modestbranding=1&amp;iv_load_policy=3&amp;start=10"></iframe>
+    <div class="titles">
+      <p class="credit c1">X Films presents</p>
+      <p class="credit c2">A film by Jesús Topalian</p>
+      <h1 id="h1">Nothing I Haven<span class="apos">’</span>t Dreamt Of</h1>
+      <p class="es">Nada que no haya soñado</p>
+      <p class="within">the hell is within.</p>
+      <div class="go">
+        <a class="lnk" href="https://www.youtube.com/watch?v=eltp_Ns2W4M" target="_blank" rel="noopener" data-play>Watch the trailer</a>
+        <a class="lnk" href="#note">Read the story</a>
+      </div>
+    </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
+  </section>
+
+  <!-- DIRECTOR'S NOTE -->
+  <section class="note" id="note">
+    <div class="wrap">
+      <p class="credit">Director’s note</p>
+      <div>
+        <blockquote id="lit">Damian wakes from a fall and goes looking for Luna, the woman he lost. Every memory repeats like a broken dream. The deeper he goes, the clearer it gets. The real hell was never outside him. It was <span class="r">within.</span></blockquote>
+        <p class="credit sig">Jesús Topalian</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FILMS -->
+  <section id="films" aria-labelledby="films-h">
+    <div class="wrap films-head">
+      <h2 id="films-h">The Films</h2>
+      <p class="credit" style="margin:0">Short films · 2014 — 2026</p>
+    </div>
+
+    <article class="scene sA rise">
+      <a class="pic" href="/portfolio" data-play><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_2400/bajo_el_arbol_web_ydsf97" alt="Still from Beneath the Enchanted Tree" loading="lazy"></a>
+      <div class="wrap">
+        <h3 class="over">Beneath the Enchanted Tree</h3>
+        <div class="row">
+          <p class="line">Some stories are buried for a reason. This one grew roots.</p>
+          <div style="display:grid;gap:12px;justify-items:end">
+            <span class="meta">Folkloric thriller · 20 min · 2025</span>
+            <a class="lnk" href="/portfolio">See the film</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="scene sB rise">
+      <div class="txt">
+        <p class="credit" style="margin:0">Drama · 20 min · 2026</p>
+        <h3>In Silence</h3>
+        <p class="es" style="font-size:24px;margin:0">En silencio</p>
+        <p class="line">What a family never says out loud is still the loudest thing in the house.</p>
+        <a class="lnk" href="/portfolio">See the film</a>
+      </div>
+      <a class="pic" href="/portfolio" data-play><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_1400/v1776452920/en_silencio_web_mlqora.jpg" alt="Still from In Silence" loading="lazy"></a>
+    </article>
+
+    <article class="scene sC" id="room">
+      <h3 class="l">The Woman</h3>
+      <a class="pic" href="/portfolio" data-play><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_900/la_mujer_web_tgjcy2" alt="Still from The Woman in the Other Room" loading="lazy"></a>
+      <h3>in the Other Room</h3>
+      <div class="under">
+        <p class="knock">Don’t open the door.</p>
+        <span class="meta">Psychological thriller · 5 min · 2026</span>
+      </div>
+    </article>
+
+    <article class="scene sD rise">
+      <a class="pic" href="/portfolio" data-play><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_1800/v1776547283/Screenshot_2026-04-18_172035_rxdbwk.png" alt="Still from Après la Femme Fatale" loading="lazy"></a>
+      <div class="txt">
+        <p class="credit" style="margin:0">Drama · Neo-noir · 18 min · 2026</p>
+        <h3>Après la Femme Fatale</h3>
+        <p class="line">Every noir ends with her. This one starts there.</p>
+        <a class="lnk" href="/portfolio">See the film</a>
+      </div>
+    </article>
+
+    <article class="scene sE rise">
+      <div class="wrap">
+        <figure class="frame" style="margin:0">
+          <a class="pic" href="/portfolio" data-play style="display:block"><img class="bw" src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_1000/aguacero_web_fgm3zp" alt="Still from Deluge" loading="lazy"></a>
+          <figcaption><span>Aguacero</span><span>2014</span></figcaption>
+        </figure>
+        <div class="txt">
+          <p class="credit" style="margin:0">Sci-fi · 15 min · 2014</p>
+          <h3>Deluge</h3>
+          <p class="line">The first one. Where all of this began.</p>
+          <a class="lnk" href="/portfolio">See the film</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- MUSIC VIDEOS + BRAND FILMS -->
+  <section class="work" id="work" aria-labelledby="work-h">
+    <div class="wrap work-head">
+      <h2 id="work-h">Music videos <span>and brand films.</span></h2>
+      <div class="rail-ctrl"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div>
+    </div>
+    <div class="rail" id="rail">
+      <a class="card" href="/portfolio" data-play><div class="pic"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_800/extasis_web_foggy_1_d33p4t" alt="" loading="lazy"></div><div class="txt"><p class="k">Music video · Foggy</p><h3>Extasis</h3></div></a>
+      <a class="card" href="/portfolio" data-play><div class="pic"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_800/mafer_vera_amando_web_1_nibzrs" alt="" loading="lazy"></div><div class="txt"><p class="k">Music video · Mafer Vera</p><h3>Loving As We Do</h3></div></a>
+      <a class="card" href="/portfolio" data-play><div class="pic"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_800/v1780339306/Still_2026-05-26_184010_1.5.1_mvexjw.jpg" alt="" loading="lazy"></div><div class="txt"><p class="k">Commercial · X Films</p><h3>Runway Night: Heroines</h3></div></a>
+      <a class="card" href="/portfolio" data-play><div class="pic"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_800/v1780345313/BBB_CONCER_4T_kodyks.jpg" alt="" loading="lazy"></div><div class="txt"><p class="k">Commercial · Big Band Banana</p><h3>Big Band Banana</h3></div></a>
+      <a class="card" href="/portfolio" data-play><div class="pic"><img src="https://res.cloudinary.com/dsbe46noz/image/upload/f_auto,q_auto,w_800/v1776548447/Screenshot_2026-04-18_173812_b4qa3t.png" alt="" loading="lazy"></div><div class="txt"><p class="k">Commercial · Mock-up</p><h3>Savoy</h3></div></a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="svc-h">Work with us</h2>
+        <p>We shoot every project the way we shoot our own films: with a point of view, a small crew and a lot of care.</p>
+      </div>
+      <div class="svc">
+        <article class="s rise"><span class="k">Weddings &amp; events</span><h3>Your day, shot like a feature.</h3><p>Cinema cameras and a real story edit. Locally, across Venezuela and abroad.</p><a class="lnk" href="#book">Book your date</a></article>
+        <article class="s rise"><span class="k">Music videos</span><h3>A world built around the track.</h3><p>Concept, treatment, shoot and color grade, with vertical cuts for Reels and TikTok.</p><a class="lnk" href="#book">Start a video</a></article>
+        <article class="s rise"><span class="k">Commercials</span><h3>Brands with a point of view.</h3><p>Campaign spots and brand films made with the craft of narrative cinema.</p><a class="lnk" href="#book">Get a quote</a></article>
+        <article class="s rise"><span class="k">Narrative</span><h3>From the page to the festival.</h3><p>Script development, production and post for short and feature films.</p><a class="lnk" href="#book">Pitch your project</a></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="book-sec" id="book" aria-labelledby="book-h">
+    <div class="wrap">
+      <h2 id="book-h" class="rise">Tell us the story</h2>
+      <p class="es rise">Cuéntanos la historia</p>
+      <p class="lead rise">Send the date, the place and what you have in mind. We reply within two days.</p>
+      <!-- On your live site: add action="https://formsubmit.co/YOUR-EMAIL" method="POST" to this form and delete the "form" block in the script. -->
+      <form id="quote" class="rise" novalidate>
+        <div class="field"><input id="f-name" name="name" autocomplete="name" placeholder=" "><label for="f-name">Name</label></div>
+        <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" "><label for="f-email">Email</label></div>
+        <div class="field"><select id="f-type" name="project"><option>Wedding or event</option><option>Music video</option><option>Commercial</option><option>Short or feature film</option><option>Something else</option></select><label for="f-type">Project</label></div>
+        <div class="field"><input id="f-date" name="date" type="date"><label for="f-date">Shoot date</label></div>
+        <div class="field full"><input id="f-place" name="location" placeholder=" "><label for="f-place">City and country</label></div>
+        <div class="field full"><textarea id="f-msg" name="message" placeholder=" "></textarea><label for="f-msg">Tell us the idea</label></div>
+        <div class="form-foot"><span class="status" id="status" role="status"></span><button class="send" type="submit">Send</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><h4>Watch</h4><ul><li><a href="#films">Short films</a></li><li><a href="#work">Music videos</a></li><li><a href="#work">Commercials</a></li><li><a href="/coming-soon">Coming soon</a></li></ul></div>
+      <div><h4>Work with us</h4><ul><li><a href="#services">Weddings &amp; events</a></li><li><a href="#services">Services</a></li><li><a href="#book">Book a shoot</a></li><li><a href="/faq">FAQ</a></li></ul></div>
+      <div><h4>X Films</h4><ul><li><a href="/about">About</a></li><li><a href="/shop">Shop</a></li><li><a href="/contact">Contact</a></li></ul></div>
+      <div><h4>Follow</h4><ul><li><a href="https://www.instagram.com/xstudios.films" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.youtube.com/@X-STUDIOS-0" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://www.facebook.com/share/1B4C5CS3aY/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 X Films · Made in Venezuela</span><span><a href="/policies">Privacy</a> · <a href="/policies">Policies</a></span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  document.documentElement.classList.add("js");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // trailer behind the titles (skipped when the visitor prefers reduced motion)
+  const yt = document.getElementById("yt");
+  if (!reduce && yt) {
+    yt.addEventListener("load", () => setTimeout(() => yt.classList.add("on"), 1800), { once:true });
+    yt.src = yt.dataset.src;
+  }
+
+  // director's note: light up word by word
+  const lit = document.getElementById("lit");
+  const walk = n => [...n.childNodes].forEach(c => {
+    if (c.nodeType === 3) {
+      const fr = document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(p => {
+        if (!p) return;
+        if (/^\s+$/.test(p)) fr.append(p);
+        else { const s = document.createElement("span"); s.className = "w"; s.textContent = p; fr.append(s); }
+      });
+      c.replaceWith(fr);
+    } else walk(c);
+  });
+  walk(lit);
+  const words = [...lit.querySelectorAll(".w")];
+  if (reduce) words.forEach(w => w.classList.add("on"));
+  const onScroll = () => {
+    if (reduce) return;
+    const r = lit.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.max(0, Math.min(1, (vh * .85 - r.top) / (r.height + vh * .3)));
+    const n = Math.round(p * words.length);
+    words.forEach((w, i) => w.classList.toggle("on", i < n));
+  };
+  addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive:true });
+  onScroll();
+
+  // fade-up entrances
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin:"0px 0px -12% 0px" });
+    document.querySelectorAll(".rise").forEach(el => io.observe(el));
+    // the other room: the page goes dark
+    const room = document.getElementById("room");
+    new IntersectionObserver(es => es.forEach(e => document.body.classList.toggle("room", e.isIntersecting)), { threshold:.55 }).observe(room);
+  } else document.querySelectorAll(".rise").forEach(el => el.classList.add("in"));
+
+  // film grain
+  const cv = document.getElementById("grain");
+  if (!reduce && cv.getContext) {
+    const ctx = cv.getContext("2d"), S = 180; cv.width = cv.height = S;
+    const frames = Array.from({ length:8 }, () => { const d = ctx.createImageData(S, S); for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255; d.data[i] = d.data[i+1] = d.data[i+2] = v; d.data[i+3] = 255; } return d; });
+    let k = 0, last = 0;
+    (function g(t){ if (t - last > 70) { ctx.putImageData(frames[k++ % frames.length], 0, 0); last = t; } requestAnimationFrame(g); })(0);
+  }
+
+  // custom cursor
+  const cur = document.querySelector(".cur");
+  if (matchMedia("(hover:hover) and (pointer:fine)").matches && !reduce) {
+    let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y;
+    addEventListener("pointermove", e => { x = e.clientX; y = e.clientY; cur.classList.toggle("big", !!e.target.closest("[data-play]")); });
+    (function m(){ cx += (x - cx) * .2; cy += (y - cy) * .2; cur.style.transform = "translate(" + cx + "px," + cy + "px)"; requestAnimationFrame(m); })();
+  }
+
+  // rail buttons
+  const rail = document.getElementById("rail");
+  document.querySelectorAll(".rail-ctrl button").forEach(b => b.addEventListener("click", () =>
+    rail.scrollBy({ left: +b.dataset.dir * Math.min(rail.clientWidth * .8, 760), behavior: reduce ? "auto" : "smooth" })));
+
+  // mobile menu
+  const nav = document.getElementById("nav"), mb = nav.querySelector(".menu-btn");
+  mb.addEventListener("click", () => mb.setAttribute("aria-expanded", nav.classList.toggle("open")));
+  nav.querySelectorAll("ul a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); mb.setAttribute("aria-expanded", false); }));
+
+  // form (preview only; FormSubmit takes over on the live site)
+  document.getElementById("quote").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.target, st = document.getElementById("status");
+    st.textContent = (!f.name.value.trim() || !f.email.checkValidity()) ? "Add your name and a valid email." : "Looks good. Connect FormSubmit to send it.";
+  });
+})();
+</script>
+</body>
+</html>
