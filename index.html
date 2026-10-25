@@ -196,7 +196,7 @@ body.room .scene:not(.sC){opacity:.12}
 
 /* ───── booking ───── */
 .book-sec{padding-block:150px;text-align:center}
-.book-sec h2{font-family:var(--poster);font-size:clamp(40px,6.4vw,90px);letter-spacing:.08em;text-transform:uppercase;line-height:.95}
+.book-sec h2{font-family:var(--poster);font-size:clamp(34px,5.4vw,78px);overflow-wrap:break-word;letter-spacing:.08em;text-transform:uppercase;line-height:.95}
 .book-sec .es{font-size:clamp(20px,2vw,26px);margin:14px 0 6px}
 .book-sec .lead{color:var(--grey);margin:0 auto 44px;max-width:40ch}
 form{background:var(--tile);border-radius:24px;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:760px;margin:0 auto;text-align:left}
@@ -275,8 +275,8 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   .cur{display:none}
 }
 </style>
-<script src="assets/i18n.js?v=d68476f1" defer></script>
-<script src="assets/search.js?v=d68476f1" defer></script>
+<script src="assets/i18n.js?v=ff00cc2b" defer></script>
+<script src="assets/search.js?v=ff00cc2b" defer></script>
 </head>
 <body>
 <div class="cur" aria-hidden="true"><span>PLAY</span></div>
@@ -456,7 +456,8 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
       <p class="es rise en-only">Cuéntanos la historia</p>
       <p class="lead rise">Send the date, the place and what you have in mind. We reply within two days.</p>
       <!-- On your live site: add action="https://formsubmit.co/YOUR-EMAIL" method="POST" to this form and delete the "form" block in the script. -->
-      <form id="quote" class="rise" novalidate>
+      <form id="quote" class="rise" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="booking"><p hidden><label>Leave empty <input name="bot-field"></label></p>
         <div class="field"><input id="f-name" name="name" autocomplete="name" placeholder=" "><label for="f-name">Name</label></div>
         <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" "><label for="f-email">Email</label></div>
         <div class="field"><select id="f-type" name="project_type"><option>Wedding or event</option><option>Music video</option><option>Commercial</option><option>Short or feature film</option><option>Something else</option></select><label for="f-type">Project</label></div>
@@ -569,24 +570,30 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   mb.addEventListener("click", () => mb.setAttribute("aria-expanded", nav.classList.toggle("open")));
   nav.querySelectorAll("ul a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); mb.setAttribute("aria-expanded", false); }));
 
-  // booking form: sent through FormSubmit to the X Films inbox (same address the old site used)
+  // booking form: Netlify Forms keeps the request and emails it (same domain, nothing to block).
+  // If that fails, the request opens in WhatsApp, already written, so nothing is lost.
   document.getElementById("quote").addEventListener("submit", async e => {
     e.preventDefault();
     const f = e.target, st = document.getElementById("status"), btn = f.querySelector("button[type=submit]");
     if (!f.name.value.trim() || !f.email.value.trim() || !f.email.checkValidity()) { st.textContent = "Add your name and a valid email."; return; }
-    const data = {
-      name: f.name.value.trim(), email: f.email.value.trim(), project_type: f.project_type.value,
-      shoot_date: f.date.value || "not specified", location: f.location.value.trim() || "not specified",
-      description: f.description.value.trim() || "(no details)", language: document.documentElement.lang || "en",
-      _subject: "New X Films request from " + f.name.value.trim(), _template: "table", _captcha: "false"
-    };
+    const es = document.documentElement.lang === "es";
+    const fields = { name: f.name.value.trim(), email: f.email.value.trim(), project_type: f.project_type.value, date: f.date.value || "-", location: f.location.value.trim() || "-", description: f.description.value.trim() || "-" };
     btn.disabled = true; st.textContent = "Sending…";
     try {
-      const r = await fetch("https://formsubmit.co/ajax/x.films.studios25@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) });
+      const body = new URLSearchParams(Object.assign({ "form-name": "booking", "bot-field": f["bot-field"].value }, fields)).toString();
+      const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
       if (!r.ok) throw new Error(r.status);
       f.reset(); st.textContent = "Thanks. We'll reply within two days.";
     } catch (err) {
-      st.textContent = "That didn't send. Write to us on WhatsApp: +58 422 199 0119.";
+      const msg = (es ? "Hola X Films, quiero reservar un rodaje.\n" : "Hello X Films, I'd like to book a shoot.\n") +
+        (es ? "Nombre: " : "Name: ") + fields.name + "\nEmail: " + fields.email + (es ? "\nProyecto: " : "\nProject: ") + fields.project_type +
+        (es ? "\nFecha: " : "\nDate: ") + fields.date + (es ? "\nLugar: " : "\nPlace: ") + fields.location + (es ? "\nIdea: " : "\nIdea: ") + fields.description;
+      const url = "https://wa.me/584221990119?text=" + encodeURIComponent(msg);
+      st.innerHTML = "";
+      const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener"; a.className = "lnk";
+      a.textContent = "Send it on WhatsApp";
+      st.append(document.createTextNode(es ? "Tu solicitud está lista. " : "Your request is ready. "), a);
+      a.focus();
     }
     btn.disabled = false;
   });
