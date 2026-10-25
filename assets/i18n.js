@@ -18,8 +18,8 @@
     "When you use the booking form or write to us on WhatsApp, we receive what you type: your name, email, the kind of project, the date, the place and your message. We use it only to reply to you and plan the work. We don't sell it or share it with anyone else.":
       "Cuando usas el formulario o nos escribes por WhatsApp, recibimos lo que escribes: tu nombre, correo, el tipo de proyecto, la fecha, el lugar y tu mensaje. Solo lo usamos para responderte y planificar el trabajo. No lo vendemos ni lo compartimos con nadie más.",
     "How the form is delivered": "Cómo se envía el formulario",
-    "The booking form is received by Netlify, the company that hosts this site, and forwarded to our inbox. WhatsApp messages are handled by WhatsApp under its own privacy policy.":
-      "El formulario lo recibe Netlify, la empresa que aloja este sitio, y lo reenvía a nuestro correo. Los mensajes de WhatsApp los gestiona WhatsApp según su propia política de privacidad.",
+    "The booking form does not store anything. It writes your request so you can send it from your own WhatsApp or email app, which handle it under their own privacy policies.":
+      "El formulario no guarda nada. Redacta tu solicitud para que la envíes desde tu propio WhatsApp o correo, que la gestionan según sus propias políticas de privacidad.",
     "No accounts, no tracking": "Sin cuentas ni rastreo",
     "The site has no user accounts and no advertising or analytics trackers. Your browser remembers only your language choice, on your own device.":
       "El sitio no tiene cuentas de usuario ni rastreadores de publicidad o analítica. Tu navegador solo recuerda el idioma que elegiste, en tu propio dispositivo.",

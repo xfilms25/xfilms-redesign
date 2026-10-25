@@ -455,9 +455,8 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
       <h2 id="book-h" class="rise">Tell us the story</h2>
       <p class="es rise en-only">Cuéntanos la historia</p>
       <p class="lead rise">Send the date, the place and what you have in mind. We reply within two days.</p>
-      <!-- On your live site: add action="https://formsubmit.co/YOUR-EMAIL" method="POST" to this form and delete the "form" block in the script. -->
-      <form id="quote" class="rise" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-        <input type="hidden" name="form-name" value="booking"><p hidden><label>Leave empty <input name="bot-field"></label></p>
+      <form id="quote" class="rise" name="booking" novalidate>
+        <p hidden><label>Leave empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <div class="field"><input id="f-name" name="name" autocomplete="name" placeholder=" "><label for="f-name">Name</label></div>
         <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" "><label for="f-email">Email</label></div>
         <div class="field"><select id="f-type" name="project_type"><option>Wedding or event</option><option>Music video</option><option>Commercial</option><option>Short or feature film</option><option>Something else</option></select><label for="f-type">Project</label></div>
@@ -570,32 +569,36 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
   mb.addEventListener("click", () => mb.setAttribute("aria-expanded", nav.classList.toggle("open")));
   nav.querySelectorAll("ul a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); mb.setAttribute("aria-expanded", false); }));
 
-  // booking form: Netlify Forms keeps the request and emails it (same domain, nothing to block).
-  // If that fails, the request opens in WhatsApp, already written, so nothing is lost.
+  // booking form: free, no service needed. The request is written for the visitor and sent
+  // from their own WhatsApp or email app. Optional: paste a free Web3Forms access key below
+  // and requests are also emailed silently to X Films.
+  const W3_KEY = "";
+  const MAIL = "x.films.studios25@gmail.com", WA = "584221990119";
   document.getElementById("quote").addEventListener("submit", async e => {
     e.preventDefault();
     const f = e.target, st = document.getElementById("status"), btn = f.querySelector("button[type=submit]");
-    if (!f.name.value.trim() || !f.email.value.trim() || !f.email.checkValidity()) { st.textContent = "Add your name and a valid email."; return; }
     const es = document.documentElement.lang === "es";
-    const fields = { name: f.name.value.trim(), email: f.email.value.trim(), project_type: f.project_type.value, date: f.date.value || "-", location: f.location.value.trim() || "-", description: f.description.value.trim() || "-" };
-    btn.disabled = true; st.textContent = "Sending…";
-    try {
-      const body = new URLSearchParams(Object.assign({ "form-name": "booking", "bot-field": f["bot-field"].value }, fields)).toString();
-      const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
-      if (!r.ok) throw new Error(r.status);
-      f.reset(); st.textContent = "Thanks. We'll reply within two days.";
-    } catch (err) {
-      const msg = (es ? "Hola X Films, quiero reservar un rodaje.\n" : "Hello X Films, I'd like to book a shoot.\n") +
-        (es ? "Nombre: " : "Name: ") + fields.name + "\nEmail: " + fields.email + (es ? "\nProyecto: " : "\nProject: ") + fields.project_type +
-        (es ? "\nFecha: " : "\nDate: ") + fields.date + (es ? "\nLugar: " : "\nPlace: ") + fields.location + (es ? "\nIdea: " : "\nIdea: ") + fields.description;
-      const url = "https://wa.me/584221990119?text=" + encodeURIComponent(msg);
-      st.innerHTML = "";
-      const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener"; a.className = "lnk";
-      a.textContent = "Send it on WhatsApp";
-      st.append(document.createTextNode(es ? "Tu solicitud está lista. " : "Your request is ready. "), a);
-      a.focus();
+    if (!f.name.value.trim() || !f.email.value.trim() || !f.email.checkValidity()) { st.textContent = es ? "Escribe tu nombre y un email válido." : "Add your name and a valid email."; return; }
+    if (f["bot-field"].value) return;
+    const v = { name: f.name.value.trim(), email: f.email.value.trim(), type: f.project_type.value, date: f.date.value || "-", place: f.location.value.trim() || "-", idea: f.description.value.trim() || "-" };
+    const L = es ? ["Nombre", "Email", "Proyecto", "Fecha", "Lugar", "Idea"] : ["Name", "Email", "Project", "Date", "Place", "Idea"];
+    const lines = [v.name, v.email, v.type, v.date, v.place, v.idea].map((x, i) => L[i] + ": " + x).join("\n");
+    const msg = (es ? "Hola X Films, quiero reservar.\n" : "Hello X Films, I'd like to book you.\n") + lines;
+    if (W3_KEY) {
+      btn.disabled = true; st.textContent = es ? "Enviando…" : "Sending…";
+      try {
+        const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ access_key: W3_KEY, subject: "BOOK US · " + v.type + " · " + v.name, from_name: "X Films website", replyto: v.email, message: msg }) });
+        const j = await r.json(); btn.disabled = false;
+        if (j.success) { f.reset(); st.textContent = es ? "Gracias. Te respondemos en dos días." : "Thanks. We'll reply within two days."; return; }
+      } catch (_) { btn.disabled = false; }
     }
-    btn.disabled = false;
+    const link = (href, text) => { const a = document.createElement("a"); a.href = href; a.className = "lnk"; a.textContent = text; if (/^https/.test(href)) { a.target = "_blank"; a.rel = "noopener"; } return a; };
+    const wa = link("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), es ? "Enviar por WhatsApp" : "Send on WhatsApp");
+    const em = link("mailto:" + MAIL + "?subject=" + encodeURIComponent("BOOK US · " + v.type + " · " + v.name) + "&body=" + encodeURIComponent(msg), es ? "Enviar por email" : "Send by email");
+    st.innerHTML = ""; st.dataset.i18nSkip = "";
+    st.append(document.createTextNode(es ? "Listo. Elige cómo enviarlo: " : "Ready. Choose how to send it: "), wa, document.createTextNode(" · "), em);
+    wa.focus();
   });
 })();
 </script>

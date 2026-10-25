@@ -598,7 +598,7 @@ def build_search(data):
 def privacy_page():
     secs = [
         ("What you send us", "When you use the booking form or write to us on WhatsApp, we receive what you type: your name, email, the kind of project, the date, the place and your message. We use it only to reply to you and plan the work. We don't sell it or share it with anyone else."),
-        ("How the form is delivered", "The booking form is received by Netlify, the company that hosts this site, and forwarded to our inbox. WhatsApp messages are handled by WhatsApp under its own privacy policy."),
+        ("How the form is delivered", "The booking form does not store anything. It writes your request so you can send it from your own WhatsApp or email app, which handle it under their own privacy policies."),
         ("No accounts, no tracking", "The site has no user accounts and no advertising or analytics trackers. Your browser remembers only your language choice, on your own device."),
         ("Content from other services", "Trailers play from YouTube (in its privacy-enhanced mode), images load from Cloudinary and fonts from Google Fonts. Those services can see your IP address when they deliver their content."),
         ("Your requests", "To see, correct or delete anything you've sent us, write to x.films.studios25@gmail.com or on WhatsApp at +58 422 199 0119."),
