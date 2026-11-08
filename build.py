@@ -220,21 +220,32 @@ def page(p, nxt):
     # the making: chapters from the pitch (cinematography, art, sound, locations)
     making = ""
     if p.get("making"):
+        def split(x): return (x, "") if isinstance(x, str) else (x[0], x[1])
         chs = []
         for n, c in enumerate(p["making"]):
-            ims = c.get("images", [])
-            def pic(x):
-                src, pos = (x, "") if isinstance(x, str) else (x[0], x[1])
+            ims = list(c.get("images", []))
+            bg = c.get("bg") or (ims.pop(0) if ims else "")
+            alt = f'{e(c["title"])} · {t}'
+            bg_html = ""
+            if bg:
+                src, pos = split(bg)
                 st = f' style="object-position:{e(pos)}"' if pos else ""
-                return f'<button type="button" data-full="{img(src, 2000)}" data-alt="{e(c["title"])} · {t}"><img src="{img(src, 2000)}" alt="{e(c["title"])} · {t}" loading="lazy"{st}></button>'
-            pics = "".join(pic(x) for x in ims)
+                bg_html = (f'<button class="bgimg" type="button" data-full="{img(src, 2400)}" data-alt="{alt}" aria-label="View full screen: {e(c["title"])}">'
+                           f'<img src="{img(src, 2400)}" alt="" loading="lazy"{st}></button>')
+            thumbs = ""
+            if ims:
+                tb = []
+                for x in ims:
+                    src, pos = split(x)
+                    st = f' style="object-position:{e(pos)}"' if pos else ""
+                    tb.append(f'<button type="button" data-full="{img(src, 2000)}" data-alt="{alt}"><img src="{img(src, 800)}" alt="{alt}" loading="lazy"{st}></button>')
+                thumbs = f'<div class="thumbs">{"".join(tb)}</div>'
             sub = f'<p class="sub">{e(c["sub"])}</p>' if c.get("sub") else ""
             txt = f'<p class="txt">{e(c["text"])}</p>' if c.get("text") else ""
-            cls = "ch" + ("" if ims else " solo") + f" n{min(len(ims), 4)}"
-            chs.append(f'<article class="{cls}"><header><span class="no" aria-hidden="true">{n + 1:02d}</span><h3>{e(c["title"])}</h3>{sub}{txt}</header>'
-                       + (f'<div class="pics">{pics}</div>' if ims else "") + '</article>')
+            chs.append(f'<article class="ch{" quiet" if c.get("quiet") else ""}">{bg_html}<div class="wrap in"><div class="copy">'
+                       f'<span class="no" aria-hidden="true">{n + 1:02d}</span><h3>{e(c["title"])}</h3>{sub}{txt}</div>{thumbs}</div></article>')
         making = (f'<section class="making" id="making" aria-labelledby="mk-h"><div class="wrap">'
-                  f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>From the director’s pitch</p></div>{"".join(chs)}</div></section>')
+                  f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>From the director’s pitch</p></div></div>{"".join(chs)}</section>')
     quote = ""
     if p.get("quote"):
         q = p["quote"]

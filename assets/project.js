@@ -121,7 +121,7 @@
   // ── motion: reveals, parallax, the epigraph lighting up, the section you are in ──
   if (!reduce && "IntersectionObserver" in window) {
     document.documentElement.classList.add("mo");
-    const groups = [".story .text > *", ".lead", ".sec-h", ".person", ".making header > *", ".making .pics button", ".pquote .by",
+    const groups = [".story .text > *", ".lead", ".sec-h", ".person", ".pquote .by",
                     ".keys > div", ".roll-h", ".grid button", ".next .wrap > *", ".ginfo, .screen"];
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }),
                                         { rootMargin: "0px 0px -8% 0px" });
@@ -130,8 +130,15 @@
       el.classList.add("rv"); el.style.setProperty("--d", Math.min(sib.indexOf(el), 6) * 90 + "ms"); io.observe(el);
     }));
 
+    // the making: each chapter reveals its words and frames once it fills the screen
+    const cio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("seen"); cio.unobserve(en.target); } }), { threshold: .3 });
+    document.querySelectorAll(".making .ch").forEach(ch => {
+      ch.querySelectorAll(".copy > *, .thumbs button").forEach((el, k) => el.style.setProperty("--d", 150 + k * 110 + "ms"));
+      cio.observe(ch);
+    });
+
     // parallax on wide frames
-    const par = [...document.querySelectorAll(".lead img, .making .pics button img, .next img, .grid button.wide img")];
+    const par = [...document.querySelectorAll(".lead img, .making .bgimg img, .next img, .grid button.wide img")];
     par.forEach(im => im.classList.add("px"));
     let ticking = false;
     const drift = () => {
@@ -165,6 +172,11 @@
     splitQ(); document.addEventListener("xf:lang", splitQ);
     drift();
   }
+
+  // the making: a chapter taller than the screen scrolls normally instead of pinning
+  const chs = [...document.querySelectorAll(".making .ch")];
+  const fit = () => chs.forEach(ch => { ch.style.position = ""; if (ch.offsetHeight > innerHeight + 2) ch.style.position = "relative"; });
+  if (chs.length) { fit(); addEventListener("resize", fit); }
 
   // subnav: mark the section on screen
   const links = [...document.querySelectorAll('.subnav nav a[href^="#"]')];

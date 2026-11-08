@@ -239,7 +239,8 @@
           "text": "",
           "images": [
             "img/medianeros/frame-1.jpg",
-            "img/medianeros/frame-3.jpg"
+            "img/medianeros/frame-3.jpg",
+            "img/medianeros/frame-2.jpg"
           ]
         },
         {
@@ -260,7 +261,9 @@
         {
           "title": "Sound and atmosphere",
           "text": "An immersive atmosphere where the soundscape works as an extension of the character's inner world. By bringing forward incidental sounds and the detail of nature, the surroundings stop being a backdrop and become a massive presence that deepens the helplessness and the fragility of the shelter against the size of the world outside.",
-          "images": []
+          "images": [],
+          "bg": "img/medianeros/still-2.jpg",
+          "quiet": true
         },
         {
           "title": "Locations",
