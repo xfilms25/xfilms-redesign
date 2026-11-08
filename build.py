@@ -144,8 +144,10 @@ def page(p, nxt):
         poster = (f'<button class="poster" type="button" data-full="{img(p["poster"], 1600)}" data-alt="Poster for {t}">'
                   f'<img src="{img(p["poster"], 800)}" alt="Poster for {t}" loading="lazy"><span>Tap to enlarge</span></button>')
     partner = ""
+    if p.get("client_logo"):
+        partner += (f'<p class="partner client"><span>Made for</span><img src="{img(p["client_logo"], 600)}" alt="{e(p.get("client", ""))}" loading="lazy"></p>')
     if p.get("partner") == "enc":
-        partner = (f'<p class="partner"><img src="{img(ENC["logo"], 200)}" alt="" loading="lazy">'
+        partner += (f'<p class="partner"><img src="{img(ENC["logo"], 200)}" alt="" loading="lazy">'
                    f'Made with the <a href="{ENC["url"]}" target="_blank" rel="noopener">{ENC["name"]}</a></p>')
 
     # lead still: the first still that isn't the hero image, else the first still

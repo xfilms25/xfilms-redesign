@@ -98,6 +98,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .facts dd{margin:0;font-size:19px;letter-spacing:-.01em}
 .partner{display:flex;align-items:center;gap:16px;color:var(--grey);font-size:14px;margin:0}
 .partner img{height:34px;width:auto;filter:invert(1) grayscale(1);opacity:.8}
+.partner.client img{height:58px;filter:none;opacity:.92}
 .partner a{border-bottom:1px solid var(--hair)}
 .partner a:hover{color:#fff}
 
