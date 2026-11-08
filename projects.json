@@ -247,8 +247,14 @@
           "text": "The hut was drawn on paper and built as a set: a single room of 6 by 4.5 metres. Costume and props follow the rural Andes of 1821.",
           "images": [
             "img/medianeros/set-build.jpg",
-            "img/medianeros/floor-plan.jpg",
-            "img/medianeros/costume.jpg"
+            [
+              "img/medianeros/floor-plan.jpg",
+              "50% 50%"
+            ],
+            [
+              "img/medianeros/costume.jpg",
+              "50% 30%"
+            ]
           ]
         },
         {

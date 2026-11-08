@@ -208,24 +208,25 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
 /* the making: pitch chapters */
 .story blockquote.long{font-size:clamp(24px,2.5vw,34px);line-height:1.28;max-width:40ch}
 .making{padding-block:120px 60px;border-top:1px solid var(--hair)}
-.making .ch{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:56px;align-items:start;padding-block:56px;border-top:1px solid var(--hair)}
+.making .ch{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 56px;align-items:end;padding-block:64px;border-top:1px solid var(--hair)}
 .making .ch:first-of-type{border-top:0;padding-top:0}
-.making header{display:grid;gap:14px;position:sticky;top:110px}
+.making header{display:contents}
+.making header > .no,.making header > h3,.making header > .sub{grid-column:1}
+.making header > .txt{grid-column:2;grid-row:1 / span 3;align-self:end;max-width:56ch}
 .making .no{font-size:11px;font-weight:600;letter-spacing:.24em;color:var(--red)}
 .making h3{margin:0;font-family:var(--poster);font-weight:500;font-size:clamp(24px,2.4vw,34px);letter-spacing:.1em;text-transform:uppercase;line-height:1.05}
 .making .sub{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
-.making .txt{margin:6px 0 0;font-family:var(--voice);font-size:clamp(20px,1.7vw,24px);line-height:1.4;color:#d9d9de}
-.making .ch.solo{grid-template-columns:minmax(0,1fr)}
-.making .ch.solo header{position:static;max-width:860px}
-.making .ch.solo .txt{font-style:italic;font-size:clamp(24px,2.6vw,36px);line-height:1.3;color:var(--white)}
-.making .pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.making .pics button{padding:0;border:0;background:var(--tile);cursor:zoom-in;overflow:hidden;aspect-ratio:4/3}
+.making .txt{margin:0;font-family:var(--voice);font-size:clamp(20px,1.7vw,24px);line-height:1.4;color:#d9d9de}
+.making .ch.solo .txt{font-style:italic;font-size:clamp(22px,2.2vw,32px);line-height:1.32;color:var(--white)}
+/* the frames run wider than the text column, in scope */
+.making .pics{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;margin-inline:calc(-1 * min(6vw, 90px))}
+.making .pics button{padding:0;border:0;background:var(--tile);cursor:zoom-in;overflow:hidden;aspect-ratio:2/1}
 .making .pics img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
 .making .pics button:hover img{transform:scale(1.03)}
 .making .n1 .pics{grid-template-columns:1fr}
-.making .n1 .pics button{aspect-ratio:16/9}
-.making .n3 .pics button:first-child,.making .n4 .pics button:first-child{grid-column:1/-1;aspect-ratio:16/8}
+.making .n1 .pics button,.making .n3 .pics button:first-child,.making .n4 .pics button:first-child{grid-column:1/-1;aspect-ratio:2.39/1}
 .making .n4 .pics{grid-template-columns:1fr 1fr 1fr}
+.making .n4 .pics button:not(:first-child){aspect-ratio:16/9}
 .pquote{padding-block:140px;text-align:center;background:radial-gradient(60% 80% at 50% 50%,rgba(255,140,40,.08),transparent 70%)}
 .pquote blockquote{margin:0 auto;max-width:22ch;font-family:var(--voice);font-style:italic;font-size:clamp(30px,4.2vw,58px);line-height:1.15}
 .pquote .by{margin:28px 0 0;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
@@ -266,8 +267,10 @@ img.px{transform:translateY(var(--py,0)) scale(1.14);will-change:transform}
 .mo .pquote .w.on{opacity:1}
 @media (prefers-reduced-motion:reduce){img.px{transform:none}.p-hero .bg img{animation:none}}
 @media (max-width:900px){
-  .making .ch{grid-template-columns:1fr;gap:28px;padding-block:44px}
-  .making header{position:static}
+  .making .ch{grid-template-columns:1fr;gap:16px;padding-block:44px}
+  .making header > .txt{grid-column:1;grid-row:auto;margin-top:8px}
+  .making .pics{margin-inline:calc(-1 * var(--gl)) calc(-1 * var(--gr));gap:6px}
+  .making .pics button{aspect-ratio:16/9}
   .making .n4 .pics{grid-template-columns:1fr 1fr}
   .pquote{padding-block:100px}
 }

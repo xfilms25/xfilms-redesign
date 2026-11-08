@@ -223,7 +223,11 @@ def page(p, nxt):
         chs = []
         for n, c in enumerate(p["making"]):
             ims = c.get("images", [])
-            pics = "".join(f'<button type="button" data-full="{img(x, 2000)}" data-alt="{e(c["title"])} · {t}"><img src="{img(x, 1400)}" alt="{e(c["title"])} · {t}" loading="lazy"></button>' for x in ims)
+            def pic(x):
+                src, pos = (x, "") if isinstance(x, str) else (x[0], x[1])
+                st = f' style="object-position:{e(pos)}"' if pos else ""
+                return f'<button type="button" data-full="{img(src, 2000)}" data-alt="{e(c["title"])} · {t}"><img src="{img(src, 2000)}" alt="{e(c["title"])} · {t}" loading="lazy"{st}></button>'
+            pics = "".join(pic(x) for x in ims)
             sub = f'<p class="sub">{e(c["sub"])}</p>' if c.get("sub") else ""
             txt = f'<p class="txt">{e(c["text"])}</p>' if c.get("text") else ""
             cls = "ch" + ("" if ims else " solo") + f" n{min(len(ims), 4)}"
