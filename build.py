@@ -136,7 +136,12 @@ def page(p, nxt):
     facts = [("Client", p.get("client", "")), ("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Status", p.get("status", "")), ("Genre", p["genre"]),
              ("Set in", p.get("setting", "")), ("Filmed in", p.get("filmed_in", "")),
              ("Runtime", p["runtime"]), ("Year", p["year"]), ("Production", prod)]
-    facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in facts if v)
+    curl = p.get("client_url", "")
+    def val(k, v):
+        if curl and k == "Client":
+            return f'<a class="ext" href="{e(curl)}" target="_blank" rel="noopener">{e(v)}</a>'
+        return e(v)
+    facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{val(k, v)}</dd></div>" for k, v in facts if v)
 
     # poster + partner
     poster = ""
@@ -145,7 +150,7 @@ def page(p, nxt):
                   f'<img src="{img(p["poster"], 800)}" alt="Poster for {t}" loading="lazy"><span>Tap to enlarge</span></button>')
     partner = ""
     if p.get("client_logo"):
-        partner += (f'<p class="partner client"><span>Made for</span><img src="{img(p["client_logo"], 600)}" alt="{e(p.get("client", ""))}" loading="lazy"></p>')
+        partner += (f'<p class="partner client"><span>Made for</span><a href="{e(curl)}" target="_blank" rel="noopener" aria-label="{e(p.get("client", ""))}"><img src="{img(p["client_logo"], 600)}" alt="{e(p.get("client", ""))}" loading="lazy"></a></p>')
     if p.get("partner") == "enc":
         partner += (f'<p class="partner"><img src="{img(ENC["logo"], 200)}" alt="" loading="lazy">'
                    f'Made with the <a href="{ENC["url"]}" target="_blank" rel="noopener">{ENC["name"]}</a></p>')
@@ -182,7 +187,7 @@ def page(p, nxt):
                  ("Music", ("original score", "original music", "music & mix")), ("Edited by", ("edited by",))]
     keys = "".join(f"<div><dt>{k}</dt><dd>{e(credit(*rs))}</dd></div>" for k, rs in key_roles if credit(*rs))
     keys_html = f'<dl class="keys">{keys}</dl>' if keys.count("<div>") >= 2 else ""
-    roll = "".join(f"<dt>{e(r)}</dt><dd>{e(n)}</dd>" for r, n in credits)
+    roll = "".join(f"<dt>{e(r)}</dt><dd>{val(r, n)}</dd>" for r, n in credits)
 
     gallery = ""
     if rest:
