@@ -118,4 +118,62 @@
     viewer.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
     if (items.length < 2) viewer.querySelectorAll(".arr").forEach(a => a.hidden = true);
   }
+  // ── motion: reveals, parallax, the epigraph lighting up, the section you are in ──
+  if (!reduce && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("mo");
+    const groups = [".story .text > *", ".lead", ".sec-h", ".person", ".making header > *", ".making .pics button", ".pquote .by",
+                    ".keys > div", ".roll-h", ".grid button", ".next .wrap > *", ".ginfo, .screen"];
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }),
+                                        { rootMargin: "0px 0px -8% 0px" });
+    groups.forEach(sel => document.querySelectorAll(sel).forEach(el => {
+      const sib = [...el.parentElement.children].filter(c => c.matches(sel));
+      el.classList.add("rv"); el.style.setProperty("--d", Math.min(sib.indexOf(el), 6) * 90 + "ms"); io.observe(el);
+    }));
+
+    // parallax on wide frames
+    const par = [...document.querySelectorAll(".lead img, .making .pics button img, .next img, .grid button.wide img")];
+    par.forEach(im => im.classList.add("px"));
+    let ticking = false;
+    const drift = () => {
+      ticking = false; const vh = innerHeight;
+      par.forEach(im => {
+        const r = im.parentElement.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        const k = ((r.top + r.height / 2) - vh / 2) / vh;      // -1 … 1 across the screen
+        im.style.setProperty("--py", (k * -6).toFixed(2) + "%");
+      });
+      // the epigraph lights up word by word
+      if (qw.length) {
+        const r = qb.getBoundingClientRect();
+        const pr = Math.max(0, Math.min(1, (vh * .82 - r.top) / (r.height + vh * .25)));
+        const n = Math.round(pr * qw.length);
+        qw.forEach((w, j) => w.classList.toggle("on", j < n));
+      }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } };
+    addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll);
+
+    const qb = document.querySelector(".pquote blockquote");
+    let qw = [];
+    const splitQ = () => {
+      if (!qb) return;
+      const txt = window.XF ? XF.t(qb.dataset.en) : qb.dataset.en;
+      qb.textContent = ""; qb.setAttribute("aria-label", txt);
+      qw = txt.split(/\s+/).map(w => { const s = document.createElement("span"); s.className = "w"; s.setAttribute("aria-hidden", "true"); s.textContent = w + " "; qb.appendChild(s); return s; });
+      drift();
+    };
+    splitQ(); document.addEventListener("xf:lang", splitQ);
+    drift();
+  }
+
+  // subnav: mark the section on screen
+  const links = [...document.querySelectorAll('.subnav nav a[href^="#"]')];
+  const secs = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  if (secs.length && "IntersectionObserver" in window) {
+    const so = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      links.forEach(a => a.classList.toggle("here", a.getAttribute("href") === "#" + en.target.id));
+    }), { rootMargin: "-45% 0px -50% 0px" });
+    secs.forEach(s => so.observe(s));
+  }
 })();

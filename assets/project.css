@@ -229,6 +229,42 @@ footer{background:var(--ink);color:var(--grey);font-size:12px;padding-block:44px
 .pquote{padding-block:140px;text-align:center;background:radial-gradient(60% 80% at 50% 50%,rgba(255,140,40,.08),transparent 70%)}
 .pquote blockquote{margin:0 auto;max-width:22ch;font-family:var(--voice);font-style:italic;font-size:clamp(30px,4.2vw,58px);line-height:1.15}
 .pquote .by{margin:28px 0 0;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
+/* motion */
+.mo .rv{opacity:0;transform:translateY(34px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform 1.1s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.mo .rv.in{opacity:1;transform:none}
+.mo .lead.rv,.mo .making .pics button.rv,.mo .grid button.rv{transform:none;clip-path:inset(12% 0 12% 0);transition:opacity 1s ease var(--d,0ms),clip-path 1.4s cubic-bezier(.7,0,.2,1) var(--d,0ms)}
+.mo .lead.rv.in,.mo .making .pics button.rv.in,.mo .grid button.rv.in{clip-path:inset(0)}
+.mo .person.rv{transform:translateY(46px) scale(.97)}
+.mo .person.rv.in{transform:none}
+.lead{overflow:hidden}
+img.px{transform:translateY(var(--py,0)) scale(1.14);will-change:transform}
+.making .pics button:hover img.px,.grid button:hover img.px{transform:translateY(var(--py,0)) scale(1.19)}
+.p-hero .bg img:not(.brighten){animation:settle 2.4s ease-out both,drift 38s ease-in-out 2.4s infinite alternate}
+@keyframes drift{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.5%,-1%)}}
+.subnav nav a{position:relative;transition:color .3s}
+.subnav nav a.here{color:var(--white)}
+.subnav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--red);transform:scaleX(0);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.subnav nav a.here::after{transform:none}
+
+/* cast: same frame for every face, warm light on hover */
+.people{margin-inline:auto;justify-content:center}
+.cast .sec-h{max-width:calc(var(--cols,4) * 300px);margin-inline:auto}
+.person .ph{border-radius:2px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.person .ph img{object-position:50% 40%;filter:saturate(.85) contrast(1.04);transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .8s}
+.person .ph::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 55%,rgba(0,0,0,.45)),radial-gradient(120% 80% at 50% 0%,rgba(255,150,60,.0),rgba(255,140,40,.12));mix-blend-mode:normal;transition:opacity .8s}
+.person:hover .ph img{filter:saturate(1.05) contrast(1.06)}
+.person:hover .ph::after{opacity:.4}
+.person{align-content:start}
+.person figcaption{text-align:center}
+.person .ph{outline:1px solid transparent;outline-offset:6px;transition:outline-color .6s}
+.person:hover .ph{outline-color:rgba(255,160,70,.45)}
+
+/* the making: big chapter numbers, the epigraph words */
+.making .no{font-family:var(--voice);font-style:italic;font-weight:400;font-size:clamp(56px,6vw,96px);line-height:.8;letter-spacing:0;color:transparent;-webkit-text-stroke:1px rgba(255,160,70,.75);margin-bottom:6px}
+.making .ch:hover .no{color:rgba(255,160,70,.12)}
+.mo .pquote .w{opacity:.14;transition:opacity .45s,filter .45s}
+.mo .pquote .w.on{opacity:1}
+@media (prefers-reduced-motion:reduce){img.px{transform:none}.p-hero .bg img{animation:none}}
 @media (max-width:900px){
   .making .ch{grid-template-columns:1fr;gap:28px;padding-block:44px}
   .making header{position:static}

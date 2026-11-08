@@ -227,14 +227,14 @@ def page(p, nxt):
             sub = f'<p class="sub">{e(c["sub"])}</p>' if c.get("sub") else ""
             txt = f'<p class="txt">{e(c["text"])}</p>' if c.get("text") else ""
             cls = "ch" + ("" if ims else " solo") + f" n{min(len(ims), 4)}"
-            chs.append(f'<article class="{cls}"><header><span class="no">{n + 1:02d}</span><h3>{e(c["title"])}</h3>{sub}{txt}</header>'
+            chs.append(f'<article class="{cls}"><header><span class="no" aria-hidden="true">{n + 1:02d}</span><h3>{e(c["title"])}</h3>{sub}{txt}</header>'
                        + (f'<div class="pics">{pics}</div>' if ims else "") + '</article>')
         making = (f'<section class="making" id="making" aria-labelledby="mk-h"><div class="wrap">'
                   f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>From the director’s pitch</p></div>{"".join(chs)}</div></section>')
     quote = ""
     if p.get("quote"):
         q = p["quote"]
-        quote = (f'<section class="pquote" aria-label="Epigraph"><div class="wrap"><blockquote>“{e(q["text"])}”</blockquote>'
+        quote = (f'<section class="pquote" aria-label="Epigraph"><div class="wrap"><blockquote data-i18n-skip data-en="“{e(q["text"])}”">“{e(q["text"])}”</blockquote>'
                  f'<p class="by">{e(q["by"])}</p></div></section>')
 
     sub_links = ['<a href="#story">Story</a>']
