@@ -99,14 +99,14 @@
       "status": "In production",
       "teaser": true,
       "tagline": "The land they work was never theirs.",
-      "genre": "Drama",
+      "genre": "Period drama",
       "runtime": "",
       "year": "2026",
       "director": "Sophia Labrador",
       "trailer": "JDGAP81B-xA",
-      "hero": "img/medianeros/still-1.jpg",
+      "hero": "img/medianeros/cover.jpg",
       "poster": "",
-      "synopsis": "A story of the people who work land that isn't theirs, told through Teresa, Antonio, Luisa and José. Still in production: this is the first teaser.",
+      "synopsis": "The Andes, 1821. After her husband leaves for battle, Teresa (22), a young pregnant sharecropper, works the harvest under the pressure of José (34), a landowner who makes the living from his land depend on the birth of a boy. When she gives birth to a girl, mother and daughter are left with nothing, buried under the rubble of their hut. Weeks later, Antonio (36) comes home to find the ruins.",
       "credits": [
         [
           "Director",
@@ -196,22 +196,22 @@
       "cast": [
         {
           "name": "Alvarielys Castro",
-          "photo": "",
+          "photo": "img/medianeros/cast-alvarielys.jpg",
           "role": "Teresa"
         },
         {
           "name": "Ender Camacho",
-          "photo": "",
+          "photo": "img/medianeros/cast-ender.jpg",
           "role": "Antonio"
         },
         {
           "name": "Pedro Armando Medina",
-          "photo": "",
+          "photo": "img/medianeros/cast-pedro.jpg",
           "role": "José"
         },
         {
           "name": "Sheila Monterola",
-          "photo": "",
+          "photo": "img/medianeros/cast-sheila.jpg",
           "role": "Luisa"
         }
       ],
@@ -222,7 +222,56 @@
         "img/medianeros/still-3.jpg",
         "img/medianeros/still-5.jpg"
       ],
-      "partner": "enc"
+      "partner": "enc",
+      "setting": "The Andes, 1821",
+      "filmed_in": "Lobatera and Cada del Padre, Táchira",
+      "making": [
+        {
+          "title": "Cinematography",
+          "text": "Lit by candle and fire inside the hut, with nineteenth-century rural painting as the visual reference.",
+          "images": [
+            "img/medianeros/bts-camera.jpg"
+          ]
+        },
+        {
+          "title": "Frames from the shoot",
+          "sub": "INT. Hut – Night",
+          "text": "",
+          "images": [
+            "img/medianeros/frame-1.jpg",
+            "img/medianeros/frame-3.jpg"
+          ]
+        },
+        {
+          "title": "Art direction",
+          "text": "The hut was drawn on paper and built as a set: a single room of 6 by 4.5 metres. Costume and props follow the rural Andes of 1821.",
+          "images": [
+            "img/medianeros/set-build.jpg",
+            "img/medianeros/floor-plan.jpg",
+            "img/medianeros/costume.jpg"
+          ]
+        },
+        {
+          "title": "Sound and atmosphere",
+          "text": "An immersive atmosphere where the soundscape works as an extension of the character's inner world. By bringing forward incidental sounds and the detail of nature, the surroundings stop being a backdrop and become a massive presence that deepens the helplessness and the fragility of the shelter against the size of the world outside.",
+          "images": []
+        },
+        {
+          "title": "Locations",
+          "sub": "Exteriors · Lobatera and Cada del Padre, Táchira",
+          "text": "",
+          "images": [
+            "img/medianeros/loc-2.jpg",
+            "img/medianeros/loc-1.jpg",
+            "img/medianeros/loc-3.jpg",
+            "img/medianeros/loc-4.jpg"
+          ]
+        }
+      ],
+      "quote": {
+        "text": "Without memory there is no identity, and without identity there is no future.",
+        "by": "Arturo Uslar Pietri"
+      }
     },
     {
       "slug": "beneath-the-enchanted-tree",

@@ -139,8 +139,17 @@
     "Concert coverage": "Cobertura de concierto", "Visual study": "Estudio visual",
     /* Medianeros */
     "The land they work was never theirs.": "La tierra que trabajan nunca fue suya.",
-    "A story of the people who work land that isn't theirs, told through Teresa, Antonio, Luisa and José. Still in production: this is the first teaser.":
-      "Una historia de quienes trabajan una tierra que no es suya, contada a través de Teresa, Antonio, Luisa y José. Aún en producción: este es su primer teaser.",
+    "The Andes, 1821. After her husband leaves for battle, Teresa (22), a young pregnant sharecropper, works the harvest under the pressure of José (34), a landowner who makes the living from his land depend on the birth of a boy. When she gives birth to a girl, mother and daughter are left with nothing, buried under the rubble of their hut. Weeks later, Antonio (36) comes home to find the ruins.":
+      "Los Andes, 1821. Luego de partir su esposo a la batalla, Teresa (22), una joven medianera embarazada, rinde la siembra, hostigada por José (34), un latifundista que sentencia el sustento de sus tierras al nacimiento de un varón. Al dar a luz a una niña, quedan desamparadas y sepultadas entre los escombros de su choza. Semanas después, Antonio (36) regresa, encontrando las ruinas.",
+    "Period drama": "Drama de época", "Set in": "Ambientada en", "Filmed in": "Rodada en", "The Andes, 1821": "Los Andes, 1821",
+    "Lobatera and Cada del Padre, Táchira": "Lobatera y Cada del Padre, Táchira", "Making": "Rodaje", "The making": "El rodaje", "From the director’s pitch": "Del pitch de la directora",
+    "Frames from the shoot": "Fotogramas logrados", "INT. Hut – Night": "INT. Choza – Noche", "Art direction": "Dirección de arte", "Sound and atmosphere": "Diseño sonoro y atmósfera",
+    "Locations": "Locaciones", "Exteriors · Lobatera and Cada del Padre, Táchira": "Exteriores · Lobatera y Cada del Padre, Táchira", "Epigraph": "Epígrafe",
+    "Lit by candle and fire inside the hut, with nineteenth-century rural painting as the visual reference.": "Iluminada con velas y fogón dentro de la choza, con la pintura rural del siglo XIX como referencia visual.",
+    "The hut was drawn on paper and built as a set: a single room of 6 by 4.5 metres. Costume and props follow the rural Andes of 1821.": "La choza se dibujó en papel y se construyó como set: una sola habitación de 6 por 4,5 metros. Vestuario y utilería siguen los Andes rurales de 1821.",
+    "An immersive atmosphere where the soundscape works as an extension of the character's inner world. By bringing forward incidental sounds and the detail of nature, the surroundings stop being a backdrop and become a massive presence that deepens the helplessness and the fragility of the shelter against the size of the world outside.":
+      "Diseño atmosférico inmersivo donde el paisaje sonoro funciona como una extensión de la subjetividad del personaje. Al resaltar los sonidos incidentales y el detalle de la naturaleza, se busca que el entorno no sea un simple fondo, sino un elemento masivo que acentúe el desamparo y la fragilidad del refugio frente a la magnitud del mundo exterior.",
+    "“Without memory there is no identity, and without identity there is no future.”": "“Sin memoria no hay identidad, y sin identidad no hay futuro.”",
     "Teaser": "Teaser", "Status": "Estado", "In production": "En producción", "Teaser · In production": "Teaser · En producción", "Watch the teaser": "Ver el teaser", "Baby": "Bebé",
     "Production assistant": "Asistente de producción", "Set design": "Escenografía", "Art assistant": "Asistente de arte", "Costume designer": "Vestuario",
     "Set design assistant": "Asistente de escenografía", "Media manager": "Media manager",

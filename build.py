@@ -134,6 +134,7 @@ def page(p, nxt):
 
     # facts beside the synopsis
     facts = [("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Status", p.get("status", "")), ("Genre", p["genre"]),
+             ("Set in", p.get("setting", "")), ("Filmed in", p.get("filmed_in", "")),
              ("Runtime", p["runtime"]), ("Year", p["year"]), ("Production", prod)]
     facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in facts if v)
 
@@ -216,9 +217,30 @@ def page(p, nxt):
     </div>
   </section>"""
 
+    # the making: chapters from the pitch (cinematography, art, sound, locations)
+    making = ""
+    if p.get("making"):
+        chs = []
+        for n, c in enumerate(p["making"]):
+            ims = c.get("images", [])
+            pics = "".join(f'<button type="button" data-full="{img(x, 2000)}" data-alt="{e(c["title"])} · {t}"><img src="{img(x, 1400)}" alt="{e(c["title"])} · {t}" loading="lazy"></button>' for x in ims)
+            sub = f'<p class="sub">{e(c["sub"])}</p>' if c.get("sub") else ""
+            txt = f'<p class="txt">{e(c["text"])}</p>' if c.get("text") else ""
+            cls = "ch" + ("" if ims else " solo") + f" n{min(len(ims), 4)}"
+            chs.append(f'<article class="{cls}"><header><span class="no">{n + 1:02d}</span><h3>{e(c["title"])}</h3>{sub}{txt}</header>'
+                       + (f'<div class="pics">{pics}</div>' if ims else "") + '</article>')
+        making = (f'<section class="making" id="making" aria-labelledby="mk-h"><div class="wrap">'
+                  f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>From the director’s pitch</p></div>{"".join(chs)}</div></section>')
+    quote = ""
+    if p.get("quote"):
+        q = p["quote"]
+        quote = (f'<section class="pquote" aria-label="Epigraph"><div class="wrap"><blockquote>“{e(q["text"])}”</blockquote>'
+                 f'<p class="by">{e(q["by"])}</p></div></section>')
+
     sub_links = ['<a href="#story">Story</a>']
     if game: sub_links.append('<a href="#game">Game</a>')
     if cast: sub_links.append('<a href="#cast">Cast</a>')
+    if making: sub_links.append('<a href="#making">Making</a>')
     sub_links.append('<a href="#credits">Credits</a>')
     if gallery: sub_links.append('<a href="#stills">Stills</a>')
     if p["trailer"]:
@@ -265,7 +287,7 @@ def page(p, nxt):
       {poster}
       <div class="text">
         <p class="credit">Synopsis</p>
-        <blockquote>{e(p['synopsis'])}</blockquote>
+        <blockquote{' class="long"' if len(p['synopsis']) > 220 else ''}>{e(p['synopsis'])}</blockquote>
         <dl class="facts">{facts_html}</dl>
         {partner}
       </div>
@@ -277,6 +299,10 @@ def page(p, nxt):
   {game}
 
   {cast}
+
+  {making}
+
+  {quote}
 
   <section class="credits" id="credits" aria-labelledby="cred-h">
     <div class="wrap">
