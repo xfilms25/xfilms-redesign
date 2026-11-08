@@ -807,7 +807,7 @@
       "genre": "Healthcare campaign",
       "runtime": "2 × 15 s",
       "year": "2026",
-      "director": "",
+      "director": "Jesus Topalian",
       "trailer": "vG9obD9VWXM",
       "bg_start": 0,
       "hero": "img/piedra-azul/stretcher.jpg",
@@ -832,6 +832,30 @@
         }
       ],
       "credits": [
+        [
+          "Director",
+          "Jesus Topalian"
+        ],
+        [
+          "Producer",
+          "Eduardo Escobar"
+        ],
+        [
+          "Director of photography",
+          "Sebastián Linares"
+        ],
+        [
+          "Assistant director",
+          "Rosangel Salazar"
+        ],
+        [
+          "Gaffer",
+          "Rodrigo Torres"
+        ],
+        [
+          "Behind the scenes",
+          "Miguel Marcano"
+        ],
         [
           "Production company",
           "X Films"
