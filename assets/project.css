@@ -271,6 +271,23 @@ img.px{transform:translateY(var(--py,0)) scale(1.14);will-change:transform}
 .mo .pquote .w{opacity:.14;transition:opacity .45s,filter .45s}
 .mo .pquote .w.on{opacity:1}
 @media (prefers-reduced-motion:reduce){img.px{transform:none}.p-hero .bg img{animation:none}}
+/* campaign spots */
+.spots{padding-block:40px 120px}
+.spot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.spot{display:grid;gap:22px;padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.spot .pic{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:var(--tile)}
+.spot .pic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .8s;filter:brightness(.82)}
+.spot:hover .pic img{transform:scale(1.05);filter:brightness(1)}
+.spot .pl{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .6s cubic-bezier(.2,.7,.2,1),background .4s}
+.spot .pl svg{width:20px;height:20px;margin-left:4px;color:#fff}
+.spot:hover .pl{transform:scale(1.12);background:var(--red);border-color:transparent}
+.spot:hover .pl svg{color:#000}
+.spot .meta{display:grid;gap:10px}
+.spot .k{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.spot .h{font-family:var(--poster);font-weight:500;font-size:clamp(28px,3vw,42px);letter-spacing:.08em;text-transform:uppercase;line-height:1}
+.spot .d{font-family:var(--voice);font-size:clamp(19px,1.6vw,22px);line-height:1.4;color:#d9d9de;max-width:46ch}
+.spot .vo{font-family:var(--voice);font-style:italic;font-size:clamp(19px,1.6vw,22px);color:var(--grey)}
+@media (max-width:760px){.spot-grid{grid-template-columns:1fr;gap:56px}}
 @media (max-width:900px){
   .making .in{flex-direction:column;align-items:stretch;gap:26px;padding-block:120px 40px}
   .making .ch::before{background:linear-gradient(rgba(0,0,0,.4),transparent 25%,rgba(0,0,0,.35) 45%,rgba(0,0,0,.9) 85%)}

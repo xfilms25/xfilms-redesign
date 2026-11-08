@@ -798,6 +798,108 @@
       "partner": null
     },
     {
+      "slug": "cuidarlos-desde-lejos",
+      "title": "Cuidarlos desde lejos",
+      "title_es": "",
+      "kind": "Commercial",
+      "client": "Clínica Piedra Azul",
+      "tagline": "Caring from afar is also being there.",
+      "genre": "Healthcare campaign",
+      "runtime": "2 × 15 s",
+      "year": "2026",
+      "director": "",
+      "trailer": "vG9obD9VWXM",
+      "bg_start": 0,
+      "hero": "img/piedra-azul/stretcher.jpg",
+      "poster": "",
+      "synopsis": "A campaign for Clínica Piedra Azul about the Venezuelans who live abroad and look after their families back home. Two 15-second spots, Urgency and Prevention: a call that can't wait, and a check-up planned from miles away.",
+      "videos": [
+        {
+          "id": "vG9obD9VWXM",
+          "label": "Spot 1 · Urgency · 15 s",
+          "title": "Urgency",
+          "poster": "img/piedra-azul/urgency.jpg",
+          "text": "A fall at home and a call from abroad. In seconds she arranges care, and her family is received at the clinic.",
+          "vo": "Peace of mind for you, support for them."
+        },
+        {
+          "id": "frbpCmrLdsQ",
+          "label": "Spot 2 · Prevention · 15 s",
+          "title": "Prevention",
+          "poster": "img/piedra-azul/mother-consult.jpg",
+          "text": "A reminder for mom's appointment. From abroad, her daughter books the check-up and sees the results on a video call.",
+          "vo": "Because their wellbeing is your peace of mind."
+        }
+      ],
+      "credits": [
+        [
+          "Production company",
+          "X Films"
+        ],
+        [
+          "Client",
+          "Clínica Piedra Azul"
+        ]
+      ],
+      "cast": [],
+      "stills": [
+        "img/piedra-azul/facade.jpg",
+        "img/piedra-azul/crew-ambulance.jpg",
+        "img/piedra-azul/cameras.jpg",
+        "img/piedra-azul/lift.jpg",
+        "img/piedra-azul/phone.jpg",
+        "img/piedra-azul/patient.jpg",
+        "img/piedra-azul/arrival.jpg",
+        "img/piedra-azul/doctor.jpg",
+        "img/piedra-azul/shot-room.jpg",
+        "img/piedra-azul/nurse.jpg",
+        "img/piedra-azul/dop.jpg",
+        "img/piedra-azul/frame.jpg",
+        "img/piedra-azul/wide-set.jpg",
+        "img/piedra-azul/monitor.jpg"
+      ],
+      "making": [
+        {
+          "title": "Urgency",
+          "sub": "Spot 1 · Emergency entrance",
+          "text": "The call, the façade and reception, then the stretcher and the team moving at once. Fifteen seconds from fear to relief.",
+          "images": [
+            "img/piedra-azul/urgency.jpg",
+            "img/piedra-azul/ambulance.jpg",
+            "img/piedra-azul/team.jpg",
+            "img/piedra-azul/room.jpg"
+          ]
+        },
+        {
+          "title": "Prevention",
+          "sub": "Spot 2 · Consulting room",
+          "text": "The calm version of the same promise: a reminder, a specialist who takes his time, and a video call that closes the distance.",
+          "images": [
+            "img/piedra-azul/consult.jpg",
+            "img/piedra-azul/mother.jpg",
+            "img/piedra-azul/daughter.jpg"
+          ]
+        },
+        {
+          "title": "On set",
+          "sub": "On location at Clínica Piedra Azul",
+          "text": "Shot across the clinic itself: the ambulance bay, emergency, consulting rooms and hospital rooms.",
+          "images": [
+            "img/piedra-azul/directing.jpg",
+            "img/piedra-azul/gimbal.jpg",
+            "img/piedra-azul/crew.jpg"
+          ]
+        }
+      ],
+      "quote": {
+        "text": "Caring from afar is also being there.",
+        "by": "Clínica Piedra Azul · Closing line"
+      },
+      "partner": null,
+      "making_note": "Two scripts, one day at the clinic",
+      "gallery_title": "Behind the scenes"
+    },
+    {
       "slug": "runway-night-heroines",
       "title": "Runway Night: Heroines",
       "title_es": "",

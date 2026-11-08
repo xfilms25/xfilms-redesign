@@ -103,7 +103,7 @@ def page(p, nxt):
     prod = next((n for r, n in p["credits"] if r.lower().startswith("production company")), "X Films")
 
     # hero
-    line1 = "X Films presents" if is_film else p["kind"]
+    line1 = "X Films presents" if is_film else p["kind"] + (" · " + p["client"] if p.get("client") else "")
     if p["director"]:
         line2 = ("A film by " if is_film else "Directed by ") + p["director"]
         if p.get("status"):
@@ -133,7 +133,7 @@ def page(p, nxt):
         return ""
 
     # facts beside the synopsis
-    facts = [("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Status", p.get("status", "")), ("Genre", p["genre"]),
+    facts = [("Client", p.get("client", "")), ("Directed by", p["director"]), ("Written by", credit("screenplay")), ("Status", p.get("status", "")), ("Genre", p["genre"]),
              ("Set in", p.get("setting", "")), ("Filmed in", p.get("filmed_in", "")),
              ("Runtime", p["runtime"]), ("Year", p["year"]), ("Production", prod)]
     facts_html = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in facts if v)
@@ -189,7 +189,7 @@ def page(p, nxt):
             wide = " wide" if (len(rest) % 2 == 1 and n == 0) else ""
             btns.append(f'<button class="{wide.strip()}" type="button" data-full="{img(x, 2000)}" data-alt="Still from {t}"><img src="{img(x, 1400)}" alt="Still from {t}" loading="lazy"></button>')
         gallery = (f'<section class="gallery" id="stills" aria-labelledby="gal-h"><div class="wrap">'
-                   f'<div class="sec-h"><h2 id="gal-h">Stills</h2><p>Tap any frame to view it full screen</p></div>'
+                   f'<div class="sec-h"><h2 id="gal-h">{e(p.get("gallery_title", "Stills"))}</h2><p>Tap any frame to view it full screen</p></div>'
                    f'<div class="grid">{"".join(btns)}</div></div></section>')
 
     game = ""
@@ -216,6 +216,19 @@ def page(p, nxt):
       </div>
     </div>
   </section>"""
+
+    # several finished pieces (a campaign with more than one spot)
+    spots = ""
+    if p.get("videos"):
+        cards = []
+        for v in p["videos"]:
+            cards.append(f'<button class="spot" type="button" data-trailer="{e(v["id"])}">'
+                         f'<span class="pic"><img src="{img(v["poster"], 1600)}" alt="" loading="lazy"><span class="pl" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg></span></span>'
+                         f'<span class="meta"><span class="k">{e(v["label"])}</span><span class="h">{e(v["title"])}</span>'
+                         f'<span class="d">{e(v["text"])}</span><span class="vo">“{e(v["vo"])}”</span></span></button>')
+        spots = (f'<section class="spots" id="spots" aria-labelledby="sp-h"><div class="wrap">'
+                 f'<div class="sec-h"><h2 id="sp-h">The spots</h2><p>{len(p["videos"])} films · Tap to watch</p></div>'
+                 f'<div class="spot-grid">{"".join(cards)}</div></div></section>')
 
     # the making: chapters from the pitch (cinematography, art, sound, locations)
     making = ""
@@ -245,7 +258,7 @@ def page(p, nxt):
             chs.append(f'<article class="ch{" quiet" if c.get("quiet") else ""}">{bg_html}<div class="wrap in"><div class="copy">'
                        f'<h3>{e(c["title"])}</h3>{sub}{txt}</div>{thumbs}</div></article>')
         making = (f'<section class="making" id="making" aria-labelledby="mk-h"><div class="wrap">'
-                  f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>From the director’s pitch</p></div></div>{"".join(chs)}</section>')
+                  f'<div class="sec-h"><h2 id="mk-h">The making</h2><p>{e(p.get("making_note", "From the director’s pitch"))}</p></div></div>{"".join(chs)}</section>')
     quote = ""
     if p.get("quote"):
         q = p["quote"]
@@ -253,11 +266,12 @@ def page(p, nxt):
                  f'<p class="by">{e(q["by"])}</p></div></section>')
 
     sub_links = ['<a href="#story">Story</a>']
+    if spots: sub_links.append('<a href="#spots">Spots</a>')
     if game: sub_links.append('<a href="#game">Game</a>')
     if cast: sub_links.append('<a href="#cast">Cast</a>')
     if making: sub_links.append('<a href="#making">Making</a>')
     sub_links.append('<a href="#credits">Credits</a>')
-    if gallery: sub_links.append('<a href="#stills">Stills</a>')
+    if gallery: sub_links.append(f'<a href="#stills">{"BTS" if p.get("gallery_title") else "Stills"}</a>')
     if p["trailer"]:
         sub_links.append(f'<button class="watch" type="button" data-trailer="{e(p["trailer"])}">Watch</button>')
     subnav = (f'<div class="subnav"><div class="wrap"><strong>{t}</strong>'
@@ -308,6 +322,8 @@ def page(p, nxt):
       </div>
     </div>
   </section>
+
+  {spots}
 
   {lead}
 

@@ -122,7 +122,7 @@
   if (!reduce && "IntersectionObserver" in window) {
     document.documentElement.classList.add("mo");
     const groups = [".story .text > *", ".lead", ".sec-h", ".person", ".pquote .by",
-                    ".keys > div", ".roll-h", ".grid button", ".next .wrap > *", ".ginfo, .screen"];
+                    ".keys > div", ".spot", ".roll-h", ".grid button", ".next .wrap > *", ".ginfo, .screen"];
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }),
                                         { rootMargin: "0px 0px -8% 0px" });
     groups.forEach(sel => document.querySelectorAll(sel).forEach(el => {
